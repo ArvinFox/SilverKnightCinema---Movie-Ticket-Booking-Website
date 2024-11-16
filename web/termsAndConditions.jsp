@@ -17,7 +17,7 @@
     </head>
     <body>
         <jsp:include page="navigation.jsp"/>
-        <div class="banner" style="background-image: url('assets/images/banner.jpg');">
+        <div class="banner-terms">
             <h1 class="banner-title"> Terms & Conditions </h1>
             <div class="home-link">
                 <a href="#"> Home </a>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : contactUs
     Created on : Nov 16, 2024, 2:09:11 AM
-    Author     : sanuj
+    Author     : sanuji
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Contact Us | SilverKnight Cinema</title>
-        <link rel="stylesheet" href="assets/css/contactus.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         
         <script src="https://kit.fontawesome.com/16735b712d.js" crossorigin="anonymous"></script>
     </head>
@@ -18,9 +18,13 @@
         <jsp:include page="navigation.jsp"/>
                
         <section>
-            <div class="banner" style="background-image: url('assets/images/banner2.jpeg');">
-            <h1>Contact Us</h1>
-            <a href="#" class="home-link">Home / Contact Us</a>
+            <div class="banner-contact">
+            <h1 class="banner-title">Contact Us</h1>
+             <div class="home-link">
+                <a href="#"> Home </a>
+                <span> /</span>
+                <span>Contact Us </span>
+            </div>
             </div>
         </section>
         

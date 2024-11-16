@@ -1,8 +1,3 @@
-/* 
-    Created on : Nov 14, 2024, 11:51:42 AM
-    Author     : Udani Indrachapa
-*/
-
 *{
     margin: 0;
     padding: 0;
@@ -11,7 +6,7 @@
     font-size: 16px;
 }
 
-/* Css for Navigation */
+/*----------Css for Navigation-----------*/
 nav{
     padding: 10px 30px;
     display: flex;
@@ -92,7 +87,7 @@ nav ul li input{
     font-size: 30px;
 }
 
-/* Css for Footer */
+/*-----------Css for Footer------------*/
 footer{
     background: black;
     color: #ffffff;
@@ -196,8 +191,9 @@ footer{
     color: #ffffff;
 }
 
-/* Css for all the banners */
-.banner{
+/*-----------Css for all the banners-----------*/
+.banner-terms{
+  background: url('../images/banner.jpg')no-repeat;
   min-height: 280px;
   width: 100%;
   overflow: hidden;
@@ -209,6 +205,38 @@ footer{
   color: white;
   justify-content: center;
   margin-top: 69px;
+}
+
+ .banner-contact
+{
+    background: url('../images/banner2.jpeg')no-repeat;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    position: relative; 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    margin-top: 69px;
+}
+ 
+.faq-banner-section
+{
+    background: url(../images/faq-banner.png)no-repeat;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    position: relative; 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    margin-top: 69px;
 }
 
 .banner-title{
@@ -231,7 +259,7 @@ footer{
   color: red;
 }
 
-/*Terms & condition page*/
+/*--------Terms & condition page----------*/
 .Terms-content{
     line-height: 1.6;
 }
@@ -258,7 +286,7 @@ footer{
     margin-bottom: 10px;
 }
 
-/*signup page*/
+/*----------signup page----------*/
 
 .signup-body {
     display: flex;
@@ -334,7 +362,367 @@ footer{
     text-decoration: underline; /* Underline on hover */
 }
 
+/*--------Contact Us Page---------*/
+
+/*css for banner*/
+
+.home-link {
+    font-size: 14px;
+    cursor: pointer;
+    color: #cccccc;
+    margin-top: -15px;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.home-link:hover {
+    color: #ffffff;
+}
+
+/*css for detail boxes*/
+.contact-details {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.detail-box {
+    display: flex;
+    align-items: center;
+    background-color: #e0f7fa;
+    padding: 20px;
+    border-radius: 8px;
+    width: 25%;
+    margin-top: 40px;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #0048ba;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+}
+
+.icon-circle i {
+    font-size: 24px;
+}
+
+.detail-text h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 5px;
+    margin-left: 30px;
+}
+
+.detail-text p {
+    font-size: 14px;
+    color: #333;
+    margin-left: 30px;
+}
+
+/*css for contact form */
+.contact-form {
+    display: flex;
+    justify-content: center;
+    max-width: 1050px;
+    margin: 0 auto;
+    background-color: #e0f7fa;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.contact-form form {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #e0f7fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contact-form label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.contact-form .form-row {
+    display: flex;
+    gap: 25px; 
+    flex-wrap: wrap;
+}
+
+.contact-form .form-row .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 48%; 
+}
+
+.contact-form .form-row input[type="text"],
+.contact-form .form-row input[type="email"],
+.contact-form .subject,
+.contact-form textarea {
+    width: 100%; 
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #fff; 
+    border-radius: 5px;
+}
+
+.contact-form .form-row .input-group label {
+    margin-bottom: 9px; 
+}
+
+.contact-form label[for="subject"] {
+    margin-bottom: -15px;
+}
+
+.contact-form label[for="message"] {
+    margin-bottom: -15px;
+}
+
+.contact-form textarea {
+    height: 100px;
+    margin-bottom: 8px; 
+}
+
+.send-btn {
+    background-color: yellow;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-top: 80px;
+    max-width: 200px;
+    margin: 0 auto; 
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+/*css for map*/
+.contact-map {
+    display: flex;
+    justify-content: center;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin-top: 70px; 
+    border: 1px solid #ccc;
+}
+
+/*css for newsletter*/
+.subscribe {
+    background-color: yellow;
+    padding: 20px;
+    max-width: 1050px;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 auto; 
+    margin-top: 60px;
+}
+
+.subscribe-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subscribe-container h2 {
+    color: #005b96;
+    margin: 0;
+    margin-right: 20px;
+}
+
+.newsletter-right {
+    display: inline-flex;
+    align-items: center;
+}
+
+.subscribe-container input {
+    padding: 10px;
+    width: 250px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    height: 40px;
+}
+
+.subscribe-btn {
+    background-color: #005b96;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+/*------------FAQ Page-------------*/
+
+.faq-section{
+    margin-top: 40px;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.tab-btn.active {
+    background: transparent;
+    color: yellow;
+    transition: 1s;
+}
+
+.tab-btn:hover {
+    background: transparent;
+}
+
+.faq-content {
+    display: none;
+}
+
+.faq-content h2{
+    color: white;
+    font-size: 1.2rem;
+}
+
+.faq-content:not(.hidden) {
+    display: block;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.faq-question:hover {
+    background: rgba(81, 81, 81, 0.62);
+}
+
+.faq-question .arrow {
+    position: absolute;
+    right: 1rem;
+}
+
+.faq-answer {
+    height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    font-size: 1rem;
+    color: white;
+    background: rgb(81, 81, 81);;
+    border-radius: 4px;
+    transition: height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer a
+{
+    color: yellow;
+    text-decoration: none;
+}
+
+.faq-answer a:hover
+{
+    color: lightyellow;
+}
+
+.faq-question.active + .faq-answer {
+    display: block;
+}
+
 /*media queries*/
+
+/* Responsive layout for banner */
+@media (max-width: 1025px) {
+    .banner {
+        height: 293px;  
+    }
+
+    .banner h1 {
+        font-size: 36px;  
+    }
+
+    .banner p {
+        font-size: 16px;  
+    }
+}
+
+/* Responsive layout for contact details */
+@media (max-width: 1279px) {
+    .contact-details {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .detail-box {
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .icon-circle {
+        margin: 0 auto 10px;
+        margin-left: 30px;
+    }
+
+    .detail-text h3,
+    .detail-text p {
+        margin: 0;
+        margin-right: 40px;
+        text-align: center;
+    }
+}
 
 @media (max-width: 945px){
     nav ul{
@@ -407,5 +795,68 @@ footer{
 
     nav a{
         font-size: 20px;
+    }
+}
+
+/* Responsive layout for contact form */
+@media (max-width: 1025px) {
+    .contact-form {
+        margin: 20px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 40px;
+        margin-bottom: -10px;
+        border-radius: 10px;
+    }
+
+    .contact-form .form-row {
+        flex-direction: column;
+    }
+
+    .contact-form .form-row .input-group {
+        width: 100%;
+    }
+
+    .send-btn {
+        margin: -5px auto 0;
+    }
+}
+
+/* Responsive layout for map */
+@media (max-width: 1025px) {
+    #map iframe {
+        height: 350px;
+        width: calc(100% - 40px);
+        margin: 20px;
+    }
+}
+
+/* Responsive layout for newsletter */
+@media (max-width: 1025px) {
+    .subscribe {
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+    }
+    .subscribe-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .newsletter-right {
+        width: 100%;
+        text-align: center;
+    }
+
+    .subscribe-container input {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 10px;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+        max-width: 100px;
+        margin-top: 10px;
     }
 }
