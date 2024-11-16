@@ -207,8 +207,7 @@ footer{
   margin-top: 69px;
 }
 
- .banner-contact
-{
+ .banner-contact{
     background: url('../images/banner2.jpeg')no-repeat;
     min-height: 280px;
     width: 100%;
@@ -223,9 +222,8 @@ footer{
     margin-top: 69px;
 }
  
-.faq-banner-section
-{
-    background: url(../images/faq-banner.png)no-repeat;
+.faq-banner-section{
+    background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)),url(../images/faq-banner.png)no-repeat;
     min-height: 280px;
     width: 100%;
     overflow: hidden;
@@ -246,6 +244,7 @@ footer{
   margin-bottom: 1rem;
   text-align: left;
   padding-left: 40px;
+  transition: 1s;
 }
 
 .home-link a{
@@ -642,6 +641,7 @@ footer{
     font-size: 1.2rem;
     cursor: pointer;
     position: relative;
+    transition: 1s;
 }
 
 .faq-question:hover {
@@ -721,6 +721,34 @@ footer{
         margin: 0;
         margin-right: 40px;
         text-align: center;
+    }
+}
+
+@media (max-width: 866px){
+    .faq-section {
+        margin: 25px;
+    }
+}
+
+@media (max-width: 600px){
+    .faq-question {
+        font-size: 1rem;
+        transition: 1s;
+    }
+
+    .faq-answer p{
+        font-size: 0.8rem;
+        transition: 1s;
+    }
+
+    .faq-answer a
+    {
+        font-size: 0.8rem;
+        transition: 1s;
+    }
+    .tab-btn {
+        font-size: 1.1rem;
+        transition: 1s;
     }
 }
 
