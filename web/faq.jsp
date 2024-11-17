@@ -18,7 +18,7 @@
         <section class="faq-banner-section">
             <h1 class="banner-title">Frequently Asked Questions</h1>
             <div class="home-link">
-                <a href="#"> Home </a>
+                <a href="index.jsp"> Home </a>
                 <span> /</span>
                 <span>FAQs</span>
             </div>
@@ -59,7 +59,7 @@
                         <!--Answer-->
 
                         <div class="faq-answer">
-                            <p>You can visit our <a href="">"Sign Up"</a> page and provide your credentials in order to create an account.</p>
+                            <p>You can visit our <a href="signup.jsp">"Sign Up"</a> page and provide your credentials in order to create an account.</p>
                         </div>
                     </div>
 
@@ -74,7 +74,7 @@
                         <!--Answer-->
 
                         <div class="faq-answer">
-                            <p>Simply go to our login page and click on <a href="">"Forgot my password"</a> link. Then provide your email address or mobile number to get the OTP code for the password reset procedure.</p>
+                            <p>Simply go to our login page and click on <a href="forgotPassword.jsp">"Forgot my password"</a> link. Then provide your email address or mobile number to get the OTP code for the password reset procedure.</p>
                         </div>
                     </div>
                 </div>

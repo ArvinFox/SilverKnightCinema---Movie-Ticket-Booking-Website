@@ -21,7 +21,7 @@
             <div class="banner-contact">
             <h1 class="banner-title">Contact Us</h1>
              <div class="home-link">
-                <a href="#"> Home </a>
+                <a href="index.jsp"> Home </a>
                 <span> /</span>
                 <span>Contact Us </span>
             </div>

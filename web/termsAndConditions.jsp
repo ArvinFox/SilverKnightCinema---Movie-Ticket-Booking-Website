@@ -20,7 +20,7 @@
         <div class="banner-terms">
             <h1 class="banner-title"> Terms & Conditions </h1>
             <div class="home-link">
-                <a href="#"> Home </a>
+                <a href="index.jsp"> Home </a>
                 <span> /</span>
                 <span>Terms & Conditions </span>
             </div>

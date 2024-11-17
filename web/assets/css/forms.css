@@ -1,0 +1,203 @@
+/* 
+    Created on : Nov 16, 2024, 11:17:47 AM
+    Author     : Udani Indrachapa
+*/
+
+*{
+    font-size: 16px;
+    font-family: 'poppins', sans-serif;
+}
+
+/*Css for form content*/
+.form-content{
+    min-height: 50vh;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.form-heading{
+    padding-top: 30px;
+    text-align: center;
+    font-size: 32px;
+    color: black;
+}
+  
+label{
+    font-weight: bold;
+}
+
+.form{
+    padding: 0;
+    margin: 15px auto;
+    width: 500px;
+    height: auto;
+}
+
+#email{
+    width: 100%;
+    padding: 10px 17px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
+
+.div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rememberMe{
+    display: flex;
+    align-items: center;
+}
+
+#link{
+    text-decoration: none;
+    color: #1E29CB;
+}
+
+#button{
+    background-color: #D72124;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 25%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+#button:hover{
+    /*add colour */
+}
+
+.btn{
+    text-align: center;
+}
+
+#account-para{
+    padding-top: 15px;
+    text-align: center;
+}
+
+/*Css for forgot password page */
+#password-para{
+    font-size: 16px;
+    padding: 20px 20px 10px 20px;
+    text-align: center;
+    font-weight: normal;
+}
+
+#butReset{
+    background-color: #D72124;
+    border: none;
+    color: #ffffff;
+    padding: 10px 0px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 40%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+@media (max-width: 500px) {
+    .form {
+      width: 300px;
+    }
+    
+    #button{
+        width: 50%;
+        text-align: center;
+    }
+    
+    #butReset{
+        width: 70%;
+        text-align: center;
+    }
+    
+    #password-para{
+        font-size: 18px;
+        text-align: center;
+        padding: 10px 10px 0 10px;
+    }
+    
+    .form-content{
+        min-height: 300px;
+    }
+    
+    #button{
+        width: 50%;
+        text-align: center;
+    }
+    
+    #email,input[type=password]{
+        width: 300px;
+        padding: 10px 17px;
+        margin: 8px 0;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 699px) {
+    .form {
+      width: 400px;
+    }
+    
+    #button{
+        width: 50%;
+        text-align: center;
+    }
+}
+
+@media(max-width: 900px) {
+    .form {
+      font-size: 12px;
+      width: fit-content;
+    }
+    
+    #button{
+       width: 50%;
+       text-align: center;
+    }
+    
+    #email,input[type=password]{
+    width: 100%;
+    padding: 10px 17px;
+    margin: 8px 0;
+    }
+}
+  
+@media(max-width: 700px) {
+  .form {
+    font-size: 11px;
+    width: fit-content;
+  }
+  
+  #button{
+       width: 50%;
+       text-align: center;
+    }
+}
+
+@media (max-width: 1025px)
+{
+    .form {
+      font-size: 50px;
+      width: 70%;
+    }
+    
+    #button{
+       width: 50%;
+       text-align: center;
+    }
+    
+    #password-para{
+        padding-top: 50px;
+    }
+}

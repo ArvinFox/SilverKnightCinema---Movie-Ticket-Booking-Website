@@ -55,11 +55,11 @@
                 <div class="footer-col navigations">
                     <h3> Navigation </h3>
                     <ul>
-                        <li> <a href="#">Home </a> </li>
-                        <li> <a href="#">Movies </a> </li>
-                        <li> <a href="#">Deals and Offers </a> </li>
-                        <li> <a href="#">About Us </a> </li>
-                        <li> <a href="#">Contact Us </a> </li>
+                        <li> <a href="index.jsp">Home </a> </li>
+                        <li> <a href="movies.jsp">Movies </a> </li>
+                        <li> <a href="offers.jsp">Deals and Offers </a> </li>
+                        <li> <a href="aboutUs.jsp">About Us </a> </li>
+                        <li> <a href="contactUs.jsp">Contact Us </a> </li>
                     </ul>
                 </div>
 
@@ -67,10 +67,10 @@
                 <div class="footer-col quick-links">
                     <h3> Quick Links </h3>
                     <ul>
-                        <li> <a href="#">Locations </a> </li>
-                        <li> <a href="#">FAQs </a> </li>
-                        <li> <a href="#">Terms & Conditions </a> </li>
-                        <li> <a href="#">Food & Beverages </a> </li>
+                        <li> <a href="locations.jsp">Locations </a> </li>
+                        <li> <a href="faq.jsp">FAQs </a> </li>
+                        <li> <a href="termsAndConditions.jsp">Terms & Conditions </a> </li>
+                        <li> <a href="food.jsp">Food & Beverages </a> </li>
                     </ul>
                 </div>
 

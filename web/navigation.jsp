@@ -23,12 +23,12 @@
                 <a href="#" > <img src="assets/images/logo.png" alt="Logo"/> </a>
             </div>
             <ul id="menuList">
-                <li class="navLink"> <a> Home </a></li> <!-- class="active" -->
-                <li class="navLink"> <a> Movies </a></li>
-                <li class="navLink"> <a> Offers & Discounts </a></li>
-                <li class="navLink"> <a> About Us </a></li>
-                <li class="navLink"> <a> Contact Us </a></li>
-                <li> <input type="submit" value="Book Now" name="login" disabled="disabled" /> </li>   
+                <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
+                <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
+                <li class="navLink"> <a href="Offers.jsp"> Offers & Discounts </a></li>
+                <li class="navLink"> <a href="aboutUs.jsp"> About Us </a></li>
+                <li class="navLink"> <a href="contactUs.jsp"> Contact Us </a></li>
+                <li> <button onclick="loginfunction()"> Login </button> </li>   
             </ul>
             <div class="menu-icon">
                 <i class="fa-solid fa-bars"  onclick="toggleMenu()"></i>
@@ -48,6 +48,12 @@
                 {
                     menuList.style.maxHeight = "0px";
                 }
+            }
+        </script>
+        
+        <script>
+            function loginfunction(){
+                location.replace("login.jsp");
             }
         </script>
     </body>
