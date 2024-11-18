@@ -17,15 +17,11 @@
     <body>
         <jsp:include page="navigation.jsp"/>
                
-        <section>
-            <div class="banner-contact">
-            <h1 class="banner-title">Contact Us</h1>
-             <div class="home-link">
-                <a href="index.jsp"> Home </a>
-                <span> /</span>
-                <span>Contact Us </span>
-            </div>
-            </div>
+        <section class="banner-contact">
+            <h1>Contact Us</h1>
+            <p>
+                <a href="#" class="home-link">Home</a> / Contact Us
+            </p>
         </section>
         
 

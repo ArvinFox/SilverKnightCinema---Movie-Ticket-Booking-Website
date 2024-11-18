@@ -212,7 +212,7 @@ footer{
     min-height: 280px;
     width: 100%;
     overflow: hidden;
-    position: relative; 
+    position: relative;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -254,8 +254,8 @@ footer{
 }
 
 .home-link a:hover{
-  text-decoration: underline;
-  color: red;
+  text-decoration: none;
+  color: yellow;
 }
 
 /*--------Terms & condition page----------*/
@@ -361,23 +361,177 @@ footer{
     text-decoration: underline; /* Underline on hover */
 }
 
+
+/*--------About Us Page---------*/
+
+/* Banner section */
+.banner-about-us {
+    background: url('../images/about-us-banner1.png')no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-top: 65px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.banner-about-us::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    margin-top: 65px;
+    background: rgba(0,0,0,0.5);
+    z-index: 0;
+}
+
+.banner-about-us h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    z-index: 0;
+    transition: 1s;
+}
+
+.banner-about-us p {
+    color: #cccccc;
+    z-index: 1;    
+}
+
+/*style for home-link*/
+.banner-about-us .home-link {
+    text-decoration: none;
+    color: #cccccc;
+}
+
+.banner-about-us .home-link:hover {
+    color: yellow;
+}
+/* About section */
+.about-section {
+    padding: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 18px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 70px;
+    align-items: flex-start;
+}
+
+.content {
+    width: 50%;
+    padding: 0 30px;
+    text-align: justify;
+    line-height: 25px;
+}
+
+.content h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.content h2:hover {
+    color: #0048ba;
+}
+
+.content p {
+    color: #555;
+}
+
+.content ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.content ul li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.image img {
+    width: 590px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Styles for vision image */
+.vision-image {
+    margin-right: 34px; 
+}
+
+/* Styles for mission image */
+.mission-image {
+    margin-left: 35px; 
+}
+
+
 /*--------Contact Us Page---------*/
 
 /*css for banner*/
 
-.home-link {
-    font-size: 14px;
-    cursor: pointer;
-    color: #cccccc;
-    margin-top: -15px;
-    text-decoration: none;
+.banner-contact {
+    background: url('../images/contact-us-banner.png')no-repeat;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.banner-contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
     z-index: 0;
 }
 
-.home-link:hover {
-    color: #ffffff;
+.banner-contact h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    z-index: 0;
+    transition: 1s;
 }
 
+.banner-contact p {
+    color: #cccccc;
+    z-index: 1;    
+}
+
+/*style for home-link*/
+.banner-contact .home-link {
+    text-decoration: none;
+    color: #cccccc;
+}
+
+.banner-contact .home-link:hover {
+    color: yellow;
+}
 /*css for detail boxes*/
 .contact-details {
     display: flex;
@@ -388,7 +542,7 @@ footer{
 .detail-box {
     display: flex;
     align-items: center;
-    background-color: #e0f7fa;
+    background-color: #c1e6f1;
     padding: 20px;
     border-radius: 8px;
     width: 25%;
@@ -431,7 +585,7 @@ footer{
     justify-content: center;
     max-width: 1050px;
     margin: 0 auto;
-    background-color: #e0f7fa;
+    background-color: #c1e6f1;
     margin-top: 40px;
     padding: 20px;
 }
@@ -439,7 +593,7 @@ footer{
 .contact-form form {
     width: 100%;
     max-width: 1000px;
-    background-color: #e0f7fa;
+    background-color: #c1e6f1;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -679,20 +833,20 @@ footer{
     display: block;
 }
 
-/*media queries*/
+/*Contact Us - media queries*/
 
 /* Responsive layout for banner */
 @media (max-width: 1025px) {
-    .banner {
+    .banner-contact {
         height: 293px;  
     }
-
-    .banner h1 {
-        font-size: 36px;  
+    
+    .banner-contact h1 {
+        font-size: 38px;
     }
 
-    .banner p {
-        font-size: 16px;  
+    .banner-contact p {
+        font-size: 14px;
     }
 }
 
@@ -888,3 +1042,41 @@ footer{
         margin-top: 10px;
     }
 }
+
+
+/* About Us - media queries */
+
+@media (max-width: 1025px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 50px; 
+    }
+
+    .content {
+        width: 100%;
+        padding: 0 10px;
+        margin-bottom: 40px; /* Space between sections */
+    }
+
+    .banner-about-us h1 {
+        font-size: 38px;
+    }
+
+    .banner-about-us p {
+        font-size: 14px;
+    }
+
+    .vision-content {
+        text-align: center; 
+    }
+
+    .vision-image,
+    .mission-image {
+        margin: 0 auto 40px; 
+        width: 95%; 
+        height: auto;
+    }
+}
+    
+    

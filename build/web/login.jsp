@@ -47,7 +47,7 @@
                     
                     <p id="account-para">
                         Need an account?
-                        <a href="signup.jsp" id="link"> Create a account </a>
+                        <a href="signup.jsp" id="link"> Create an account </a>
                     </p>
                 </form>
              </div>

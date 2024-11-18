@@ -27,7 +27,7 @@
                         <li> 
                             <p>
                                 <i class="fa-solid fa-location-dot" id="contact"></i>
-                                  367  Hill-crest Lane, Bambalapitiya <br>(Head Office)
+                                  367  Hill-Crest Lane, Bambalapitiya <br>(Head Office)
                             </p>
                         </li>
                         <li>  
@@ -45,7 +45,7 @@
                         <li>  
                             <p>
                                 <i class="fa-solid fa-envelope" id="contact"></i>
-                                   silvernight@gmail.com
+                                   silverknight@gmail.com
                             </p> 
                         </li>
                     </ul>
@@ -76,7 +76,7 @@
 
                 <!-- Update new movies column-->
                 <div class="footer-col update-movies">
-                    <h3>Stay updated for new movies</h3>
+                    <h3>Stay Updated for New Movies</h3>
                     <div class="movieUpdate-box">
                         <form name="movieUpdate" method="POST">
                             <input type="email" name="email" placeholder="Enter your email here" id="footer-emil"/>
@@ -93,7 +93,7 @@
             </div>
                 
             <div class="footer-bottom">
-                <p id="footer-p"> @All Right reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
+                <p id="footer-p"> @All Right Reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
             </div>
         </footer>
     </body>
