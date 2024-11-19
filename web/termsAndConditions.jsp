@@ -26,7 +26,7 @@
             </div>
         </div>
         
-        <section class="content">
+        <section class="terms-content-section">
             <div class="terms-content">
                 <ol class="list">
                     <li id="sublist">

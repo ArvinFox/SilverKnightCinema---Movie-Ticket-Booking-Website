@@ -10,51 +10,68 @@
 <head>
     <title>Sign-Up | SilverKnight Cinema</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/forms.css">
 </head>
 
-<body class="signup-body">
-    <jsp:include page="navigation.jsp"/>
+<body>
     
-    <form class="signup-form">
-        <!-- Profile Picture -->
-        <img src="signup.jpg" alt="User Picture">
+        <section class="navigation">
+            <jsp:include page="navigation.jsp"/>
+        </section>
         
-        <!-- Sign Up Title -->
-        <h2>Sign Up</h2>
+        <section class="form-content">
+            <div class="form">
+                <form name="loginForm" method="POST">
+                    <h1 class="form-heading"> Sign Up </h1> <br>
+                    <label for="text"> First Name </label>
+                    <br>
+                    <input type="text" name="fname" placeholder="Enter your first name" id="email" required/>
+                    <br><br>
+                    <label for="text"> Last Name </label>
+                    <br>
+                    <input type="text" name="lname" placeholder="Enter your last name" id="email" required/>
+                    <br><br>
+                    <label for="text"> Gender </label>
+                    <br>
+                    <select id="email" required>
+                        <option value=""> Select your gender </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <br><br>
+                    <label for="text"> Contact Number </label>
+                    <br>
+                    <input type="tel" name="contact_no" placeholder="Enter your contact number" id="email" required/>
+                    <br><br>
+                    <label for="text"> Email </label>
+                    <br>
+                    <input type="email" name="email" placeholder="Email" id="email" required/>
+                    <br><br>
+                    <label for="text"> Password </label>
+                    <br>
+                    <input type="password" name="password" placeholder="Enter your password" id="email" required/>
+                    <br><br>
+                    <label for="text"> Confirm Password </label>
+                    <br>
+                    <input type="password" name="confirm_password" placeholder="Confirm your password" id="email" required/>
+                    <br><br>
+                    
+                    <div class="btn">
+                        <input type="submit" value="Sign Up" name="signup" id="button"/>
+                    </div>
+                    
+                    <p id="account-para">
+                        Existing User?
+                        <a href="login.jsp" id="link"> Login </a>
+                    </p>
+                </form>
+             </div>
+        </section>
         
-        <!-- Form Fields -->
-        <label for="first-name">First Name</label>
-        <input type="text" id="first-name" placeholder="Enter your first name" required>
-        
-        <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" placeholder="Enter your last name" required>
-        
-        <label for="gender">Gender</label>
-        <select id="gender" required>
-            <option value="">Select your gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
-        
-        <label for="contact">Contact Number</label>
-        <input type="tel" id="contact" placeholder="Enter your contact number" pattern="[0-9]{10}" required>
-        
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
-        
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
-        
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" placeholder="Confirm your password" required>
-        
-        <button type="submit">Sign Up</button>
-        
-         <p class="login-link">Existing User? <a href="#">Login</a></p>
-    </form>
-    <jsp:include page="footer.jsp"/>
+        <section id="footer">
+            <jsp:include page="footer.jsp"/>
+        </section>
+
 </body>
 </html>
 
