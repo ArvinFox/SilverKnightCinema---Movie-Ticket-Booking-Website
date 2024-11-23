@@ -15,7 +15,7 @@
         <script src="https://kit.fontawesome.com/16735b712d.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <jsp:include page="navigation.jsp"/>
+        <jsp:include page="header.jsp"/>
                
         <section class="banner-contact">
             <h1>Contact Us</h1>

@@ -15,19 +15,19 @@
     </head>
     <body>
         <section class="navigation">
-            <jsp:include page="navigation.jsp"/>
+            <jsp:include page="header.jsp"/>
         </section>
         
         <section class="form-content">
             <h1 class="form-heading"> Forgot Password </h1> <br>
-            <p id="password-para"> 
+            <p class="password-para"> 
                 Enter your email address. You will receive a link to create a new password via email.
             </p> 
             <div class="form">
                 <form name="loginForm" method="POST">
                     <label for="text"> Email </label>
                     <br>
-                    <input type="email" name="email" placeholder="Email" id="email" required/>
+                    <input type="email" name="email" placeholder="Email" class="input-field" required/>
                     <br><br>
                     
                     <div class="btn">
@@ -36,7 +36,7 @@
                     
                    <div class="link">
                         <div class="rememberMe"> </div>
-                        <a href="login.jsp" id="link"> Back to login</a>
+                        <a href="login.jsp" class="link"> Back to login</a>
                     </div>
                 </form>
             </div>

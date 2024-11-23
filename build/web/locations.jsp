@@ -16,7 +16,7 @@
     </head>
     
     <body>
-        <jsp:include page="navigation.jsp"/>
+        <jsp:include page="header.jsp"/>
         
          <section class="banner">
         <div class="banner-content">

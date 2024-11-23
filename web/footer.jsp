@@ -33,13 +33,13 @@
                         <li>  
                             <p>
                                 <i class="fa-solid fa-phone" id="contact"></i>
-                                   +94 11 554 3345
+                                   +94 11 260 3632
                             </p>
                         </li>
                         <li> 
                             <p>
                                 <i class="fa-solid fa-phone" id="contact"></i>
-                                   +94 11 554 3345
+                                   +94 11 260 3634
                             </p>
                         </li>
                         <li>  
@@ -93,7 +93,7 @@
             </div>
                 
             <div class="footer-bottom">
-                <p id="footer-p"> @All Right Reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
+                <p class="footer-p"> @All Right Reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
             </div>
         </footer>
     </body>

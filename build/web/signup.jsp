@@ -16,7 +16,7 @@
 <body>
     
         <section class="navigation">
-            <jsp:include page="navigation.jsp"/>
+            <jsp:include page="header.jsp"/>
         </section>
         
         <section class="form-content">
@@ -25,15 +25,15 @@
                     <h1 class="form-heading"> Sign Up </h1> <br>
                     <label for="text"> First Name </label>
                     <br>
-                    <input type="text" name="fname" placeholder="Enter your first name" id="email" required/>
+                    <input type="text" name="fname" placeholder="Enter your first name" class="input-field" required/>
                     <br><br>
                     <label for="text"> Last Name </label>
                     <br>
-                    <input type="text" name="lname" placeholder="Enter your last name" id="email" required/>
+                    <input type="text" name="lname" placeholder="Enter your last name" class="input-field" required/>
                     <br><br>
                     <label for="text"> Gender </label>
                     <br>
-                    <select id="email" required>
+                    <select class="input-field" required>
                         <option value=""> Select your gender </option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -41,28 +41,28 @@
                     <br><br>
                     <label for="text"> Contact Number </label>
                     <br>
-                    <input type="tel" name="contact_no" placeholder="Enter your contact number" id="email" required/>
+                    <input type="tel" name="contact_no" placeholder="Enter your contact number" class="input-field" required/>
                     <br><br>
                     <label for="text"> Email </label>
                     <br>
-                    <input type="email" name="email" placeholder="Email" id="email" required/>
+                    <input type="email" name="email" placeholder="Email" class="input-field" required/>
                     <br><br>
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Enter your password" id="email" required/>
+                    <input type="password" name="password" placeholder="Enter your password" class="input-field" required/>
                     <br><br>
                     <label for="text"> Confirm Password </label>
                     <br>
-                    <input type="password" name="confirm_password" placeholder="Confirm your password" id="email" required/>
+                    <input type="password" name="confirm_password" placeholder="Confirm your password" class="input-field" required/>
                     <br><br>
                     
                     <div class="btn">
                         <input type="submit" value="Sign Up" name="signup" id="button"/>
                     </div>
                     
-                    <p id="account-para">
+                    <p class="account-para">
                         Existing User?
-                        <a href="login.jsp" id="link"> Login </a>
+                        <a href="login.jsp" class="link"> Login </a>
                     </p>
                 </form>
              </div>

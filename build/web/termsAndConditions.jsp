@@ -16,7 +16,7 @@
         <script src="https://kit.fontawesome.com/16735b712d.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <jsp:include page="navigation.jsp"/>
+        <jsp:include page="header.jsp"/>
         <div class="banner-terms">
             <h1 class="banner-title"> Terms & Conditions </h1>
             <div class="home-link">

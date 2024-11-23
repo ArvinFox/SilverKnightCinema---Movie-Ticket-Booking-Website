@@ -1,7 +1,7 @@
 <%-- 
     Document   : aboutUs
     Created on : Nov 18, 2024, 2:23:25 AM
-    Author     : sanuj
+    Author     : sanuji
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +14,7 @@
     </head>
     
     <body>
-         <jsp:include page="navigation.jsp"/>
+         <jsp:include page="header.jsp"/>
          
          <section class="banner-about-us">
             <h1>About Us</h1>

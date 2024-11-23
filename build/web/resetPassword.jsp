@@ -15,22 +15,22 @@
     </head>
     <body>
         <section class="navigation">
-            <jsp:include page="navigation.jsp"/>
+            <jsp:include page="header.jsp"/>
         </section>
         
         <section class="form-content">
             <h1 class="form-heading"> Forgot Password </h1> <br>
-            <p id="password-para"> Enter your new password below. </p> 
+            <p class="password-para"> Enter your new password below. </p> 
             <div class="form">
                 <form name="loginForm" method="POST">
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Password" id="email" required/>
+                    <input type="password" name="password" placeholder="Password" class="input-field" required/>
                     <br><br>
                     
                     <label for="text"> Verify Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Verify Password" id="email" required/>
+                    <input type="password" name="password" placeholder="Verify Password" class="input-field" required/>
                     <br><br>
                     
                     <div class="btn">

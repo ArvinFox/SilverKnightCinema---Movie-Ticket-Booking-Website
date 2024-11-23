@@ -61,7 +61,7 @@ nav ul li a{
   width: 100%;
 }
 
-a.active, a:hover
+nav ul li a.active, nav ul li a:hover
 {
   color: red;
 }
@@ -108,6 +108,9 @@ footer{
 .footer-col{
     flex: 1;
     min-width: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
     margin: 10px;
 }
 
@@ -170,6 +173,10 @@ footer{
     cursor: pointer;
 }
 
+#butSubscribe:hover{
+    background-color: #971114;
+}
+
 .social-media{
     display: flex;
     gap: 90px;
@@ -184,7 +191,7 @@ footer{
     font-size: 1em;
 }
 
-#footer-p {
+.footer-p {
     text-align: center;
     margin-top: 20px;
     font-size: 0.8em;
@@ -255,7 +262,7 @@ footer{
 
 .home-link a:hover{
   text-decoration: none;
-  color: yellow;
+  color: red;
 }
 
 /*--------Terms & condition page----------*/
@@ -332,17 +339,18 @@ footer{
 /*style for home-link*/
 .banner-about-us .home-link {
     text-decoration: none;
-    color: #cccccc;
+    color: #ffffff;
 }
 
 .banner-about-us .home-link:hover {
-    color: yellow;
+    color: red;
 }
+
 /* About section */
 .about-section {
-    padding: 40px;
-    margin-left: 40px;
-    margin-right: 40px;
+    padding: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
     font-size: 18px;
 }
 
@@ -884,6 +892,27 @@ footer{
         font-size: 22px;
         font-weight: normal;
         margin-bottom: 10px;
+    }
+    
+    .image img {
+        margin: 0 auto 20px; 
+        width: 100%; 
+        height: auto;
+    }
+    
+    .content p{
+        text-align: justify;
+    }
+}
+
+/*------ Hide the navigation column on mobile ------- */
+@media screen and (max-width: 768px) {
+    .navigations {
+        display: none; 
+    }
+    
+    .footer-p{
+        margin: 20px;
     }
 }
 

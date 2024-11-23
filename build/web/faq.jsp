@@ -14,7 +14,7 @@
         <title>FAQ | SilverKnight Cinema</title>
     </head>
     <body>
-        <jsp:include page="navigation.jsp"/>
+        <jsp:include page="header.jsp"/>
         
         <section class="faq-banner-section">
             <h1 class="banner-title">Frequently Asked Questions</h1>

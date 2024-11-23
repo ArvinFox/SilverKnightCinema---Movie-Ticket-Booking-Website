@@ -15,7 +15,7 @@
     </head>
     <body>
         <section class="navigation">
-            <jsp:include page="navigation.jsp"/>
+            <jsp:include page="header.jsp"/>
         </section>
         
         <section class="form-content">
@@ -24,12 +24,12 @@
                     <h1 class="form-heading"> Login </h1> <br>
                     <label for="text"> Email </label>
                     <br>
-                    <input type="email" name="email" placeholder="Email" id="email" required/>
+                    <input type="email" name="email" placeholder="Email" class="input-field" required/>
                     <br><br>
                     
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Password" id="email" required/>
+                    <input type="password" name="password" placeholder="Password" class="input-field" required/>
                     <br><br>
                     
                     <div class="div">
@@ -37,7 +37,7 @@
                             Remember Me 
                             <input type="checkbox" name="rememberMe" style="margin-left: 8px;">
                         </div>
-                        <a href="forgotPassword.jsp" id="link"> Forgot Password?</a>
+                        <a href="forgotPassword.jsp" class="link"> Forgot Password?</a>
                     </div>
                     
                     <br><br>
@@ -45,9 +45,9 @@
                         <input type="submit" value="Login" name="login" id="button"/>
                     </div>
                     
-                    <p id="account-para">
+                    <p class="account-para">
                         Need an account?
-                        <a href="signup.jsp" id="link"> Create an account </a>
+                        <a href="signup.jsp" class="link"> Create an account </a>
                     </p>
                 </form>
              </div>
