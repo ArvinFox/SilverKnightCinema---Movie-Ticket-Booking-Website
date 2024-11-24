@@ -9,6 +9,7 @@ public class Seat {
     
     private int seatId;
     private int hallId;
+    private int showtimeId;
     private String seatNumber;
     private SeatType seatType;
     private double price;
@@ -18,8 +19,9 @@ public class Seat {
     // Constructors
     public Seat() {}
     
-    public Seat(int hallId, String seatNumber, SeatType seatType, double price, boolean isAvailable, boolean isReserved) {
+    public Seat(int hallId, int showtimeId, String seatNumber, SeatType seatType, double price, boolean isAvailable, boolean isReserved) {
         this.hallId = hallId;
+        this.showtimeId = showtimeId;
         this.seatNumber = seatNumber;
         this.seatType = seatType;
         this.price = price;
@@ -33,6 +35,9 @@ public class Seat {
     
     public int getHallId() { return hallId; }
     public void setHallId(int hallId) { this.hallId = hallId; }
+    
+    public int getShowtimeId() { return showtimeId; }
+    public void setShowtimeId(int showtimeId) { this.showtimeId = showtimeId; }
 
     public String getSeatNumber() { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
