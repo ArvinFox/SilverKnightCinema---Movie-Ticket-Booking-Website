@@ -18,6 +18,11 @@ nav{
     z-index: 999;
     height: 70px;
     width: 100%;
+    transition: 0.3s ease-in-out;
+}
+
+nav.hidden{
+    transform: translateY(-100%);
 }
 
 img{
@@ -200,8 +205,8 @@ footer{
 
 /*-----------Css for all the banners-----------*/
 .banner-terms{
-  background: url('../images/banner.jpg')no-repeat;
-  min-height: 280px;
+  background: url('../images/terms-banner.jpg')no-repeat;
+  min-height: 380px;
   width: 100%;
   overflow: hidden;
   position: relative; 
@@ -211,22 +216,6 @@ footer{
   flex-direction: column;
   color: white;
   justify-content: center;
-  margin-top: 69px;
-}
-
- .banner-contact{
-    background: url('../images/banner2.jpeg')no-repeat;
-    min-height: 280px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    color: white;
-    justify-content: center;
-    margin-top: 69px;
 }
  
 .faq-banner-section{
@@ -244,6 +233,20 @@ footer{
     margin-top: 69px;
 }
 
+.banner-locations {
+    background: url('../images/locations-banner.jpg')no-repeat;
+    min-height: 380px;
+    width: 100%;
+    overflow: hidden;
+    position: relative; 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+}
+
 .banner-title{
   color: white;
   font-size: 50px;
@@ -252,6 +255,11 @@ footer{
   text-align: left;
   padding-left: 40px;
   transition: 1s;
+  z-index: 1;
+}
+
+.home-link{
+    z-index: 1;
 }
 
 .home-link a{
@@ -300,13 +308,12 @@ footer{
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 300px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
-    margin-top: 65px;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -317,35 +324,34 @@ footer{
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px;
-    margin-top: 65px;
+    min-height: 380px;
     background: rgba(0,0,0,0.5);
     z-index: 0;
 }
 
-.banner-about-us h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+.banner-title-aboutUs{
+    color: white;
+    font-size: 50px;
     font-weight: bold;
-    z-index: 0;
+    margin-bottom: 1rem;
+    text-align: left;
     transition: 1s;
+    z-index: 1;
 }
 
-.banner-about-us p {
-    color: #cccccc;
-    z-index: 1;    
+.home-link-aboutUs{
+    z-index: 1;
 }
 
-/*style for home-link*/
-.banner-about-us .home-link {
+.home-link-aboutUs a{
+    color: white;
     text-decoration: none;
-    color: #ffffff;
 }
 
-.banner-about-us .home-link:hover {
-    color: red;
+.home-link-aboutUs a:hover{
+  text-decoration: none;
+  color: red;
 }
-
 /* About section */
 .about-section {
     padding: 25px;
@@ -414,14 +420,13 @@ footer{
 /*--------Contact Us Page---------*/
 
 /*css for banner*/
-
-.banner-contact {
+.banner-contact-us {
     background: url('../images/contact-us-banner.png')no-repeat;
     position: relative;
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 300px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -430,39 +435,41 @@ footer{
     text-align: center;
 }
 
-.banner-contact::before {
+.banner-contact-us::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    min-height: 380px;
     background: rgba(0,0,0,0.5);
     z-index: 0;
 }
 
-.banner-contact h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+.banner-title-contact{
+    color: white;
+    font-size: 50px;
     font-weight: bold;
-    z-index: 0;
+    margin-bottom: 1rem;
+    text-align: left;
     transition: 1s;
+    z-index: 1;
 }
 
-.banner-contact p {
-    color: #cccccc;
-    z-index: 1;    
+.home-link-contact{
+    z-index: 1;
 }
 
-/*style for home-link*/
-.banner-contact .home-link {
+.home-link-contact a{
+    color: white;
     text-decoration: none;
-    color: #cccccc;
 }
 
-.banner-contact .home-link:hover {
-    color: yellow;
+.home-link-contact a:hover{
+  text-decoration: none;
+  color: red;
 }
+
 /*css for detail boxes*/
 .contact-details {
     display: flex;
@@ -577,8 +584,8 @@ footer{
 }
 
 .send-btn {
-    background-color: yellow;
-    color: #fff;
+    background-color: #F7CA18;
+    color: black;
     padding: 10px 20px;
     border-radius: 10px;
     font-size: 18px;
@@ -606,7 +613,7 @@ footer{
 
 /*css for newsletter*/
 .subscribe {
-    background-color: yellow;
+    background-color: #F7CA18;
     padding: 20px;
     max-width: 1050px;
     border-radius: 5px;
@@ -622,7 +629,7 @@ footer{
 }
 
 .subscribe-container h2 {
-    color: #005b96;
+    color: black;
     margin: 0;
     margin-right: 20px;
 }
@@ -764,20 +771,135 @@ footer{
     display: block;
 }
 
+/*------------Locations Page-------------*/
+.locations {
+    padding: 30px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.locations-header h2 {
+    font-size: 36px; 
+    margin-bottom: 10px;
+    color: #4a47a3; 
+}
+
+.locations-header p {
+    font-size: 28px; 
+    line-height: 1; /* Adjust line spacing */
+    color: black;
+    margin-bottom: 50px;
+}
+
+/* Location Cards */
+.row-locations{
+    display: flex;
+    flex-wrap: wrap; /* Two cards per row */
+    justify-content: space-between; /* Space between cards */
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Location Card Styles */
+.location-card {
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 460px; /* Two cards per row */
+    height: 500px; 
+    text-align: left;
+    border: 2px solid #4a47a3; /* Blue border */
+    position: relative;
+    margin-bottom: 90px; /* Space between rows of cards */
+}
+
+/* Image Styles */
+.location-card img {
+    width: 100%;
+    height: 220px; /* Image height */
+    border-radius: 8px;
+}
+
+/* Text Styles */
+.location-card h2 {
+    font-size: 20px;
+    margin: 15px 0; /* Spacing between heading and text */
+    color: #4a47a3;
+}
+
+.location-card p {
+    font-size: 16px;
+    margin: 10px; /* Space between text */
+    color: #666;
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    gap: 20px; /* Space between icon and text */
+}
+
+/* Icon Styling */
+.location-card p i {
+    color: #4a47a3;
+    font-size: 16px; /* Icon size */
+    margin-left: 20px;
+}
+
+/* View Location Button */
+.location-card .view-location {
+    display: inline-block;
+    margin: 0 auto; /* Center the button */
+    padding: 10px 14px; /* Slightly larger button */
+    background-color: #4a47a3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    position: absolute;
+    bottom: 20px; /* Adjust button position */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.location-card .view-location:hover {
+    background-color: #5c59c4;
+}
+
 /*Contact Us - media queries*/
 
 /* Responsive layout for banner */
 @media (max-width: 1025px) {
-    .banner-contact {
+    .banner-contact-us {
         height: 293px;  
     }
     
-    .banner-contact h1 {
-        font-size: 38px;
+    .locations-header h2 {
+        font-size: 40px;
+    }
+    
+    .location-card {
+        width: 75%; /* Smaller card width for smaller screens */
+        margin: 0 auto; /* Center the card */
+        height: 470px;
+        margin-bottom: 40px;
     }
 
-    .banner-contact p {
-        font-size: 14px;
+    .location-card img {
+        height: 180px; /* Image height for smaller screens */
+    }
+
+    .location-card h2 {
+        font-size: 30px; 
+    }
+
+    .location-card p {
+        font-size: 18px; 
+    }
+
+    .location-card .view-location {
+        font-size: 18px; /* Smaller button font size */
+        margin-bottom: -6px;
     }
 }
 
@@ -878,6 +1000,26 @@ footer{
         font-size: 40px;
     }
     
+    .banner-contact-us,.banner-locations,.banner-terms, .banner-about-us{
+        min-height: 300px;
+    }
+    
+    .banner-about-us::before , .banner-contact-us::before{
+        min-height: 300px;
+    }
+
+    .banner-contact-us .banner-title-contact, .banner-about-us .banner-title-aboutUs{
+        text-align: center;
+        font-size: 40px;
+    }
+    
+    .banner-contact-us.home-link , .banner-about-us.home-link{
+        text-align: center;
+    }
+    
+    .home-link{
+        text-align: left;
+    }
     .list {
         padding: 10px 10px 0 10px;
     }
@@ -914,6 +1056,24 @@ footer{
     .footer-p{
         margin: 20px;
     }
+    
+    .locations-header p{
+        text-align: center;
+    }
+    
+    .location-card {
+        width: 100%; 
+        height: 620px;
+        margin-bottom: 40px;
+    }
+    
+    .location-card p{
+        text-align: justify;
+    }
+    
+    .location-card a{
+        text-align: center;
+    }
 }
 
 @media (max-width: 1025px)
@@ -935,9 +1095,8 @@ footer{
 /* Responsive layout for contact form */
 @media (max-width: 1025px) {
     .contact-form {
-        margin: 20px;
-        margin-left: 40px;
-        margin-right: 40px;
+        margin: 25px;
+        padding: 5px;
         margin-top: 40px;
         margin-bottom: -10px;
         border-radius: 10px;
@@ -1009,14 +1168,6 @@ footer{
         width: 100%;
         padding: 0 10px;
         margin-bottom: 40px; /* Space between sections */
-    }
-
-    .banner-about-us h1 {
-        font-size: 38px;
-    }
-
-    .banner-about-us p {
-        font-size: 14px;
     }
 
     .vision-content {

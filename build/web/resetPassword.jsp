@@ -1,7 +1,7 @@
 <%-- 
     Document   : confirmPassword
     Created on : Nov 16, 2024, 10:10:06 PM
-    Author     : Laptop Outlet
+    Author     : Udani Indrachapa
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

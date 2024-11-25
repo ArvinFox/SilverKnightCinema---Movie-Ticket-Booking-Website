@@ -56,5 +56,21 @@
                 location.replace("login.jsp");
             }
         </script>
+        
+        <script>
+            let lastScrollY = 0;
+            const nav = document.querySelector('nav');
+
+            window.addEventListener('scroll', () => {
+              if (window.scrollY > lastScrollY) {
+                // User is scrolling down
+                nav.classList.add('hidden');
+              } else {
+                // User is scrolling up
+                nav.classList.remove('hidden');
+              }
+              lastScrollY = window.scrollY;
+            });
+        </script>
     </body>
 </html>

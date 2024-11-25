@@ -150,6 +150,15 @@ color: red;
         padding: 10px 17px;
         margin: 8px 0;
     }
+    
+    .rememberMe {
+        padding-right: 50px;
+        text-align: justify;
+    }
+    
+    .link{
+        text-align: center;
+    }
 }
 
 @media (min-width: 501px) and (max-width: 699px) {

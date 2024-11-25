@@ -16,12 +16,14 @@
     <body>
          <jsp:include page="header.jsp"/>
          
-         <section class="banner-about-us">
-            <h1>About Us</h1>
-            <p>
-                 <a href="#" class="home-link">Home</a> / About Us
-             </p>
-        </section>
+        <div class="banner-about-us">
+            <h1 class="banner-title-aboutUs"> About Us </h1>
+            <div class="home-link-aboutUs">
+                <a href="index.jsp"> Home </a>
+                <span> /</span>
+                <span>About Us </span>
+            </div>
+        </div>
 
         <section class="about-section">
             <div class="row">
@@ -51,13 +53,13 @@
                     </p>
                 </div>
                 <div class="image vision-image">
-                    <img src="assets/images/about-us-banner2.png" alt="Vision">
+                    <img src="assets/images/about-us-img1.png" alt="Vision">
                 </div>
             </div>
     
             <div class="row reverse">
                 <div class="image mission-image">
-                    <img src="assets/images/about-us-banner3.png" alt="Mission">
+                    <img src="assets/images/about-us-img2.png" alt="Mission">
                 </div>
                 <div class="content mission-content">
                     <h2>Our Mission</h2>

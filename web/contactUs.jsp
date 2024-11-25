@@ -17,12 +17,14 @@
     <body>
         <jsp:include page="header.jsp"/>
                
-        <section class="banner-contact">
-            <h1>Contact Us</h1>
-            <p>
-                <a href="#" class="home-link">Home</a> / Contact Us
-            </p>
-        </section>
+        <div class="banner-contact-us">
+            <h1 class="banner-title-contact"> Contact Us </h1>
+            <div class="home-link-contact">
+                <a href="index.jsp"> Home </a>
+                <span> /</span>
+                <span>Contact Us </span>
+            </div>
+        </div>
         
 
         <section class="contact-details">
@@ -41,7 +43,7 @@
                 </div>
                 <div class="detail-text">
                 <h3>Email Address</h3>
-                <p>silverknight@yahoo.com<br>silverknight@gmail.com</p>
+                <p> silverknight@yahoo.com<br> silverknight@gmail.com</p>
                 </div>
             </div>
             <div class="detail-box">
