@@ -14,12 +14,13 @@ public class FoodOrder {
     // Constructors
     public FoodOrder() {}
     
-    public FoodOrder(int bookingId, int itemId, int quantity, double pricePerItem, double totalPrice) {
+    public FoodOrder(int bookingId, int itemId, int quantity, double pricePerItem, double totalPrice, Date createdAt) {
         this.bookingId = bookingId;
         this.itemId = itemId;
         this.quantity = quantity;
         this.pricePerItem = pricePerItem;
         this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
     }
     
     // Geters and Setters

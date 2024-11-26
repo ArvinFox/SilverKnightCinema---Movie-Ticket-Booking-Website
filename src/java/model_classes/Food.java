@@ -5,10 +5,30 @@ import java.sql.Date;
 public class Food {
     
     public enum ItemType {
-        Beverage,
-        Popcorn,
-        Juice,
-        Snack
+        BEVERAGE("Beverage"),
+        POPCORN("Popcorn"),
+        JUICE("Juice"),
+        SNACK("Snack");
+
+        private final String dbValue;
+
+        ItemType(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static ItemType fromString(String dbValue) {
+            for (ItemType type : ItemType.values()) {
+                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown item type: " + dbValue);
+        }
     }
     
     private int itemId;
@@ -22,11 +42,13 @@ public class Food {
     // Constructors
     public Food() {}
     
-    public Food(String itemName, ItemType itemType, double price, int stock) {
+    public Food(String itemName, ItemType itemType, double price, int stock, Date createdAt, Date updatedAt) {
         this.itemName = itemName;
         this.itemType = itemType;
         this.price = price;
         this.stock = stock;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     
     // Getters and Setters

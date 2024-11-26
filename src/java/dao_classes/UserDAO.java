@@ -15,7 +15,7 @@ public class UserDAO {
     
     // Method to register a user
     public void registerUser(User user) {
-        String query = "INSERT INTO users (firstName, lastName, email, password, contactNumber, accountStatus) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (firstName, lastName, email, password, contactNumber) VALUES (?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -25,7 +25,6 @@ public class UserDAO {
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getContactNumber());
-            ps.setString(6, user.getAccountStatus().name());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -117,8 +116,10 @@ public class UserDAO {
             ps.setString(1, AccountStatus.SUSPENDED.name());
             ps.setInt(2, userId);
             try (ResultSet rs = ps.executeQuery()) {
-                int count = rs.getInt(1);
-                isSuspended = count > 0;
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    isSuspended = count > 0;
+                }
             }
             
         } catch (SQLException e) {
@@ -182,8 +183,8 @@ public class UserDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
-            ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(1, password);
+            ps.setString(2, email);
             ps.executeUpdate();
             
         } catch (SQLException e) {
@@ -204,7 +205,7 @@ public class UserDAO {
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getContactNumber());
-            ps.setString(6, user.getAccountStatus().name());
+            ps.setString(6, user.getAccountStatus().toString());
             ps.setInt(7, user.getUserId());
             ps.executeUpdate();
 
@@ -322,7 +323,7 @@ public class UserDAO {
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
         user.setContactNumber(rs.getString("contactNumber"));
-        user.setAccountStatus(AccountStatus.valueOf(rs.getString("accountStatus")));
+        user.setAccountStatus(AccountStatus.fromString(rs.getString("accountStatus")));
         user.setRegistrationDate(rs.getDate("registrationDate"));
         user.setUpdatedAt(rs.getDate("updatedAt"));
         

@@ -30,29 +30,6 @@ public class GuestDAO {
         }
     }
     
-    // Method to get guest by their id
-    public Guest getGuestById(int guestId) {
-        Guest guest = null;
-        String query = "SELECT * FROM guests WHERE guestId = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setInt(1, guestId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    guest = populateGuest(rs);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error in fetching guest by their ID: " + e.getMessage());
-        }
-
-        return guest;
-    }
-    
     // Method to get guest by their email
     public Guest getGuestByEmail(String email) {
         Guest guest = null;
@@ -94,6 +71,29 @@ public class GuestDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in fetching guest by their contact number: " + e.getMessage());
+        }
+
+        return guest;
+    }
+    
+    // Method to get guest by their id
+    public Guest getGuestById(int guestId) {
+        Guest guest = null;
+        String query = "SELECT * FROM guests WHERE guestId = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, guestId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    guest = populateGuest(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching guest by their ID: " + e.getMessage());
         }
 
         return guest;

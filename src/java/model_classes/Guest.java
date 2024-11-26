@@ -12,6 +12,12 @@ public class Guest {
     // Constructors
     public Guest() {}
     
+    public Guest(String name, String email, String contactNumber) {
+        this.name = name;
+        this.email = email;
+        this.contactNumber = contactNumber;
+    }
+    
     public Guest(String name, String email, String contactNumber, Date createdAt) {
         this.name = name;
         this.email = email;

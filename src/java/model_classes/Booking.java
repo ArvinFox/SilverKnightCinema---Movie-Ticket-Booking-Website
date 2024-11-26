@@ -5,10 +5,10 @@ import com.google.gson.Gson;
 
 public class Booking {
     private int bookingId;
-    private int userId;
-    private int guestId;
+    private Integer userId;
+    private Integer guestId;
     private int showtimeId;
-    private int promotionId;
+    private Integer promotionId;
     private String[] bookedSeats;
     private Date bookingDate;
     private Date expiryDate;
@@ -18,7 +18,7 @@ public class Booking {
     // Constructors
     public Booking() {}
     
-    public Booking(int userId, int guestId, int showtimeId, int promotionId, String[] bookedSeats, Date bookingDate, Date expiryDate, double totalPrice, boolean isPaid) {
+    public Booking(Integer userId, Integer guestId, int showtimeId, Integer promotionId, String[] bookedSeats, Date bookingDate, Date expiryDate, double totalPrice, boolean isPaid) {
         this.userId = userId;
         this.guestId = guestId;
         this.showtimeId = showtimeId;
@@ -34,17 +34,17 @@ public class Booking {
     public int getBookingId() { return bookingId; }
     public void setBookingId(int bookingId) { this.bookingId = bookingId; }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public Integer getUserId() { return userId; }
+    public void setUserId(Integer userId) { this.userId = userId; }
     
-    public int getGuestId() { return guestId; }
-    public void setGuestId(int guestId) { this.guestId = guestId; }
+    public Integer getGuestId() { return guestId; }
+    public void setGuestId(Integer guestId) { this.guestId = guestId; }
 
     public int getShowtimeId() { return showtimeId; }
     public void setShowtimeId(int showtimeId) { this.showtimeId = showtimeId; }
     
-    public int getPromotionId() { return promotionId; }
-    public void setPromotionId(int promotionId) { this.promotionId = promotionId; }
+    public Integer getPromotionId() { return promotionId; }
+    public void setPromotionId(Integer promotionId) { this.promotionId = promotionId; }
     
     public String[] getBookedSeats() { return bookedSeats; }
     public void setBookedSeats(String[] bookedSeats) { this.bookedSeats = bookedSeats; }

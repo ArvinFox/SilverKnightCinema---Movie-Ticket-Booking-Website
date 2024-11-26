@@ -28,27 +28,28 @@ public class LanguageDAO {
         }
     }
     
-    // Method to get language by its id
-    public Language getLanguageById(int languageId) {
-        Language language = null;
-        String query = "SELECT * FROM languages WHERE languageId = ?";
-
+    // Method to check if language is already added
+    public boolean isLanguageAdded(String languageName) {
+        boolean isAdded = false;
+        String query = "SELECT COUNT(*) FROM languages WHERE language = ?";
+        
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setInt(1, languageId);
+            
+            ps.setString(1, languageName);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    language = populateLanguage(rs);
+                    int count = rs.getInt(1);
+                    isAdded = count > 0;
                 }
             }
-
-        } catch (SQLException e) {
+            
+        }catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error in fetching language by its ID: " + e.getMessage());
+            System.err.println("Error in checking whether language is already added: " + e.getMessage());
         }
-
-        return language;
+        
+        return isAdded;
     }
     
     // Method to get language by its name
@@ -74,6 +75,30 @@ public class LanguageDAO {
         return language;
     }
     
+    // Method to get language by its id
+    public Language getLanguageById(int languageId) {
+        Language language = null;
+        String query = "SELECT * FROM languages WHERE languageId = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, languageId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    language = populateLanguage(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching language by its ID: " + e.getMessage());
+        }
+
+        return language;
+    }
+    
+    
     // Method to update language details
     public void updateLanguage(Language language) {
         String query = "UPDATE languages SET language = ? WHERE languageId = ?";
@@ -82,6 +107,7 @@ public class LanguageDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, language.getLanguage());
+            ps.setInt(2, language.getLanguageId());
             ps.executeUpdate();
 
         } catch (SQLException e) {

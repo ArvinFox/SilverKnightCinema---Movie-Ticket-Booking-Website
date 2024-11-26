@@ -34,29 +34,6 @@ public class PromotionDAO {
         }
     }
     
-    // Method to get promotion by its id
-    public Promotion getPromotionById(int promotionId) {
-        Promotion promotion = null;
-        String query = "SELECT * FROM promotions WHERE promotionId = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setInt(1, promotionId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    promotion = populatePromotion(rs);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error in fetching promotion by its ID: " + e.getMessage());
-        }
-
-        return promotion;
-    }
-    
     // Method to get promotion by its code
     public Promotion getPromotionByCode(String promotionCode) {
         Promotion promotion = null;
@@ -75,6 +52,29 @@ public class PromotionDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in fetching promotion by its code: " + e.getMessage());
+        }
+
+        return promotion;
+    }
+    
+    // Method to get promotion by its id
+    public Promotion getPromotionById(int promotionId) {
+        Promotion promotion = null;
+        String query = "SELECT * FROM promotions WHERE promotionId = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, promotionId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    promotion = populatePromotion(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching promotion by its ID: " + e.getMessage());
         }
 
         return promotion;

@@ -19,10 +19,22 @@ public class BookingDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
-            ps.setInt(1, booking.getUserId());
-            ps.setInt(2, booking.getGuestId());
+            if (booking.getUserId() != null && booking.getUserId() != 0) {
+                ps.setInt(1, booking.getUserId());
+                ps.setNull(2, java.sql.Types.INTEGER);
+            } else if (booking.getGuestId() != null && booking.getGuestId() != 0) {
+                ps.setNull(1, java.sql.Types.INTEGER);
+                ps.setInt(2, booking.getGuestId());
+            }
+            
             ps.setInt(3, booking.getShowtimeId());
-            ps.setDouble(4, booking.getPromotionId());
+            
+            if (booking.getPromotionId() != null && booking.getPromotionId() != 0) {
+                ps.setInt(4, booking.getPromotionId());
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
+            
             ps.setString(5, booking.getBookedSeatsAsJson());
             ps.setDate(6, booking.getExpiryDate());
             ps.setDouble(7, booking.getTotalPrice());

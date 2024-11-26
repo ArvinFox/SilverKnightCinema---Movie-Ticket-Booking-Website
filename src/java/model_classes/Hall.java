@@ -5,11 +5,31 @@ import java.sql.Date;
 public class Hall {
     
     public enum Type {
-        IMAX,
-        _2D,
-        _3D,
-        VIP,
-        Standard
+        IMAX("IMAX"),
+        _2D("2D"),
+        _3D("3D"),
+        VIP("VIP"),
+        STANDARD("Standard");
+
+        private final String dbValue;
+
+        Type(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static Type fromString(String dbValue) {
+            for (Type type : Type.values()) {
+                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown hall type: " + dbValue);
+        }
     }
     
     private int hallId;
@@ -22,6 +42,13 @@ public class Hall {
     
     // Constructors
     public Hall() {}
+    
+    public Hall(String name, Type type, int capacity, String location) {
+        this.name = name;
+        this.type = type;
+        this.capacity = capacity;
+        this.location = location;
+    }
     
     public Hall(String name, Type type, int capacity, String location, Date createdAt, Date updatedAt) {
         this.name = name;

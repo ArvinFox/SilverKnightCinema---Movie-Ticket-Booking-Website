@@ -3,8 +3,28 @@ package model_classes;
 public class Seat {
     
     public enum SeatType {
-        VIP,
-        Standard
+        VIP("VIP"),
+        STANDARD("Standard");
+
+        private final String dbValue;
+
+        SeatType(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static SeatType fromString(String dbValue) {
+            for (SeatType type : SeatType.values()) {
+                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown seat type: " + dbValue);
+        }
     }
     
     private int seatId;

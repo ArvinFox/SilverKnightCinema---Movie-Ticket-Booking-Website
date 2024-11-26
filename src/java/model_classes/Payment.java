@@ -5,16 +5,56 @@ import java.sql.Date;
 public class Payment {
     
     public enum PaymentMethod {
-        CREDIT_CARD,
-        PAYPAL,
-        CASH
+        CREDIT_CARD("Credit Card"),
+        PAYPAL("PayPal"),
+        CASH("Cash");
+
+        private final String dbValue;
+
+        PaymentMethod(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static PaymentMethod fromString(String dbValue) {
+            for (PaymentMethod method : PaymentMethod.values()) {
+                if (method.dbValue.equalsIgnoreCase(dbValue)) {
+                    return method;
+                }
+            }
+            throw new IllegalArgumentException("Unknown payment method: " + dbValue);
+        }
     }
-    
+
     public enum PaymentStatus {
-        COMPLETED,
-        FAILED,
-        PENDING,
-        REFUNDED
+        COMPLETED("Completed"),
+        FAILED("Failed"),
+        PENDING("Pending"),
+        REFUNDED("Refunded");
+
+        private final String dbValue;
+
+        PaymentStatus(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static PaymentStatus fromString(String dbValue) {
+            for (PaymentStatus status : PaymentStatus.values()) {
+                if (status.dbValue.equalsIgnoreCase(dbValue)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Unknown payment status: " + dbValue);
+        }
     }
     
     private int paymentId;

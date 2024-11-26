@@ -21,7 +21,7 @@ public class HallDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, hall.getName());
-            ps.setString(2, hall.getType().name());
+            ps.setString(2, hall.getType().toString());
             ps.setInt(3, hall.getCapacity());
             ps.setString(4, hall.getLocation());
             ps.executeUpdate();
@@ -63,7 +63,7 @@ public class HallDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, hall.getName());
-            ps.setString(2, hall.getType().name());
+            ps.setString(2, hall.getType().toString());
             ps.setInt(3, hall.getCapacity());
             ps.setString(4, hall.getLocation());
             ps.setInt(5, hall.getHallId());
@@ -139,7 +139,7 @@ public class HallDAO {
         Hall hall = new Hall();
         hall.setHallId(rs.getInt("hallId"));
         hall.setName(rs.getString("name"));
-        hall.setType(Type.valueOf(rs.getString("type")));
+        hall.setType(Type.fromString(rs.getString("type")));
         hall.setCapacity(rs.getInt("capacity"));
         hall.setLocation(rs.getString("location"));
         hall.setCreatedAt(rs.getDate("createdAt"));

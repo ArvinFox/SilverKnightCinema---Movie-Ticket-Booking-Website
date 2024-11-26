@@ -28,15 +28,39 @@ public class GenreDAO {
         }
     }
     
-    // Method to get genre by its id
-    public Genre getGenreById(int genreId) {
+    // Method to check if genre is already added
+    public boolean isGenreAdded(String name) {
+        boolean isAdded = false;
+        String query = "SELECT COUNT(*) FROM genres WHERE name = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    isAdded = count > 0;
+                }
+            }
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in checking whether genre is already added: " + e.getMessage());
+        }
+        
+        return isAdded;
+    }
+    
+    // Method to get genre by its name
+    public Genre getGenreByName(String name) {
         Genre genre = null;
-        String query = "SELECT * FROM genres WHERE genreId = ?";
+        String query = "SELECT * FROM genres WHERE name = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setInt(1, genreId);
+            ps.setString(1, name);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     genre = populateGenre(rs);
@@ -45,7 +69,7 @@ public class GenreDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error in fetching genre by its ID: " + e.getMessage());
+            System.err.println("Error in fetching genre by its name: " + e.getMessage());
         }
 
         return genre;
@@ -88,15 +112,15 @@ public class GenreDAO {
         return genres;
     }
     
-    // Method to get genre by its name
-    public Genre getGenreByName(String name) {
+    // Method to get genre by its id
+    public Genre getGenreById(int genreId) {
         Genre genre = null;
-        String query = "SELECT * FROM genres WHERE name = ?";
+        String query = "SELECT * FROM genres WHERE genreId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setString(1, name);
+            ps.setInt(1, genreId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     genre = populateGenre(rs);
@@ -105,7 +129,7 @@ public class GenreDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Error in fetching genre by its name: " + e.getMessage());
+            System.err.println("Error in fetching genre by its ID: " + e.getMessage());
         }
 
         return genre;
@@ -119,6 +143,7 @@ public class GenreDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, genre.getName());
+            ps.setInt(2, genre.getGenreId());
             ps.executeUpdate();
 
         } catch (SQLException e) {

@@ -114,6 +114,30 @@ public class ShowtimeDAO {
         return showtimes;
     }
     
+    // Method to get all showtimes of a specific hall
+    public List<Showtime> getShowtimesByHall(int hallId) {
+        List<Showtime> showtimes = new ArrayList<>();
+        String query = "SELECT * FROM showtimes WHERE hallId = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, hallId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Showtime showtime = populateShowtime(rs);
+                    showtimes.add(showtime);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching showtimes of hall: " + e.getMessage());
+        }
+        
+        return showtimes;
+    }
+    
     // Method to get the total number of showtimes
     public int getTotalShowtimes() {
         int count = 0;

@@ -21,8 +21,8 @@ public class PaymentDAO {
             
             ps.setInt(1, payment.getBookingId());
             ps.setString(2, payment.getTransactionId());
-            ps.setString(3, payment.getPaymentMethod().name());
-            ps.setString(4, payment.getPaymentStatus().name());
+            ps.setString(3, payment.getPaymentMethod().toString());
+            ps.setString(4, payment.getPaymentStatus().toString());
             ps.setDouble(5, payment.getAmount());
             ps.executeUpdate();
             
@@ -62,7 +62,7 @@ public class PaymentDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
-            ps.setString(1, paymentStatus.name());
+            ps.setString(1, paymentStatus.toString());
             ps.setInt(2, paymentId);
             ps.executeUpdate();
             
@@ -94,8 +94,8 @@ public class PaymentDAO {
         payment.setPaymentId(rs.getInt("paymentId"));
         payment.setBookingId(rs.getInt("bookingId"));
         payment.setTransactionId(rs.getString("transactionId"));
-        payment.setPaymentMethod(PaymentMethod.valueOf(rs.getString("paymentMethod")));
-        payment.setPaymentStatus(PaymentStatus.valueOf(rs.getString("paymentStatus")));
+        payment.setPaymentMethod(PaymentMethod.fromString(rs.getString("paymentMethod")));
+        payment.setPaymentStatus(PaymentStatus.fromString(rs.getString("paymentStatus")));
         payment.setAmount(rs.getDouble("amount"));
         payment.setPaymentDate(rs.getDate("paymentDate"));
         

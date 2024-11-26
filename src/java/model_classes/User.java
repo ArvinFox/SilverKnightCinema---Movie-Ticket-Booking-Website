@@ -5,9 +5,29 @@ import java.sql.Date;
 public class User {
     
     public enum AccountStatus {
-        ACTIVE,
-        INACTIVE,
-        SUSPENDED
+        ACTIVE("active"),
+        INACTIVE("inactive"),
+        SUSPENDED("suspended");
+
+        private final String dbValue;
+
+        AccountStatus(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static AccountStatus fromString(String dbValue) {
+            for (AccountStatus status : AccountStatus.values()) {
+                if (status.dbValue.equalsIgnoreCase(dbValue)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Unknown account status: " + dbValue);
+        }
     }
     
     private int userId;
@@ -22,6 +42,14 @@ public class User {
     
     // Cosntructors
     public User() {}
+    
+    public User(String firstName, String lastName, String email, String password, String contactNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.contactNumber = contactNumber;
+    } 
     
     public User(String firstName, String lastName, String email, String password, String contactNumber, AccountStatus accountStatus, Date registrationDate, Date updatedAt) {
         this.firstName = firstName;

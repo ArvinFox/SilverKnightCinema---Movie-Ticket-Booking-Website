@@ -22,7 +22,7 @@ public class FoodDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, foodItem.getItemName());
-            ps.setString(2, foodItem.getItemType().name());
+            ps.setString(2, foodItem.getItemType().toString());
             ps.setDouble(3, foodItem.getPrice());
             ps.setInt(4, foodItem.getStock());
             ps.executeUpdate();
@@ -64,7 +64,7 @@ public class FoodDAO {
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setString(1, foodItem.getItemName());
-            ps.setString(2, foodItem.getItemType().name());
+            ps.setString(2, foodItem.getItemType().toString());
             ps.setDouble(3, foodItem.getPrice());
             ps.setInt(4, foodItem.getStock());
             ps.setInt(5, foodItem.getItemId());
@@ -227,7 +227,7 @@ public class FoodDAO {
         Food foodItem = new Food();
         foodItem.setItemId(rs.getInt("itemId"));
         foodItem.setItemName(rs.getString("itemName"));
-        foodItem.setItemType(ItemType.valueOf(rs.getString("itemType")));
+        foodItem.setItemType(ItemType.fromString(rs.getString("itemType")));
         foodItem.setPrice(rs.getDouble("price"));
         foodItem.setStock(rs.getInt("stock"));
         foodItem.setCreatedAt(rs.getDate("createdAt"));

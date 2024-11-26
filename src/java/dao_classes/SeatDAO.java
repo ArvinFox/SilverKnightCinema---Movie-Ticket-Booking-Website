@@ -23,7 +23,7 @@ public class SeatDAO {
             ps.setInt(1, seat.getHallId());
             ps.setInt(2, seat.getShowtimeId());
             ps.setString(3, seat.getSeatNumber());
-            ps.setString(4, seat.getSeatType().name());
+            ps.setString(4, seat.getSeatType().toString());
             ps.setDouble(5, seat.getPrice());
             ps.setBoolean(6, seat.getIsAvailable());
             ps.setBoolean(7, seat.getIsReserved());
@@ -68,7 +68,7 @@ public class SeatDAO {
             ps.setInt(1, seat.getHallId());
             ps.setInt(2, seat.getShowtimeId());
             ps.setString(3, seat.getSeatNumber());
-            ps.setString(4, seat.getSeatType().name());
+            ps.setString(4, seat.getSeatType().toString());
             ps.setDouble(5, seat.getPrice());
             ps.setBoolean(6, seat.getIsAvailable());
             ps.setBoolean(7, seat.getIsReserved());
@@ -107,7 +107,7 @@ public class SeatDAO {
             
             ps.setBoolean(1, isReserved);
             ps.setBoolean(2, !isReserved);
-            ps.setInt(2, seatId);
+            ps.setInt(3, seatId);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -257,9 +257,9 @@ public class SeatDAO {
         seat.setHallId(rs.getInt("hallId"));
         seat.setShowtimeId(rs.getInt("showtimeId"));
         seat.setSeatNumber(rs.getString("seatNumber"));
-        seat.setSeatType(SeatType.valueOf(rs.getString("seatType")));
+        seat.setSeatType(SeatType.fromString(rs.getString("seatType")));
         seat.setPrice(rs.getDouble("price"));
-        seat.setIsAvailable(rs.getBoolean("isAvaiable"));
+        seat.setIsAvailable(rs.getBoolean("isAvailable"));
         seat.setIsReserved(rs.getBoolean("isReserved"));
         
         return seat;
