@@ -264,11 +264,11 @@ let coming_soon_html=`<!--container 1-->
                 </a>`;
 document.querySelector('.ongoing').addEventListener('click',()=>{
 document.querySelector('.movies-container').innerHTML = ongoing_movies_html;     
-})
+});
  
 document.querySelector('.coming-soon').addEventListener('click',()=>{
     document.querySelector('.movies-container').innerHTML = coming_soon_html;     
-    })
+    });
   
 // Select all movie-type elements
 const movieTypes = document.querySelectorAll('.movie-type');
@@ -283,3 +283,103 @@ movieTypes.forEach(movie => {
         movie.classList.add('selected');
     });
 });
+
+
+//-------------------Profile Page JS---------------------//
+
+//-----Loading contents to User Profile-----//
+function loadContent(page) {
+    // Use AJAX to load the content of the JSP into the user-content div tag
+    fetch(page)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('user-content').innerHTML = data;
+            // Reinitialize JavaScript for the new content
+            initializeEventListeners();
+        })
+        .catch(error => console.error('Error loading page:', error));
+}
+
+function initializeEventListeners() {
+    const editContactButton = document.getElementById("changeContact");
+    const sendOtpButton = document.getElementById("changeContactSendOTP");
+    const resendOtpButton = document.getElementById("changeContactResendOTP");
+    const saveContactButton = document.getElementById("saveNewContact");
+
+    const newContactDiv = document.querySelector(".form-row.hidden:nth-child(2)");
+    const otpVerificationDiv = document.querySelector(".form-row.hidden:nth-child(3)");
+    const contactInput = document.getElementById("newContactNumber");
+    const contactLabel = document.getElementById("dbContact");
+    const otpCountdownLabel = otpVerificationDiv.querySelector("label[for='OTP countdown']");
+
+    let countdownTimer = null;
+
+    if (editContactButton) {
+        editContactButton.addEventListener("click", () => {
+            newContactDiv.classList.remove("hidden");
+        });
+    }
+
+    if (sendOtpButton) {
+        sendOtpButton.addEventListener("click", () => {
+            const contactValue = contactInput.value;
+
+            if (contactValue.length !== 10 || isNaN(contactValue)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return;
+            }
+
+            newContactDiv.classList.add("hidden");
+            otpVerificationDiv.classList.remove("hidden");
+
+            resendOtpButton.disabled = true;
+            startCountdown();
+        });
+    }
+
+    if (resendOtpButton) {
+        resendOtpButton.addEventListener("click", () => {
+            resendOtpButton.disabled = true;
+            startCountdown();
+        });
+    }
+
+    if (saveContactButton) {
+        saveContactButton.addEventListener("click", () => {
+            const newContact = contactInput.value;
+
+            if (newContact.length !== 10 || isNaN(newContact)) {
+                alert("Please enter a valid 10-digit contact number.");
+                return;
+            }
+
+            contactLabel.textContent = newContact;
+            otpVerificationDiv.classList.add("hidden");
+
+            alert("Contact number updated successfully!");
+        });
+    }
+
+    // Function to start a 60-second countdown
+    function startCountdown() {
+        let secondsRemaining = 60;
+
+        otpCountdownLabel.textContent = `Resend OTP again in ${secondsRemaining}s`;
+
+        countdownTimer = setInterval(() => {
+            secondsRemaining -= 1;
+            otpCountdownLabel.textContent = `Resend OTP again in ${secondsRemaining}s`;
+
+            if (secondsRemaining <= 0) {
+                clearInterval(countdownTimer);
+                otpCountdownLabel.textContent = "";
+                resendOtpButton.disabled = false;
+            }
+        }, 1000);
+    }
+}

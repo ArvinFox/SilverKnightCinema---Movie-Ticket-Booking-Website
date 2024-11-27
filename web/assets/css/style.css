@@ -247,6 +247,21 @@ footer{
     justify-content: center;
 }
 
+.profile-banner-section{
+    background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)),url(../images/faq-banner.png)no-repeat;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    position: relative; 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    margin-top: 69px;
+}
+
 .banner-title{
   color: white;
   font-size: 50px;
@@ -770,6 +785,173 @@ footer{
 .faq-question.active + .faq-answer {
     display: block;
 }
+
+/*--------User Profile---------*/
+
+.user-profile-sub-nav{
+  background-color: rgba(220, 243, 245, 0.74);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.user-profile-sub-nav ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 8px 25px;
+  position: relative;
+}
+
+.user-profile-sub-nav ul li a {
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.user-profile-sub-nav ul li a:active {
+    opacity: 0.7;
+}
+
+.user-profile-sub-nav ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f43434;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.user-profile-sub-nav ul li:hover::after {
+    width: 100%;
+}
+
+
+.user-details-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    padding-left: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 25px;
+    transition: 0.5s;
+}
+
+.user-details-container h1{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.user-details-container hr{
+    border-top: 1px;
+}
+
+.user-details-sub-container{
+    padding-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 0.4fr auto 2fr; /* Label, colon, and value */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    transition: 0.5s;
+}
+
+.form-row .user-detail-names {
+    text-align: left;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.form-row .user-db-details{
+    font-weight: 300;
+}
+
+.colon {
+    text-align: center;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.form-row input[type="submit"], .form-row input[type="button"]{
+    padding: 15px;
+    font-size: 15px;
+    background-color: red;
+    border-radius: 10px;
+    border: 1px;
+    color: #f8f9fa;
+    font-weight: 600;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.form-row input[type="button"]{
+    width: fit-content;
+}
+
+.form-row input[type="submit"]:hover, .form-row input[type="button"]:hover{
+    background-color: rgb(204, 12, 12);
+}
+
+.form-row input[type="number"]{
+    font-size: 20px;
+    height: fit-content;
+    width: fit-content;
+    margin: 0;
+}
+
+.form-row input[type="number"]::-webkit-outer-spin-button,
+.form-row input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hidden{
+    display: none;
+}
+
+.disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .user-details-container {
+        padding: 15px;
+        transition: 1s;
+    }
+
+    .form-row{
+        display: flex;
+        flex-direction: column;
+        transition: 1s;
+    }
+
+    .colon{
+        display: none;
+    }
+
+    .user-details-container h1{
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .user-detail-names{
+        font-size: 20px;
+    }
+
+    .user-db-details{
+        font-weight: 300;
+        padding-bottom: 15px;
+    }
+}
+
 
 /*------------Locations Page-------------*/
 .locations {
