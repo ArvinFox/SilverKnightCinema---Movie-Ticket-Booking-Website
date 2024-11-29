@@ -25,7 +25,7 @@
             <ul id="menuList">
                 <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
                 <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
-                <li class="navLink"> <a href="Offers.jsp"> Deals & Offers </a></li>
+                <li class="navLink"> <a href="dealsAndOffers.jsp"> Deals & Offers </a></li>
                 <li class="navLink"> <a href="aboutUs.jsp"> About Us </a></li>
                 <li class="navLink"> <a href="contactUs.jsp"> Contact Us </a></li>
                 <li> <button onclick="loginfunction()"> Login </button> </li>   

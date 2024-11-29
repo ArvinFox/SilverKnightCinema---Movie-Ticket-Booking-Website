@@ -57,7 +57,7 @@
                     <ul>
                         <li> <a href="index.jsp">Home </a> </li>
                         <li> <a href="movies.jsp">Movies </a> </li>
-                        <li> <a href="offers.jsp">Deals and Offers </a> </li>
+                        <li> <a href="dealsAndOffers.jsp">Deals and Offers </a> </li>
                         <li> <a href="aboutUs.jsp">About Us </a> </li>
                         <li> <a href="contactUs.jsp">Contact Us </a> </li>
                     </ul>
