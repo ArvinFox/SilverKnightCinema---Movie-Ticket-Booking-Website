@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Deals And Offers | SilverKnight Cinema</title>
+        <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -23,26 +24,26 @@
             </div>
         </div>
         
-        <main>
-            <h2 class="deals-h2"> Dive into Exclusive Discounts, Early Bird Offers, and Curated Movie Selections.               You Ultimate Movie Adventure<span style="color: red; font-style: italic; font-size:32px;">  STARTS NOW!             </span></h2>
-            <section class="deal">
-                <h3 style="color: #000080; font-size: 30px;">Blockbuster Discounts
-                <p style="color: black; font-size: 20px;">Enjoy <span class="highlight">20% off</span> on tickets                   for the latest blockbusters every weekend!</p></h3>
+        <section class="deals-and-offers">
+            <h2 class="deals-h2"> Dive into Exclusive Discounts, Early Bird Offers, and Curated Movie Selections.               Your Ultimate Movie Adventure<span class="deals-span">  STARTS NOW!</span></h2>
+            <div class="deal">
+                <h3>Blockbuster Discounts
+                <p>Enjoy <span class="highlight">20% off</span> on tickets for the latest blockbusters every                           weekend!</p></h3>
                 <img src="assets/images/deals-and-offers-image1.png" alt="Blockbuster Image">
-            </section>
+            </div>
 
-            <section class="deal">
+            <div class="deal">
                 <img src="assets/images/deals-and-offers-image2.jpeg" alt="Early Bird Image">
-                <h3 style="color: #000080; font-size: 30px;">Early Bird Specials
-                <p style="color: black; font-size: 20px;">Get <span class="highlight">10% off</span> when you book                  your tickets a week in advance. Perfect for planning your movie nights!</p></h3>
-            </section>
+                <h3>Early Bird Specials
+                <p>Get <span class="highlight">10% off</span> when you book your tickets a week in advance. Perfect                    for planning your movie nights!</p></h3>
+            </div>
 
-            <section class="deal">
-                <h3 style="color: #000080; font-size: 30px;">Combo Deals
-                <p style="color: black; font-size: 20px;"><span class="highlight">Buy 2 tickets and get 50%                         off</span> on the third. Bring your friends and family for an epic movie marathon!</p></h3>
+            <div class="deal">
+                <h3>Combo Deals
+                <p><span class="highlight">Buy 2 tickets and get 50% off</span> on the third. Bring your friends                       and family for an epic movie marathon!</p></h3>
                 <img src="assets/images/deals-and-offers-image3.jpg" alt="Combo Image">
-            </section>
-        </main>
+            </div>
+        </section>
         
         <jsp:include page="footer.jsp" />
     </body>

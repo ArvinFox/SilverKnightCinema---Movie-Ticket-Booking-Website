@@ -331,7 +331,6 @@ footer{
     justify-content: center;
     align-items: center;
     color: white;
-    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -371,20 +370,21 @@ footer{
   color: red;
 }
 
-h2 {
+.deals-and-offers {
+    padding: 20px;
+    text-align: center;
+}
+
+.deals-h2 {
     font-family: 'roboto';
     font-size: 32px;
     font-weight: bold;
 }
 
-h3 {
+.deals-span{
+    color: red; 
     font-style: italic;
-    font-size: 20px;
-}
-
-main {
-    padding: 20px;
-    text-align: center;
+    font-size:32px;
 }
 
 .deal {
@@ -392,21 +392,35 @@ main {
     border-radius: 50px;
     background-color: #ddd;
     padding: 20px;
-    margin: 100px ;
+    margin: 60px ;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.deal img {
-    border-radius: 30px;
-    width: 1000px;
-    height: 300px;
+
+.deal h3 {
+    font-style: italic;
+    font-size: 30px;
+    color:#000080;
 }
+
+.deal p{
+    color: black;
+    font-size: 20px;
+}
+
 .highlight {
     color: red;
     font-weight: bold;
     font-size:20px;
 }
+
+.deal img {
+    border-radius: 30px;
+    width: 80%;
+    height: 300px;
+}
+
 
 /*--------About Us Page---------*/
 
@@ -1275,20 +1289,20 @@ main {
         font-size: 40px;
     }
     
-    .banner-contact-us,.banner-locations,.banner-terms, .banner-about-us{
+    .banner-contact-us,.banner-locations,.banner-terms, .banner-about-us, .banner-deals-and-offers{
         min-height: 300px;
     }
     
-    .banner-about-us::before , .banner-contact-us::before{
+    .banner-about-us::before , .banner-contact-us::before , .banner-deals-and-offers::before{
         min-height: 300px;
     }
 
-    .banner-contact-us .banner-title-contact, .banner-about-us .banner-title-aboutUs{
+    .banner-contact-us .banner-title-contact, .banner-about-us .banner-title-aboutUs, .banner-title-deals-and-offers{
         text-align: center;
         font-size: 40px;
     }
     
-    .banner-contact-us.home-link , .banner-about-us.home-link{
+    .banner-contact-us.home-link , .banner-about-us.home-link  , .home-link-deals-and-offers{
         text-align: center;
     }
     
@@ -1319,6 +1333,39 @@ main {
     
     .content p{
         text-align: justify;
+    }
+    
+    /*------ deals and offers page ------- */
+    .deals-h2{
+        padding:0;
+        margin:10px;
+    }
+    
+    .deals-h2, .deals-span{
+        font-size: 27px;
+        text-align: center;
+    }
+  
+    .deal{
+        padding: 5px;
+        margin:30px;
+        margin-bottom: 50px;
+    }
+    
+    .deal h3{
+        font-size: 25px;
+        text-align: center;
+    }
+    
+    .deal p{
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    .deal img{
+        width:80%;
+        height:30%;
+        margin-bottom: 10px;
     }
 }
 
@@ -1433,13 +1480,13 @@ main {
 /* About Us - media queries */
 
 @media (max-width: 1025px) {
-    .row {
+    .row, .deal{
         flex-direction: column;
         align-items: center;
         margin-bottom: 50px; 
     }
 
-    .content {
+    .content, .deals-h2 {
         width: 100%;
         padding: 0 10px;
         margin-bottom: 40px; /* Space between sections */
