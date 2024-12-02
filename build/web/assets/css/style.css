@@ -1068,14 +1068,15 @@ footer{
 }
 
 .locations-header h2 {
-    font-size: 36px; 
+    font-size: 40px; 
     margin-bottom: 10px;
     color: #4a47a3; 
 }
 
 .locations-header p {
-    font-size: 28px; 
-    line-height: 1; /* Adjust line spacing */
+    font-size: 22px; 
+    font-weight: bold;
+    line-height: 1.5; /* Adjust line spacing */
     color: black;
     margin-bottom: 50px;
 }
@@ -1084,7 +1085,7 @@ footer{
 .row-locations{
     display: flex;
     flex-wrap: wrap; /* Two cards per row */
-    justify-content: space-between; /* Space between cards */
+    justify-content: space-around; /* Space between cards */
     margin: 0 auto;
     max-width: 1200px;
 }
@@ -1097,8 +1098,8 @@ footer{
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    width: 460px; /* Two cards per row */
-    height: 500px; 
+    width: 45%; /* Two cards per row */
+    height: 520px; 
     text-align: left;
     border: 2px solid #4a47a3; /* Blue border */
     position: relative;
@@ -1155,6 +1156,53 @@ footer{
     background-color: #5c59c4;
 }
 
+/* Popup Map Styling */
+#popup-map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#popup-content {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+#map-iframe {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+}
+
+#close-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+
+#close-btn:hover {
+    background: #d32f2f;
+}
+
 /*Contact Us - media queries*/
 
 /* Responsive layout for banner */
@@ -1164,7 +1212,11 @@ footer{
     }
     
     .locations-header h2 {
-        font-size: 40px;
+        font-size: 32px;
+    }
+    
+    .locations-header p {
+        font-size: 18px;
     }
     
     .location-card {
@@ -1179,11 +1231,11 @@ footer{
     }
 
     .location-card h2 {
-        font-size: 30px; 
+        font-size: 25px; 
     }
 
     .location-card p {
-        font-size: 18px; 
+        font-size: 16px; 
     }
 
     .location-card .view-location {
@@ -1430,6 +1482,19 @@ footer{
 
     .contact-form .form-row .input-group {
         width: 100%;
+    }
+    
+    .contact-form .form-row label[for="subject"],
+    .contact-form .form-row label[for="message"] {
+        margin-right: 600px;
+    }
+    
+    .contact-form .form-row input {
+        margin-right: 55px;
+    }
+    
+    .contact-form .form-row textarea{
+        margin-right: 65px;
     }
 
     .send-btn {

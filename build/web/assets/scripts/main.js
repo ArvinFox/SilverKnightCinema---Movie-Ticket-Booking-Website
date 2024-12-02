@@ -383,3 +383,33 @@ function initializeEventListeners() {
         }, 1000);
     }
 }
+
+//For Location Popups
+function showPopup(button, mapUrl) {
+    // Get the parent card dimensions
+    var card = button.parentElement;
+    var cardWidth = card.offsetWidth;
+    var cardHeight = card.offsetHeight;
+
+    // Get the popup and iframe elements
+    var popup = document.getElementById("popup-map");
+    var iframe = document.getElementById("map-iframe");
+    var popupContent = document.getElementById("popup-content");
+
+    // Set iframe source and adjust popup size
+    iframe.src = mapUrl;
+    popupContent.style.width = cardWidth + "px";
+    popupContent.style.height = cardHeight + "px";
+
+    // Show the popup
+    popup.style.display = "flex";
+}
+
+function closePopup() {
+    var popup = document.getElementById("popup-map");
+    var iframe = document.getElementById("map-iframe");
+
+    // Hide the popup and reset the iframe
+    popup.style.display = "none";
+    iframe.src = "";
+}
