@@ -262,27 +262,27 @@ let coming_soon_html=`<!--container 1-->
                         <span>Date</span>
                     </div>
                 </a>`;
-document.querySelector('.ongoing').addEventListener('click',()=>{
-document.querySelector('.movies-container').innerHTML = ongoing_movies_html;     
-});
- 
-document.querySelector('.coming-soon').addEventListener('click',()=>{
-    document.querySelector('.movies-container').innerHTML = coming_soon_html;     
-    });
-  
-// Select all movie-type elements
-const movieTypes = document.querySelectorAll('.movie-type');
-
-// Add a click event listener to each movie-type
-movieTypes.forEach(movie => {
-    movie.addEventListener('click', () => {
-        // Remove the 'selected' class from all movie-types
-        movieTypes.forEach(type => type.classList.remove('selected'));
-        
-        // Add the 'selected' class to the clicked element
-        movie.classList.add('selected');
-    });
-});
+//document.querySelector('.ongoing').addEventListener('click',()=>{
+//document.querySelector('.movies-container').innerHTML = ongoing_movies_html;     
+//});
+// 
+//document.querySelector('.coming-soon').addEventListener('click',()=>{
+//    document.querySelector('.movies-container').innerHTML = coming_soon_html;     
+//    });
+//  
+//// Select all movie-type elements
+//const movieTypes = document.querySelectorAll('.movie-type');
+//
+//// Add a click event listener to each movie-type
+//movieTypes.forEach(movie => {
+//    movie.addEventListener('click', () => {
+//        // Remove the 'selected' class from all movie-types
+//        movieTypes.forEach(type => type.classList.remove('selected'));
+//        
+//        // Add the 'selected' class to the clicked element
+//        movie.classList.add('selected');
+//    });
+//});
 
 
 //-------------------Profile Page JS---------------------//
@@ -413,3 +413,106 @@ function closePopup() {
     popup.style.display = "none";
     iframe.src = "";
 }
+   
+//----------Timer for seats page-----------//
+
+let timerDuration = 5 * 60;
+const timerElement = document.getElementById('timer');
+const timerInterval = setInterval(updateTimer, 1000);
+
+function updateTimer() {
+    let minutes = Math.floor(timerDuration / 60);
+    let seconds = timerDuration % 60;
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerElement.textContent = `${minutes}:${seconds}`;
+
+    if (timerDuration <= 0) {
+        clearInterval(timerInterval);
+        location.reload();
+    } else {
+        timerDuration--;
+    }
+}
+
+
+const seats = document.querySelectorAll('.seat');
+
+let selectedSeats = 0;
+let adultCount = 0;
+let childCount = 0;
+
+seats.forEach(seat => {
+    seat.addEventListener('click', () => {
+        if (seat.classList.contains('available')) {
+            if (!seat.classList.contains('selected')) {
+                seat.classList.add('selected');
+                selectedSeats++;
+                adultCount++;
+            } else {
+                seat.classList.remove('selected');
+                selectedSeats--;
+                if (adultCount > 0) {
+                    adultCount--;
+                } else if (childCount > 0) {
+                    childCount--;
+                }
+            }
+            updateTicketCount();
+            updateIncrementDecrementStates();
+        }
+    });
+});
+
+//----------Ticket selection for seats page-----------//
+const adultDecrementBtn = document.getElementById('adult-decrement');
+const adultIncrementBtn = document.getElementById('adult-increment');
+const childDecrementBtn = document.getElementById('child-decrement');
+const childIncrementBtn = document.getElementById('child-increment');
+const adultCountDisplay = document.getElementById('adult-count');
+const childCountDisplay = document.getElementById('child-count');
+
+function updateTicketCount() {
+    adultCountDisplay.textContent = adultCount;
+    childCountDisplay.textContent = childCount;
+}
+
+function updateIncrementDecrementStates() {
+    const totalTickets = adultCount + childCount;
+
+    adultIncrementBtn.disabled = !(totalTickets >= selectedSeats) || childCount <= 0;
+    childIncrementBtn.disabled = !(totalTickets >= selectedSeats) || adultCount <= 0;
+
+    adultDecrementBtn.disabled = adultCount === 0;
+    childDecrementBtn.disabled = childCount === 0;
+}
+
+adultIncrementBtn.addEventListener('click', () => {
+    adultCount++;
+    childCount--;
+    updateTicketCount();
+    updateIncrementDecrementStates();
+});
+
+adultDecrementBtn.addEventListener('click', () => {
+    adultCount--;
+    childCount++;
+    updateTicketCount();
+    updateIncrementDecrementStates();
+});
+
+childIncrementBtn.addEventListener('click', () => {
+    childCount++;
+    adultCount--;
+    updateTicketCount();
+    updateIncrementDecrementStates();
+});
+
+childDecrementBtn.addEventListener('click', () => {
+    childCount--;
+    adultCount++;
+    updateTicketCount();
+    updateIncrementDecrementStates();
+});

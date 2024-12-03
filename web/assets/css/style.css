@@ -1061,6 +1061,7 @@ footer{
 
 
 /*------------Locations Page-------------*/
+
 .locations {
     padding: 30px 30px;
     text-align: center;
@@ -1201,6 +1202,243 @@ footer{
 
 #close-btn:hover {
     background: #d32f2f;
+}
+
+/*------------Movie Seat Selection Page-------------*/
+
+.booking-details-top{
+    margin: 100px auto 0px auto;
+    display: block;
+}
+
+.booking-details-sub-top{
+    display: flex;
+    margin: 0 75px 0 75px;
+}
+
+.movie-locations{
+    border-bottom: 1px solid black; 
+}
+
+.movie-locations h5, .movie-locations i{
+    font-size: 12px; 
+}
+
+.movie-locations h5{
+    font-weight: 300;
+}
+
+.show-time h5{
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+.booking-details-top .timer{
+    padding: 10px;
+    background: #000000;
+    border-radius: 15px;
+    width: 60px;
+    text-align: center;
+    color: #fff700;
+    font-size: 13px;
+    height: fit-content;
+    margin-left: auto;
+}
+
+.booking-details-top h1{
+    font-size: 30px; 
+}
+
+.seat-container-width{
+    margin: auto;
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.seat-container-width h2{
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 14px; 
+}
+
+.seat-container-width h2, .seat-container-width hr{
+    margin-bottom: 5px;
+}
+
+.seat-booking-container{
+    padding: 0;
+    margin: auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.screen{
+    background: linear-gradient(rgba(201, 201, 201),rgba(201, 201, 201, 0));
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-radius: 50px 50px 0 0;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.seat-container-width h2{
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+.seat-container{
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 175px 250px 175px;
+    column-gap: 20px;
+    justify-content: center;
+}
+
+.seat-row{
+    display: flex;
+    width: fit-content;
+    margin: auto;
+}
+
+.seat-row .seat{
+    padding: 0;
+    margin: 1px;
+    border-radius: 3px;
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    align-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.seat-row .available{
+    color: #b4b4b4;
+    background-color: white;
+    border: 1px solid #b4b4b4;
+}
+
+.seat-row .seat:hover{
+    background-color: #e9e9e9;
+    color: #b4b4b4;
+}
+
+.seat-row .reserved{
+    background-color: #ff0000;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.seat-row .reserved:hover{
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.seat-row .selected{
+    background-color: #001aff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.seat-row .selected:hover{
+    background-color: #394dff;
+    color: #fff;
+}
+
+.seat-row .unavailable{
+    background-color: #ff8787;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.seat-row .unavailable:hover{
+    background-color: #ff8787;
+    color: #fff;
+}
+
+.ticket-selection{
+    padding-top: 50px;
+    text-align: center;
+    margin: auto;
+}
+
+.ticket-selection span{
+    margin: 0 20px 0 20px;
+}
+
+.btn-movie-selection{
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50px;
+    margin: 25px 25px;
+}
+
+.btn-navigate{
+    padding: 8px 16px;
+    border: none;
+    background-color: #FF0000;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 25px 100px 25px 100px;
+}
+
+.btn-navigate:hover{
+    background-color: #971114;
+}
+
+.btn-navigate:active{
+    background-color: #860000;
+}
+
+.btn-movie-container{
+    margin: auto;
+    text-align: center;
+}
+
+@media(max-width: 660px){
+    .seat-container{
+        justify-content: space-evenly;
+    }
+
+    .seat-container-width{
+        width: 85%;
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    .booking-details-sub-top{
+        margin: 0 25px 0 25px;
+    }
+
+    .booking-details-top h1{
+        font-size: 25px; 
+    }
+    
+    .btn-navigate{
+        padding: 8px 16px;
+        border: none;
+        background-color: #FF0000;
+        color: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 25px 25px 25px 25px;
+    }
+    
+    .ticket-selection span{
+        margin: 0 5px 0 5px;
+    }
+    
+    .btn-movie-selection{
+        margin: 25px 5px;
+    }
+    
 }
 
 /*Contact Us - media queries*/
