@@ -1,0 +1,26 @@
+<%-- 
+    Document   : sidebar
+    Created on : Dec 3, 2024, 12:28:08 PM
+    Author     : Umindu Haputhanthri
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String currentPage = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+%>
+<div class="admin-sidebar" id="adminSidebar">
+    <button id="toggleSidebar" class="toggle-sidebar-btn">&#9776;</button>
+    <nav>
+        <ul>
+            <li><a href="manageUsers.jsp" class="<%= "manageUsers.jsp".equals(currentPage) ? "selected" : "" %>">Manage Users</a></li>
+            <li><a href="manageGenres.jsp" class="<%= "manageGenres.jsp".equals(currentPage) ? "selected" : "" %>">Manage Genres</a></li>
+            <li><a href="manageMovies.jsp" class="<%= "manageMovies.jsp".equals(currentPage) ? "selected" : "" %>">Manage Movies</a></li>
+            <li><a href="managePromotions.jsp" class="<%= "managePromotions.jsp".equals(currentPage) ? "selected" : "" %>">Manage Promotions</a></li>
+            <li><a href="manageHalls.jsp" class="<%= "manageHalls.jsp".equals(currentPage) ? "selected" : "" %>">Manage Halls</a></li>
+            <li><a href="manageShowtimes.jsp" class="<%= "manageShowtimes.jsp".equals(currentPage) ? "selected" : "" %>">Manage Showtimes</a></li>
+            <li><a href="manageSeats.jsp" class="<%= "manageSeats.jsp".equals(currentPage) ? "selected" : "" %>">Manage Seats</a></li>
+            <li><a href="manageBookings.jsp" class="<%= "manageBookings.jsp".equals(currentPage) ? "selected" : "" %>">Manage Bookings</a></li>
+            <li><a href="manageFoods.jsp" class="<%= "manageFoods.jsp".equals(currentPage) ? "selected" : "" %>">Manage Foods</a></li>
+        </ul>
+    </nav>
+</div>
