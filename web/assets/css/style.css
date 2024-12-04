@@ -206,7 +206,7 @@ footer{
 
 /*-----------Css for all the banners-----------*/
 .banner-terms{
-  background: url('../images/terms-banner.jpg')no-repeat;
+  background: url('../images/terms-banner1.jpg')no-repeat;
   min-height: 380px;
   width: 100%;
   overflow: hidden;
@@ -245,6 +245,17 @@ footer{
     flex-direction: column;
     color: white;
     justify-content: center;
+}
+
+.banner-locations::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 380px;
+    background: rgba(0,0,0,0.3);
+    z-index: 0;
 }
 
 .profile-banner-section{
@@ -377,7 +388,7 @@ footer{
 
 .deals-h2 {
     font-family: 'roboto';
-    font-size: 32px;
+    font-size: 28px !important;
     font-weight: bold;
 }
 
@@ -396,6 +407,7 @@ footer{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 24px;
 }
 
 .deal h3 {
@@ -1075,11 +1087,11 @@ footer{
 }
 
 .locations-header p {
-    font-size: 22px; 
+    font-size: 18.5px; 
     font-weight: bold;
     line-height: 1.5; /* Adjust line spacing */
     color: black;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 
 /* Location Cards */
@@ -1380,9 +1392,9 @@ footer{
 }
 
 .btn-navigate{
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    background-color: #FF0000;
+    background-color: #B8B8B8;
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
@@ -1390,7 +1402,7 @@ footer{
 }
 
 .btn-navigate:hover{
-    background-color: #971114;
+    background-color: #949494;
 }
 
 .btn-navigate:active{
@@ -1421,10 +1433,9 @@ footer{
         font-size: 25px; 
     }
     
-    .btn-navigate{
+    .btn-navigate {
         padding: 8px 16px;
         border: none;
-        background-color: #FF0000;
         color: #ffffff;
         border-radius: 5px;
         cursor: pointer;
