@@ -5,21 +5,21 @@ const modalContent = document.getElementById('modalContent');
 let hasUnsavedChanges = false;
 
 // Function to fetch and display content dynamically
-const fetchPopupContent = async (url, id = null) => {
+const fetchPopupContent = async (url, id = null, type = null) => {
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ id: id})
+      body: JSON.stringify({ id: id, type: type })
     });
     const html = await response.text();
     modalContent.innerHTML = `<button class="close-btn" id="closeModal">X</button>` + html;
     document.getElementById('closeModal').onclick = handleModalClose; // Rebind the close button
 
     setupUnsavedChangesTracking();  // Track any changes made to the modal
-    
+
   } catch (error) {
     console.error('Error loading popup content:', error);
     modalContent.innerHTML = 'No data available';
@@ -27,9 +27,9 @@ const fetchPopupContent = async (url, id = null) => {
 };
 
 // Function to open the modal
-const openModal = async (url, id = null) => {
+const openModal = async (url, id = null, type = null) => {
   hasUnsavedChanges = false;
-  await fetchPopupContent(url, id); // Load content dynamically
+  await fetchPopupContent(url, id, type); // Load content dynamically
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
 };
@@ -129,10 +129,10 @@ document.querySelectorAll('#openModal').forEach((link) => {
     if (action === 'add') {
       url = url + 'add' + type + '.jsp';
     } else if (action === 'view') {
-      url = url + 'view' + type + '.jsp';
+      url = "../fetch";
     }
 
-    openModal(url, id);
+    openModal(url, id, type);
   });
 });
 
@@ -165,9 +165,49 @@ const filterOptions = document.getElementById('filterOptions');
 const toggleIcon = document.getElementById('toggleIcon');
 
 if (filterHeader) {
-  filterHeader.addEventListener('click', function() {
+  filterHeader.addEventListener('click', function () {
     filterOptions.classList.toggle('active');
     filterHeader.classList.toggle('collapsed');
+  });
+}
+//
+
+
+// JavaScript for confirming movie deletion
+function confirmDelete(movieTitle, movieId) {
+  return confirm(`Are you sure you want to delete the movie "${movieTitle}" [ID: ${movieId}]? \nThis action cannot be undone.`);
+}
+//
+
+
+// JavaScript for uploading movie poster file (separately)
+function uploadMoviePoster() {
+  document.getElementById('movieForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // File upload
+    const posterInput = document.getElementById('poster');
+    if (posterInput.files.length > 0) {
+      const file = posterInput.files[0];
+      const formData = new FormData();
+      formData.append('poster', file);
+
+      const uploadResponse = await fetch('../upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!uploadResponse.ok) {
+        alert('File upload failed!');
+        return;
+      }
+
+      const uploadedFilePath = await uploadResponse.text();
+      document.getElementById('posterPath').value = uploadedFilePath;  // Update the value of the file path
+    }
+
+    // Submit the rest of the form
+    this.submit();
   });
 }
 //
@@ -179,7 +219,7 @@ function addCastCrewRow(type) {
 
   const newRow = document.createElement('div');
   newRow.className = 'cast-crew-row';
-  
+
   if (type === 'cast') {
     newRow.innerHTML = `
       <input type="text" name="castActor[]" placeholder="Actor Name" required>
@@ -229,43 +269,36 @@ let initialCastState = [];
 let initialCrewState = [];
 let initialLanguage = '';
 
-// Sample language data
-const allLanguages = [
-  { id: 1, name: "English" },
-  { id: 2, name: "Spanish" },
-  { id: 3, name: "French" },
-  { id: 4, name: "German" },
-  { id: 5, name: "Hindi" },
-  { id: 6, name: "Japanese" },
-  { id: 7, name: "Korean" },
-  { id: 8, name: "Sinhala" }
-];
+const allLanguages = [];
+const allGenres = [];
 
-// Sample genres data
-const allGenres = [
-  { id: 1, name: "Action" },
-  { id: 2, name: "Adventure" },
-  { id: 3, name: "Comedy" },
-  { id: 4, name: "Drama" },
-  { id: 5, name: "Sci-Fi" },
-  { id: 6, name: "Horror" },
-  { id: 7, name: "Thriller" },
-  { id: 8, name: "Crime" },
-  { id: 9, name: "Fantasy" },
-  { id: 10, name: "Romance" },
-  { id: 11, name: "Mystery" },
-  { id: 12, name: "Family" },
-  { id: 13, name: "Sport" },
-  { id: 14, name: "History" },
-  { id: 15, name: "Documentary" }
-];
+async function fetchLanguagesAndGenres() {
+  try {
+    const response = await fetch('../fetch');
+    if (!response.ok) throw new Error('Failed to fetch languages and genres');
 
-function toggleEditMode(editMode) {
+    const data = await response.json();
+    const { languages, genres } = data;
+
+    allLanguages.length = 0;  // Clear any existing data
+    allLanguages.push(...languages);  // Add fetched languages
+
+    allGenres.length = 0;
+    allGenres.push(...genres);
+
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+  }
+}
+
+async function toggleEditMode(editMode) {
   // General elements
   const trailerLink = document.getElementById('trailerLink');
   const editButton = document.querySelector('.edit-btn');
   const actionButtons = document.querySelector('.action-buttons');
   const elements = document.querySelectorAll('.editable');
+
+  await fetchLanguagesAndGenres();
 
   if (editMode) {
     // Enable edit mode
@@ -311,10 +344,10 @@ function toggleLanguageEdit(editMode) {
 
     allLanguages.forEach(language => {
       const option = document.createElement("option");
-      option.value = language.id;
-      option.textContent = language.name;
+      option.value = language.languageId;
+      option.textContent = language.language;
 
-      if (language.name === initialLanguage) {
+      if (language.language === initialLanguage) {
         option.selected = true;
       }
 
@@ -337,8 +370,7 @@ function toggleGenresEdit(editMode) {
   if (editMode) {
     // Save initial genre state
     initialGenreState = Array.from(genreTags).map(tag => ({
-      genreId: tag.dataset.genreId,
-      checked: !tag.hasAttribute("hidden")
+      genreId: tag.getAttribute('data-genre-id')
     }));
 
     genreContainer.classList.remove("genres");
@@ -347,13 +379,13 @@ function toggleGenresEdit(editMode) {
 
     // Render all genres with checkboxes
     allGenres.forEach(genre => {
-      const isSelected = initialGenreState.some(state => state.genreId === `genre-${genre.name.toLowerCase().replace(/\s+/g, "-")}` && state.checked);
+      const isSelected = initialGenreState.some(state => state.genreId === `genre-${genre.genreId}`);
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.id = `genre-${genre.name.toLowerCase().replace(/\s+/g, "-")}`;
+      checkbox.id = `genre-${genre.genreId}`;
       checkbox.name = "genres";
-      checkbox.value = genre.id;
+      checkbox.value = genre.genreId;
       checkbox.checked = isSelected;
 
       const label = document.createElement("label");
@@ -371,13 +403,12 @@ function toggleGenresEdit(editMode) {
 
     // Render selected genres only
     initialGenreState
-      .filter(state => state.checked)
       .forEach(state => {
-        const genre = allGenres.find(g => `genre-${g.name.toLowerCase().replace(/\s+/g, "-")}` === state.genreId);
+        const genre = allGenres.find(g => `genre-${g.genreId}` === state.genreId);
         if (genre) {
           const genreTag = document.createElement("span");
           genreTag.className = "genre-tag";
-          genreTag.dataset.genreId = `genre-${genre.name.toLowerCase().replace(/\s+/g, "-")}`;
+          genreTag.dataset.genreId = `genre-${genre.genreId}`;
           genreTag.textContent = genre.name;
           genreContainer.appendChild(genreTag);
         }
@@ -411,12 +442,12 @@ function toggleCastCrewEdit(type, editMode) {
         ? `
           <input type="text" name="castActor[]" value="${member.actor}" placeholder="Actor Name">
           <input type="text" name="castCharacter[]" value="${member.character}" placeholder="Character Name">
-          <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('cast', this)">Remove</button>
+          <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('cast', this)" ${window[stateKey].length === 1 ? "disabled" : ""}>Remove</button>
         `
         : `
           <input type="text" name="crewMember[]" value="${member.name}" placeholder="Member Name">
           <input type="text" name="crewRole[]" value="${member.role}" placeholder="Role (e.g., Director)">
-          <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('crew', this)">Remove</button>
+          <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('crew', this)" ${window[stateKey].length === 1 ? "disabled" : ""}>Remove</button>
         `;
 
       container.appendChild(row);
@@ -467,9 +498,20 @@ function resetChanges() {
   hasUnsavedChanges = false;
 
   // Reset each section
+  resetLanguage();
   resetGenres();
   resetCastCrew('cast');
   resetCastCrew('crew');
+}
+
+function resetLanguage() {
+  const languageContainer = document.getElementById('language-container');
+  const selectElement = languageContainer.querySelector("select");
+
+  const initialLanguageOption = Array.from(selectElement.options).find(option => option.textContent === initialLanguage);
+  if (initialLanguageOption) {
+    initialLanguageOption.selected = true;
+  }
 }
 
 function resetGenres() {
@@ -478,11 +520,11 @@ function resetGenres() {
 
   // Display all genres
   allGenres.forEach(genre => {
-    const isSelected = initialGenreState.some(state => state.genreId === `genre-${genre.name.toLowerCase().replace(/\s+/g, "-")}` && state.checked);
+    const isSelected = initialGenreState.some(state => state.genreId === `genre-${genre.genreId}`);
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = `genre-${genre.name.toLowerCase().replace(/\s+/g, "-")}`;
+    checkbox.id = `genre-${genre.genreId}`;
     checkbox.name = "genres";
     checkbox.value = genre.id;
     checkbox.checked = isSelected;
@@ -537,5 +579,3 @@ if (toggleSidebarButton) {
   });
 }
 //
-
-

@@ -189,7 +189,8 @@ body {
   border-radius: 8px;
   width: 50%;
   max-height: 79%;
-  overflow-y: auto; /* Enable scrolling for overflow content */
+  overflow-y: auto;
+  overflow-x: auto;
   position: relative;
 }
 
@@ -622,6 +623,4 @@ body {
     font-weight: bold;
     color: #444;
 }
-
-
 

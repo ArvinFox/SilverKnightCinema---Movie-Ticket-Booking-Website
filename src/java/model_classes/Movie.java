@@ -23,6 +23,20 @@ public class Movie {
 
     // Constructors
     public Movie() {}
+    
+    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl) {
+        this.title = title;
+        this.synopsis = synopsis;
+        this.languageId = languageId;
+        this.genreIds = genreIds;
+        this.duration = duration;
+        this.rating = rating;
+        this.releaseDate = releaseDate;
+        this.cast = cast;
+        this.crew = crew;
+        this.posterUrl = posterUrl;
+        this.trailerUrl = trailerUrl;
+    }
 
     public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl, Date createdAt) {
         this.title = title;

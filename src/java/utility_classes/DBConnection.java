@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/silverknightcinema_db";
-    private static final String DB_USER = "user";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "12345";
     
     private DBConnection() {}
     

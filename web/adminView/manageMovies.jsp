@@ -4,13 +4,19 @@
     Author     : Umindu Haputhanthri
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<c:if test="${sessionScope.username == null}">
+    <c:redirect url="/admin/login" />
+</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Manage Movies - SilverKnightCinema</title>
+        <title>Manage Movies - Silver Knight Cinema</title>
         <link rel="stylesheet" href="../assets/css/adminStyles.css">
     </head>
     <body>
@@ -36,19 +42,19 @@
                     <label for="genre">Genre:</label>
                     <select name="genre" id="genre">
                         <option value="">Select Genre</option>
-                        <option value="Action" <%= "Action".equals(request.getParameter("genre")) ? "selected" : "" %>>Action</option>
-                        <option value="Comedy" <%= "Comedy".equals(request.getParameter("genre")) ? "selected" : "" %>>Comedy</option>
-                        <option value="Drama" <%= "Drama".equals(request.getParameter("genre")) ? "selected" : "" %>>Drama</option>
-                        <option value="Thriller" <%= "Thriller".equals(request.getParameter("genre")) ? "selected" : "" %>>Thriller</option>
+                        <c:forEach var="genre" items="${genreList}">
+                            <option value="${genre.genreId}">${genre.name}</option>
+                        </c:forEach>
+<!--                        <option value="Action" <%= "Action".equals(request.getParameter("genre")) ? "selected" : "" %>>Action</option>-->
                     </select>
 
                     <label for="language">Language:</label>
                     <select name="language" id="language">
                         <option value="">Select Language</option>
-                        <option value="English" <%= "English".equals(request.getParameter("language")) ? "selected" : "" %>>English</option>
-                        <option value="Spanish" <%= "Spanish".equals(request.getParameter("language")) ? "selected" : "" %>>Spanish</option>
-                        <option value="French" <%= "French".equals(request.getParameter("language")) ? "selected" : "" %>>French</option>
-                        <option value="Hindi" <%= "Hindi".equals(request.getParameter("language")) ? "selected" : "" %>>Hindi</option>
+                        <c:forEach var="language" items="${languageList}">
+                            <option value="${language.languageId}">${language.language}</option>
+                        </c:forEach>
+<!--                        <option value="English" <%= "English".equals(request.getParameter("language")) ? "selected" : "" %>>English</option>-->
                     </select>
 
                     <label for="releaseDateFrom">Release Date From:</label>
@@ -70,46 +76,40 @@
                 </form>
             </div>
                     
-            <table class="movies-table">
-                <thead>
-                    <tr>
-                        <th>Movie ID</th>
-                        <th>Title</th>
-                        <th>Release Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Test Movie Title 1</td>
-                        <td>2010-07-16</td>
-                        <td>
-                            <div style="display: flex;">
-                                <input type="submit" id="openModal" class="action-btn view-btn" data-id="1" data-action="view" data-type="Movie" value="View" />
-                                <form action="manageMovies" method="post">
-                                    <input type="submit" class="action-btn delete-btn" value="Delete" />
-                                    <input type="hidden" name="movieId" value="1"/>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Test Movie Title 2</td>
-                        <td>2009-12-18</td>
-                        <td>
-                            <div style="display: flex;">
-                                <input type="submit" id="openModal" class="action-btn view-btn" data-id="2" data-action="view" data-type="Movie" value="View" />
-                                <form action="manageMovies" method="post">
-                                    <input type="submit" class="action-btn delete-btn" value="Delete" />
-                                    <input type="hidden" name="movieId" value="2"/>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <c:if test="${not empty movieList}">
+                <table class="movies-table">
+                    <thead>
+                        <tr>
+                            <th>Movie ID</th>
+                            <th>Title</th>
+                            <th>Release Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="movie" items="${movieList}">
+                            <tr>
+                                <td>${movie.movieId}</td>
+                                <td>${movie.title}</td>
+                                <td>${movie.releaseDate}</td>
+                                <td>
+                                    <div style="display: flex;">
+                                        <input type="submit" id="openModal" class="action-btn view-btn" data-id="${movie.movieId}" data-action="view" data-type="Movie" value="View" />
+                                        <form action="manageMovies" method="POST" onsubmit="return confirmDelete('${movie.title}', '${movie.movieId}')">
+                                            <input type="submit" class="action-btn delete-btn" value="Delete" />
+                                            <input type="hidden" name="action" value="delete" />
+                                            <input type="hidden" name="movieId" value="${movie.movieId}"/>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+            <c:if test="${empty movieList}">
+                <p>No movies available.</p>
+            </c:if>
         </div>
                     
         <!-- Modal structure -->

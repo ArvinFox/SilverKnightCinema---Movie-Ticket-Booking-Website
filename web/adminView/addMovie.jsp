@@ -4,13 +4,24 @@
     Author     : Umindu Haputhanthri
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model_classes.Language"%>
+<%@page import="dao_classes.LanguageDAO"%>
+<%@page import="model_classes.Genre"%>
+<%@page import="dao_classes.GenreDAO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<c:if test="${sessionScope.username == null}">
+    <c:redirect url="/admin/login" />
+</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Movie - SilverKnightCinema</title>
+        <title>Add Movie - Silver Knight Cinema</title>
         <link rel="stylesheet" href="../assets/css/adminStyles.css">
     </head>
     <body>
@@ -18,7 +29,9 @@
         <div class="main-content sub-content">
             <h1>Add New Movie</h1>
             
-            <form action="manageMovies" method="post" enctype="multipart/form-data">
+            <form id="movieForm" action="manageMovies" method="POST">
+                <input type="hidden" name="action" value="add">
+                
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" required>
@@ -29,67 +42,34 @@
                     <textarea id="synopsis" name="synopsis" required></textarea>
                 </div>
 
+                <%
+                    LanguageDAO languageDAO = new LanguageDAO();
+                    List<Language> languageList = languageDAO.getAllLanguages();
+                    request.setAttribute("languageList", languageList);
+                %>
+
                 <div class="form-group">
                     <label for="language">Language</label>
                     <select id="language" name="language" required>
-                        <option value="1">English</option>
-                        <option value="2">Spanish</option>
-                        <option value="3">French</option>
-                        <option value="4">German</option>
-                        <option value="5">Hindi</option>
-                        <option value="6">Japanese</option>
-                        <option value="7">Korean</option>
-                        <option value="8">Sinhala</option>
+                        <c:forEach var="language" items="${languageList}">
+                            <option value="${language.languageId}">${language.language}</option>
+                        </c:forEach>
                     </select>
                 </div>
+
+                <%
+                    GenreDAO genreDAO = new GenreDAO();
+                    List<Genre> genreList = genreDAO.getAllGenres();
+                    request.setAttribute("genreList", genreList);
+                %>
 
                 <div class="form-group">
                     <label>Genres</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="genre-action" name="genres" value="1">
-                        <label for="genre-action">Action</label>
-
-                        <input type="checkbox" id="genre-adventure" name="genres" value="2">
-                        <label for="genre-adventure">Adventure</label>
-
-                        <input type="checkbox" id="genre-comedy" name="genres" value="3">
-                        <label for="genre-comedy">Comedy</label>
-
-                        <input type="checkbox" id="genre-drama" name="genres" value="4">
-                        <label for="genre-drama">Drama</label>
-
-                        <input type="checkbox" id="genre-sci-fi" name="genres" value="5">
-                        <label for="genre-sci-fi">Sci-Fi</label>
-
-                        <input type="checkbox" id="genre-horror" name="genres" value="6">
-                        <label for="genre-horror">Horror</label>
-
-                        <input type="checkbox" id="genre-thriller" name="genres" value="7">
-                        <label for="genre-thriller">Thriller</label>
-
-                        <input type="checkbox" id="genre-crime" name="genres" value="8">
-                        <label for="genre-crime">Crime</label>
-
-                        <input type="checkbox" id="genre-fantasy" name="genres" value="9">
-                        <label for="genre-fantasy">Fantasy</label>
-
-                        <input type="checkbox" id="genre-romance" name="genres" value="10">
-                        <label for="genre-romance">Romance</label>
-
-                        <input type="checkbox" id="genre-mystery" name="genres" value="11">
-                        <label for="genre-mystery">Mystery</label>
-
-                        <input type="checkbox" id="genre-family" name="genres" value="12">
-                        <label for="genre-family">Family</label>
-
-                        <input type="checkbox" id="genre-sport" name="genres" value="13">
-                        <label for="genre-sport">Sport</label>
-
-                        <input type="checkbox" id="genre-history" name="genres" value="14">
-                        <label for="genre-history">History</label>
-
-                        <input type="checkbox" id="genre-documentary" name="genres" value="15">
-                        <label for="genre-documentary">Documentary</label>
+                        <c:forEach var="genre" items="${genreList}">
+                            <input type="checkbox" id="genre-${genre.genreId}" name="genres" value="${genre.genreId}">
+                            <label for="genre-${genre.genreId}">${genre.name}</label>
+                        </c:forEach>
                     </div>
                 </div>
 
@@ -134,7 +114,8 @@
 
                 <div class="form-group">
                     <label for="posterUrl">Poster</label>
-                    <input type="file" id="posterUrl" name="posterUrl" accept="image/*" required>
+                    <input type="file" id="poster" accept="image/*" required>
+                    <input type="hidden" id="posterPath" name="posterUrl">
                 </div>
 
                 <div class="form-group">
@@ -142,7 +123,7 @@
                     <input type="url" id="trailerUrl" name="trailerUrl" required>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16">Add Movie</button>
+                <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadMoviePoster()">Add Movie</button>
             </form>
         </div>
         
