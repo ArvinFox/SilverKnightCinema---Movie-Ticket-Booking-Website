@@ -5,8 +5,8 @@ import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
 public class EmailUtil {
-    private static final String EMAIL = "EMAIL";
-    private static final String PASSWORD = "PASSWORD";
+    private static final String EMAIL = "silverknightcinemas@gmail.com";
+    private static final String PASSWORD = "password";
     
     public static void sendEmail(String recipient, String subject, String body) {
         Properties properties = new Properties();

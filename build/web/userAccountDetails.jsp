@@ -41,7 +41,7 @@
         <h1>Password</h1>
         <div class="user-details-sub-container">
             <div class="form-row">
-                <form method="POST" action="#">
+                <form method="POST" action="resetPassword.jsp">
                     <input type="submit" id="changePassword" value="Change Current Password">
                 </form>
             </div>

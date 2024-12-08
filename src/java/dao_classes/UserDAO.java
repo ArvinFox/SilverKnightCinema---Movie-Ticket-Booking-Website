@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAO {
     
@@ -36,19 +37,21 @@ public class UserDAO {
     // Method to log in user
     public User loginUser(String email, String password) {
         User user = null;
-        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM users WHERE email = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, email);
-            ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    user = populateUser(rs);
+                    String hashedPassword = rs.getString("password");
+                    if(BCrypt.checkpw(password, hashedPassword))
+                    {
+                        user = populateUser(rs);
+                    }
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in logging in user: " + e.getMessage());

@@ -1069,6 +1069,16 @@ footer{
         font-weight: 300;
         padding-bottom: 15px;
     }
+    
+    .hidden{
+        display: none;
+    }
+
+    .disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
 }
 
 

@@ -40,13 +40,27 @@
         
         <script src="assets/scripts/main.js"></script>
         <jsp:include page="footer.jsp"/>
+        
         <script>
+            const accDetails = document.querySelector(".account-details");
+            const bookingDetails = document.querySelector(".booking-history");
             // Loads the Account Details as the default loaded screen when the page is loaded for the first time
             window.onload = ()=> {
                 loadContent('userAccountDetails.jsp');  // Loading the JSP inside the main page
-                document.querySelector(".account-details").style.color = "black";
-                document.querySelector(".booking-history").style.color = "rgb(104, 104, 104)";
+                accDetails.style.color = "black";
+                bookingDetails.style.color = "rgb(104, 104, 104)";
             };
+            
+            accDetails.addEventListener("click", ()=>{
+                accDetails.style.color = "black";
+                bookingDetails.style.color = "rgb(104, 104, 104)";
+            });
+            
+            bookingDetails.addEventListener("click", ()=>{
+                bookingDetails.style.color = "black";
+                accDetails.style.color = "rgb(104, 104, 104)";
+            });
+                
         </script>
     </body>
 </html>

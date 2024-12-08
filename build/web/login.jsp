@@ -14,13 +14,11 @@
         <link rel="stylesheet" href="assets/css/forms.css">
     </head>
     <body>
-        <section class="navigation">
-            <jsp:include page="header.jsp"/>
-        </section>
+        <jsp:include page="header.jsp"/>
         
         <section class="form-content">
             <div class="form">
-                <form name="loginForm" method="POST">
+                <form name="loginForm" method="POST" action="LoginServlet">
                     <h1 class="form-heading"> Login </h1> <br>
                     <label for="text"> Email </label>
                     <br>
@@ -29,7 +27,7 @@
                     
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Password" class="input-field" required/>
+                    <input type="password" name="password" placeholder="Password" maxlength="12" class="input-field" required/>
                     <br><br>
                     
                     <div class="div">
@@ -37,7 +35,7 @@
                             Remember Me 
                             <input type="checkbox" name="rememberMe" style="margin-left: 8px;">
                         </div>
-                        <a href="forgotPassword.jsp" class="link"> Forgot Password?</a>
+                        <a href="forgotPassword" class="link"> Forgot Password?</a>
                     </div>
                     
                     <br><br>
@@ -53,8 +51,6 @@
              </div>
         </section>
         
-        <section id="footer">
-            <jsp:include page="footer.jsp"/>
-        </section>
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>

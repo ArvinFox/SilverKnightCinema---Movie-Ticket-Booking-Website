@@ -4,6 +4,8 @@
     Author     : Udani Indrachapa
 --%>
 
+<%@page import="model_classes.User"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,10 +27,15 @@
             <ul id="menuList">
                 <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
                 <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
+                <li class="navLink"> <a href="locations.jsp"> Locations </a></li>
                 <li class="navLink"> <a href="dealsAndOffers.jsp"> Deals & Offers </a></li>
-                <li class="navLink"> <a href="aboutUs.jsp"> About Us </a></li>
-                <li class="navLink"> <a href="contactUs.jsp"> Contact Us </a></li>
-                <li> <button onclick="loginfunction()"> Login </button> </li>   
+                <c:if test="${sessionScope.user == null}">
+                    <li> <button onclick="loginfunction()"> Login </button> </li>
+                </c:if>
+                    
+                <c:if test="${sessionScope.user != null}">
+                    <li> <button onclick="loginfunction()" disabled> Welcome, ${user.firstName}! </button> </li>
+                </c:if>    
             </ul>
             <div class="menu-icon">
                 <i class="fa-solid fa-bars"  onclick="toggleMenu()"></i>
@@ -53,7 +60,7 @@
         
         <script>
             function loginfunction(){
-                location.replace("login.jsp");
+                location.replace("login");
             }
         </script>
         

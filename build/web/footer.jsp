@@ -57,9 +57,8 @@
                     <ul>
                         <li> <a href="index.jsp">Home </a> </li>
                         <li> <a href="movies.jsp">Movies </a> </li>
+                        <li> <a href="locations.jsp">Locations </a> </li>
                         <li> <a href="dealsAndOffers.jsp">Deals and Offers </a> </li>
-                        <li> <a href="aboutUs.jsp">About Us </a> </li>
-                        <li> <a href="contactUs.jsp">Contact Us </a> </li>
                     </ul>
                 </div>
 
@@ -67,10 +66,10 @@
                 <div class="footer-col quick-links">
                     <h3> Quick Links </h3>
                     <ul>
-                        <li> <a href="locations.jsp">Locations </a> </li>
                         <li> <a href="faq.jsp">FAQs </a> </li>
+                        <li> <a href="aboutUs.jsp">About Us </a> </li>
+                        <li> <a href="contactUs.jsp">Contact Us</a> </li>
                         <li> <a href="termsAndConditions.jsp">Terms & Conditions </a> </li>
-                        <li> <a href="food.jsp">Food & Beverages </a> </li>
                     </ul>
                 </div>
 
@@ -93,7 +92,7 @@
             </div>
                 
             <div class="footer-bottom">
-                <p class="footer-p"> @All Right Reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
+                <p class="footer-p"> &copy; Silver Knight Cinema. All rights reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
             </div>
         </footer>
     </body>
