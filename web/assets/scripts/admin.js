@@ -173,9 +173,21 @@ if (filterHeader) {
 //
 
 
-// JavaScript for confirming movie deletion
-function confirmDelete(movieTitle, movieId) {
+// JavaScript for confirming deletion
+function confirmMovieDelete(movieTitle, movieId) {
   return confirm(`Are you sure you want to delete the movie "${movieTitle}" [ID: ${movieId}]? \nThis action cannot be undone.`);
+}
+
+function confirmGenreDelete(genreName, genreId) {
+  return confirm(`Are you sure you want to delete the genre "${genreName}" [ID: ${genreId}]? \nThis action cannot be undone.`);
+}
+
+function confirmLanguageDelete(languageName, languageId) {
+  return confirm(`Are you sure you want to delete the language "${languageName}" [ID: ${languageId}]? \nThis action cannot be undone.`);
+}
+
+function confirmInquiryDelete(inquirySubject, inquiryId) {
+  return confirm(`Are you sure you want to delete the inquiry with subject "${inquirySubject}" [ID: ${inquiryId}]? \nThis action cannot be undone.`);
 }
 //
 
@@ -268,6 +280,7 @@ let initialGenreState = [];
 let initialCastState = [];
 let initialCrewState = [];
 let initialLanguage = '';
+let initialMovieStatus = '';
 
 const allLanguages = [];
 const allGenres = [];
@@ -291,9 +304,8 @@ async function fetchLanguagesAndGenres() {
   }
 }
 
-async function toggleEditMode(editMode) {
+async function toggleEditMode(editMode, type = null) {
   // General elements
-  const trailerLink = document.getElementById('trailerLink');
   const editButton = document.querySelector('.edit-btn');
   const actionButtons = document.querySelector('.action-buttons');
   const elements = document.querySelectorAll('.editable');
@@ -302,12 +314,10 @@ async function toggleEditMode(editMode) {
 
   if (editMode) {
     // Enable edit mode
-    toggleLanguageEdit(true);
-    toggleGenresEdit(true);
-    toggleCastCrewEdit('cast', true);
-    toggleCastCrewEdit('crew', true);
+    if (type === 'movie') {
+      toggleMovieEdit(true);
+    }
 
-    trailerLink.classList.add('hidden');
     elements.forEach(el => el.disabled = false);
     editButton.classList.add('hidden');
     actionButtons.classList.remove('hidden');
@@ -316,16 +326,38 @@ async function toggleEditMode(editMode) {
   } else {
     // Disable edit mode
     hasUnsavedChanges = false;
-    toggleLanguageEdit(false);
-    toggleGenresEdit(false);
-    toggleCastCrewEdit('cast', false);
-    toggleCastCrewEdit('crew', false);
 
-    trailerLink.classList.remove('hidden');
+    if (type === 'movie') {
+      toggleMovieEdit(false);
+    }
+   
     elements.forEach(el => el.disabled = true);
     editButton.classList.remove('hidden');
     actionButtons.classList.add('hidden');
     actionButtons.style.display = "none";
+  }
+}
+
+function toggleMovieEdit(editMode) {
+  const trailerLink = document.getElementById('trailerLink');
+
+  if (editMode) {
+    toggleLanguageEdit(true);
+    toggleGenresEdit(true);
+    toggleMovieStatusEdit(true);
+    toggleCastCrewEdit('cast', true);
+    toggleCastCrewEdit('crew', true);
+
+    trailerLink.classList.add('hidden');
+
+  } else {
+    toggleLanguageEdit(false);
+    toggleGenresEdit(false);
+    toggleMovieStatusEdit(false);
+    toggleCastCrewEdit('cast', false);
+    toggleCastCrewEdit('crew', false);
+
+    trailerLink.classList.remove('hidden');
   }
 }
 
@@ -416,6 +448,48 @@ function toggleGenresEdit(editMode) {
   }
 }
 
+function toggleMovieStatusEdit(editMode) {
+  const statusContainer = document.getElementById('status-container');
+
+  if (editMode) {
+    initialMovieStatus = statusContainer.querySelector("input").value;
+
+    statusContainer.innerHTML = '';
+    const select = document.createElement("select");
+    select.classList.add("form-control");
+    select.id = "status";
+    select.name = "status";
+    select.required = true;
+
+    const nowShowingOption = document.createElement("option");
+    nowShowingOption.value = "NOW_SHOWING";
+    nowShowingOption.textContent = "Now Showing";
+
+    if ("Now Showing" === initialMovieStatus) {
+      nowShowingOption.selected = true;
+    }
+
+    select.appendChild(nowShowingOption);
+
+    const comingSoonOption = document.createElement("option");
+    comingSoonOption.value = "COMING_SOON";
+    comingSoonOption.textContent = "Coming Soon";
+
+    if ("Coming Soon" === initialMovieStatus) {
+      comingSoonOption.selected = true;
+    }
+
+    select.appendChild(comingSoonOption);
+
+    statusContainer.appendChild(select);
+
+  } else {
+    statusContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialMovieStatus}" disabled>
+    `;
+  }
+}
+
 function toggleCastCrewEdit(type, editMode) {
   const container = document.getElementById(`${type}-container`);
   const table = document.getElementById(`${type}-table`);
@@ -492,14 +566,21 @@ function toggleCastCrewEdit(type, editMode) {
   }
 }
 
-function resetChanges() {
+function resetChanges(type = null) {
   // Reset the entire form
   document.getElementById('editForm').reset();
   hasUnsavedChanges = false;
 
   // Reset each section
+  if (type === 'movie') {
+    resetMovie();
+  }
+}
+
+function resetMovie() {
   resetLanguage();
   resetGenres();
+  resetMovieStatus();
   resetCastCrew('cast');
   resetCastCrew('crew');
 }
@@ -526,7 +607,7 @@ function resetGenres() {
     checkbox.type = "checkbox";
     checkbox.id = `genre-${genre.genreId}`;
     checkbox.name = "genres";
-    checkbox.value = genre.id;
+    checkbox.value = genre.genreId;
     checkbox.checked = isSelected;
 
     const label = document.createElement("label");
@@ -536,6 +617,16 @@ function resetGenres() {
     genreContainer.appendChild(checkbox);
     genreContainer.appendChild(label);
   });
+}
+
+function resetMovieStatus() {
+  const statusContainer = document.getElementById('status-container');
+  const selectElement = statusContainer.querySelector("select");
+
+  const initialStatusOption = Array.from(selectElement.options).find(option => option.textContent === initialMovieStatus);
+  if (initialStatusOption) {
+    initialStatusOption.selected = true;
+  }
 }
 
 function resetCastCrew(type) {
@@ -553,12 +644,12 @@ function resetCastCrew(type) {
       ? `
         <input type="text" name="castActor[]" value="${member.actor}" placeholder="Actor Name">
         <input type="text" name="castCharacter[]" value="${member.character}" placeholder="Character Name">
-        <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('cast', this)">Remove</button>
+        <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('cast', this)" ${window[stateKey].length === 1 ? "disabled" : ""}>Remove</button>
       `
       : `
         <input type="text" name="crewMember[]" value="${member.name}" placeholder="Member Name">
         <input type="text" name="crewRole[]" value="${member.role}" placeholder="Role (e.g., Director)">
-        <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('crew', this)">Remove</button>
+        <button type="button" class="action-btn remove-btn" onclick="removeCastCrewRow('crew', this)" ${window[stateKey].length === 1 ? "disabled" : ""}>Remove</button>
       `;
 
     container.appendChild(row);

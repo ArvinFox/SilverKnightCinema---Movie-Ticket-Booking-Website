@@ -4,6 +4,7 @@
     Author     : Umindu Haputhanthri
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <c:if test="${sessionScope.username != null}">
@@ -16,7 +17,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Login - Silver Knight Cinema</title>
-        <link rel="stylesheet" href="../assets/styles/adminStyles.css">
+        <link rel="stylesheet" href="../assets/css/adminStyles.css">
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }          
+        </style>
     </head>
     <body>
         <div class="login-container">

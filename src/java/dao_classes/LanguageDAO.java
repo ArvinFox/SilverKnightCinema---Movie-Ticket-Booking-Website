@@ -28,6 +28,30 @@ public class LanguageDAO {
         }
     }
     
+    // Method to get searched languages
+    public List<Language> getSearchedLanguages(String searchQuery) {
+        List<Language> languages = new ArrayList<>();
+        String query = "SELECT * FROM languages WHERE language LIKE ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, "%" + searchQuery.trim() + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Language language = populateLanguage(rs);
+                    languages.add(language);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched languages: " + e.getMessage());
+        }
+        
+        return languages;
+    }
+    
     // Method to check if language is already added
     public boolean isLanguageAdded(String languageName) {
         boolean isAdded = false;
@@ -44,7 +68,7 @@ public class LanguageDAO {
                 }
             }
             
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in checking whether language is already added: " + e.getMessage());
         }

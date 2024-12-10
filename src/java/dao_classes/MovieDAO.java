@@ -2,6 +2,7 @@ package dao_classes;
 
 import utility_classes.DBConnection;
 import model_classes.Movie;
+import model_classes.Movie.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ public class MovieDAO {
     
     // Method to add a movie
     public void addMovie(Movie movie) {
-        String query = "INSERT INTO movies (title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO movies (title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -30,6 +31,7 @@ public class MovieDAO {
             ps.setString(9, movie.getCrewAsJson());
             ps.setString(10, movie.getPosterUrl());
             ps.setString(11, movie.getTrailerUrl());
+            ps.setString(12, movie.getStatus().toString());
             ps.executeUpdate();
             
         } catch (SQLException e) {
@@ -63,7 +65,7 @@ public class MovieDAO {
     
     // Method to update movie details
     public void updateMovie(Movie movie) {
-        String query = "UPDATE movies SET title = ?, synopsis = ?, languageId = ?, genreIds = ?, duration = ?, rating = ?, releaseDate = ?, cast = ?, crew = ?, posterUrl = ?, trailerUrl = ? WHERE movieId = ?";
+        String query = "UPDATE movies SET title = ?, synopsis = ?, languageId = ?, genreIds = ?, duration = ?, rating = ?, releaseDate = ?, cast = ?, crew = ?, posterUrl = ?, trailerUrl = ?, status = ? WHERE movieId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -79,7 +81,8 @@ public class MovieDAO {
             ps.setString(9, movie.getCrewAsJson());
             ps.setString(10, movie.getPosterUrl());
             ps.setString(11, movie.getTrailerUrl());
-            ps.setInt(12, movie.getMovieId());
+            ps.setString(12, movie.getStatus().toString());
+            ps.setInt(13, movie.getMovieId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -235,6 +238,7 @@ public class MovieDAO {
         
         movie.setPosterUrl(rs.getString("posterUrl"));
         movie.setTrailerUrl(rs.getString("trailerUrl"));
+        movie.setStatus(Status.fromString(rs.getString("status")));
         movie.setCreatedAt(rs.getDate("createdAt"));
         
         return movie;

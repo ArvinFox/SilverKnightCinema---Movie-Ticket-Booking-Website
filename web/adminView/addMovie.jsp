@@ -25,7 +25,6 @@
         <link rel="stylesheet" href="../assets/css/adminStyles.css">
     </head>
     <body>
-        
         <div class="main-content sub-content">
             <h1>Add New Movie</h1>
             
@@ -41,7 +40,7 @@
                     <label for="synopsis">Synopsis</label>
                     <textarea id="synopsis" name="synopsis" required></textarea>
                 </div>
-
+                
                 <%
                     LanguageDAO languageDAO = new LanguageDAO();
                     List<Language> languageList = languageDAO.getAllLanguages();
@@ -56,7 +55,7 @@
                         </c:forEach>
                     </select>
                 </div>
-
+                
                 <%
                     GenreDAO genreDAO = new GenreDAO();
                     List<Genre> genreList = genreDAO.getAllGenres();
@@ -122,11 +121,19 @@
                     <label for="trailerUrl">Trailer Link</label>
                     <input type="url" id="trailerUrl" name="trailerUrl" required>
                 </div>
+                
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="NOW_SHOWING">Now Showing</option>
+                        <option value="COMING_SOON">Coming Soon</option>
+                    </select>
+                </div>
 
                 <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadMoviePoster()">Add Movie</button>
             </form>
         </div>
-        
+
         <script src="../assets/scripts/admin.js"></script>
     </body>
 </html>

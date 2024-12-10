@@ -34,45 +34,46 @@
             </div>
             
             <div class="search-container" id="filterOptions">
-                <form action="manageMovies.jsp" method="get">
-                    <label for="searchTitle">Title:</label>
-                    <input type="text" name="searchTitle" id="searchTitle" placeholder="Search by title" 
-                           value="<%= request.getParameter("searchTitle") != null ? request.getParameter("searchTitle") : "" %>">
+                <form action="manageMovies" method="get">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" placeholder="Search by title" 
+                           value="${param.title != null ? param.title : ''}">
 
                     <label for="genre">Genre:</label>
                     <select name="genre" id="genre">
                         <option value="">Select Genre</option>
                         <c:forEach var="genre" items="${genreList}">
-                            <option value="${genre.genreId}">${genre.name}</option>
+                            <option value="${genre.genreId}" ${genre.name == param.genre ? "selected" : ""}>${genre.name}</option>
                         </c:forEach>
-<!--                        <option value="Action" <%= "Action".equals(request.getParameter("genre")) ? "selected" : "" %>>Action</option>-->
                     </select>
 
                     <label for="language">Language:</label>
                     <select name="language" id="language">
                         <option value="">Select Language</option>
                         <c:forEach var="language" items="${languageList}">
-                            <option value="${language.languageId}">${language.language}</option>
+                            <option value="${language.languageId}" ${language.language == param.language ? "selected" : ""}>${language.language}</option>
                         </c:forEach>
-<!--                        <option value="English" <%= "English".equals(request.getParameter("language")) ? "selected" : "" %>>English</option>-->
                     </select>
 
                     <label for="releaseDateFrom">Release Date From:</label>
                     <input type="date" name="releaseDateFrom" id="releaseDateFrom"
-                           value="<%= request.getParameter("releaseDateFrom") != null ? request.getParameter("releaseDateFrom") : "" %>">
+                           value="${param.releaseDateFrom != null ? param.releaseDateFrom : ''}">
 
                     <label for="releaseDateTo">To:</label>
                     <input type="date" name="releaseDateTo" id="releaseDateTo"
-                           value="<%= request.getParameter("releaseDateTo") != null ? request.getParameter("releaseDateTo") : "" %>">
+                           value="${param.releaseDateTo != null ? param.releaseDateTo : ''}">
 
                     <label for="status">Status:</label>
                     <select name="status" id="status">
                         <option value="">Select Status</option>
-                        <option value="Now Showing" <%= "Now Showing".equals(request.getParameter("status")) ? "selected" : "" %>>Now Showing</option>
-                        <option value="Coming Soon" <%= "Coming Soon".equals(request.getParameter("status")) ? "selected" : "" %>>Coming Soon</option>
+                        <option value="NOW_SHOWING" ${param.status == 'NOW_SHOWING' ? 'selected' : ''}>Now Showing</option>
+                        <option value="COMING_SOON" ${param.status == 'COMING_SOON' ? 'selected' : ''}>Coming Soon</option>
                     </select>
 
-                    <button type="submit">Search</button>
+                    <div class="buttons-container">
+                        <button type="button" class="reset-btn" ${empty param.title && empty param.genre && empty param.language && empty param.releaseDateFrom && empty param.releaseDateTo && empty param.status ? 'disabled' : ''} onclick="window.location.href = 'manageMovies'">Reset Filters</button>
+                        <button type="submit">Search</button>
+                    </div>
                 </form>
             </div>
                     
@@ -83,6 +84,7 @@
                             <th>Movie ID</th>
                             <th>Title</th>
                             <th>Release Date</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -93,9 +95,16 @@
                                 <td>${movie.title}</td>
                                 <td>${movie.releaseDate}</td>
                                 <td>
+                                    <c:choose>
+                                        <c:when test="${movie.status == 'NOW_SHOWING'}">Now Showing</c:when>
+                                        <c:when test="${movie.status == 'COMING_SOON'}">Coming Soon</c:when>
+                                        <c:otherwise>Unknown</c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
                                     <div style="display: flex;">
                                         <input type="submit" id="openModal" class="action-btn view-btn" data-id="${movie.movieId}" data-action="view" data-type="Movie" value="View" />
-                                        <form action="manageMovies" method="POST" onsubmit="return confirmDelete('${movie.title}', '${movie.movieId}')">
+                                        <form action="manageMovies" method="POST" onsubmit="return confirmMovieDelete('${movie.title}', '${movie.movieId}')">
                                             <input type="submit" class="action-btn delete-btn" value="Delete" />
                                             <input type="hidden" name="action" value="delete" />
                                             <input type="hidden" name="movieId" value="${movie.movieId}"/>
@@ -109,7 +118,7 @@
             </c:if>
             <c:if test="${empty movieList}">
                 <p>No movies available.</p>
-            </c:if>
+            </c:if>   
         </div>
                     
         <!-- Modal structure -->

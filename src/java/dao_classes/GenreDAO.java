@@ -28,6 +28,30 @@ public class GenreDAO {
         }
     }
     
+    // Method to get searched genres
+    public List<Genre> getSearchedGenres(String searchQuery) {
+        List<Genre> genres = new ArrayList<>();
+        String query = "SELECT * FROM genres WHERE name LIKE ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, "%" + searchQuery.trim() + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Genre genre = populateGenre(rs);
+                    genres.add(genre);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched genres: " + e.getMessage());
+        }
+        
+        return genres;
+    }
+    
     // Method to check if genre is already added
     public boolean isGenreAdded(String name) {
         boolean isAdded = false;

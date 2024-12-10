@@ -1,6 +1,7 @@
 package admin_servlet_classes;
 
 import model_classes.Movie;
+import model_classes.Movie.Status;
 import dao_classes.MovieDAO;
 import model_classes.Language;
 import dao_classes.LanguageDAO;
@@ -122,7 +123,6 @@ public class AdminManageMoviesServlet extends HttpServlet {
             releaseDate = new java.sql.Date(parsedDate.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
-
         }
 
         String[] castActors = request.getParameterValues("castActor[]");
@@ -149,13 +149,14 @@ public class AdminManageMoviesServlet extends HttpServlet {
 
         String posterUrl = request.getParameter("posterUrl");
         String trailerUrl = request.getParameter("trailerUrl");
+        String status = request.getParameter("status");
 
-        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl);
+        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, Status.valueOf(status));
         return movie;
     }
 
     @Override
     public String getServletInfo() {
-        return "Servlet that manages movies, including add, edit, and delete functionalities.";
+        return "Servlet that manages movies, including add, view, edit, and delete functionalities.";
     }
 }

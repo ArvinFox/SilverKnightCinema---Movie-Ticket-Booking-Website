@@ -29,6 +29,8 @@ package test_classes;
 // import dao_classes.FoodDAO;
 // import model_classes.Payment;
 // import dao_classes.PaymentDAO;
+// import model_classes.Inquiry;
+// import dao_classes.InquiryDAO;
 // import model_classes.Admin;
 // import dao_classes.AdminDAO;
 
@@ -55,6 +57,7 @@ public class TestServlet extends HttpServlet {
     // private BookingDAO bookingDAO;
     // private FoodDAO foodDAO;
     // private PaymentDAO paymentDAO;
+    // private InquiryDAO inquiryDAO;
     // private AdminDAO adminDAO;
     
     @Override
@@ -71,6 +74,7 @@ public class TestServlet extends HttpServlet {
         // bookingDAO = new BookingDAO();
         // foodDAO = new FoodDAO();
         // paymentDAO = new PaymentDAO();
+        // inquiryDAO = new InquiryDAO();
         // adminDAO = new AdminDAO();
     }
 
@@ -991,6 +995,53 @@ public class TestServlet extends HttpServlet {
                 response.getWriter().println("Testing deletePayment...");
                 paymentDAO.deletePayment(fetchedPaymentById.getPaymentId());
                 response.getWriter().println("Payment deleted successfully.\n");
+
+            } catch (Exception e) {
+                response.getWriter().println("An error occurred: " + e.getMessage());
+                e.printStackTrace(response.getWriter());
+            }
+        */
+        
+        // -------------------------------------------------------------------------------------------
+        
+        /* --------------- TESTING INQUIRIES DAO METHODS ---------------
+        
+            try {
+                // Sample Inquiry Data
+                Inquiry testInquiry = new Inquiry();
+                testInquiry.setName("Test User");
+                testInquiry.setEmail("testuser@example.com");
+                testInquiry.setSubject("Testing Adding an Inquiry");
+                testInquiry.setMessage("Testing if the inquiry is successfully added to the system.");
+                
+                // Add Inquiry
+                response.getWriter().println("Testing addInquiry...");
+                inquiryDAO.addInquiry(testInquiry);
+                response.getWriter().println("Inquiry added successfully.\n");
+                
+                // Get Inquiry by ID
+                response.getWriter().println("Testing getInquiryById...");
+                Inquiry fetchedInquiryById = inquiryDAO.getInquiryById(5);
+                response.getWriter().println("Fetched inquiry: " + (fetchedInquiryById != null ? "Inquiry ID: " + fetchedInquiryById.getInquiryId() + ", Message: " + fetchedInquiryById.getMessage() : "null") + "\n");
+                
+                // Delete Inquiry
+                response.getWriter().println("Testing deleteInquiry...");
+                inquiryDAO.deleteInquiry(fetchedInquiryById.getInquiryId());
+                response.getWriter().println("Inquiry deleted successfully.\n");
+                
+                // Get All Inquiries
+                response.getWriter().println("Testing getAllInquiries...");
+                List<Inquiry> allInquiries = inquiryDAO.getAllInquiries();
+                response.getWriter().println("Total inquiries: " + allInquiries.size());
+                for (Inquiry inquiry : allInquiries) {
+                    response.getWriter().println(" - " + "Inquiry ID: " + inquiry.getInquiryId() + ", Message: " + inquiry.getMessage());
+                }
+                response.getWriter().println();
+
+                // Get Total Inquiries
+                response.getWriter().println("Testing getTotalInquiries...");
+                int totalInquiries = inquiryDAO.getTotalInquiries();
+                response.getWriter().println("Total inquiries count: " + totalInquiries + "\n");
 
             } catch (Exception e) {
                 response.getWriter().println("An error occurred: " + e.getMessage());

@@ -32,14 +32,13 @@
         </style>
     </head>
     <body>
-         
         <div class="main-content sub-content">
             <h1>Movie Details</h1>
 
             <form id="editForm" action="manageMovies" method="POST">
                 <input type="hidden" name="action" value="update">
                 
-                <div class="movie-details">
+                <div class="movie-details entity-details">
                     <img src="../${movie.posterUrl}" alt="${movie.title}" width="200px">
 
                     <p><strong>Movie ID:</strong></p>
@@ -62,7 +61,6 @@
                         <c:forEach var="genre" items="${movieGenres}">
                             <span class="genre-tag" data-genre-id="genre-${genre.genreId}">${genre.name}</span>
                         </c:forEach>
-
                     </div>
 
                     <p><strong>Duration (in minutes):</strong></p>
@@ -73,6 +71,21 @@
 
                     <p><strong>Release Date:</strong></p>
                     <input type="date" class="form-control editable" name="releaseDate" value="${movie.releaseDate}" disabled>
+                    
+                    <p><strong>Status:</strong></p>
+                    <div id="status-container">
+                        <c:choose>
+                            <c:when test="${movie.status == 'NOW_SHOWING'}">
+                                <input type="text" class="form-control editable" value="Now Showing" disabled>
+                            </c:when>
+                            <c:when test="${movie.status == 'COMING_SOON'}">
+                                <input type="text" class="form-control editable" value="Coming Soon" disabled>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="text" class="form-control editable" value="Unknown" disabled>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
 
                     <p><strong>Cast Members:</strong></p>
                     <div id="cast-container">
@@ -131,8 +144,8 @@
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false)">Cancel</button>
-                        <button type="button" class="action-btn reset-button" onclick="resetChanges()">Reset</button>
+                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'movie')">Cancel</button>
+                        <button type="button" class="action-btn reset-button" onclick="resetChanges('movie')">Reset</button>
                     </div>
                     <div>
                         <button type="submit" class="action-btn save-changes-button">Save Changes</button>
@@ -140,7 +153,7 @@
                 </div>
             </form>
 
-            <button class="action-btn edit-btn" onclick="toggleEditMode(true)">Edit Movie</button>
+            <button class="action-btn edit-btn" onclick="toggleEditMode(true, 'movie')">Edit Movie</button>
         </div>
         
         <script src="../assets/scripts/admin.js"></script>

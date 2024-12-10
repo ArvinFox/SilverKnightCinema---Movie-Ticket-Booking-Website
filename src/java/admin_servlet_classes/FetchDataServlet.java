@@ -10,8 +10,8 @@ import model_classes.Genre;
 import dao_classes.GenreDAO;
 import model_classes.User;
 import dao_classes.UserDAO;
-import model_classes.Guest;
-import dao_classes.GuestDAO;
+import model_classes.Inquiry;
+import dao_classes.InquiryDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -29,7 +29,7 @@ public class FetchDataServlet extends HttpServlet {
     private LanguageDAO languageDAO;
     private GenreDAO genreDAO;
     private UserDAO userDAO;
-    private GuestDAO guestDAO;
+    private InquiryDAO inquiryDAO;
     
     @Override
     public void init() {
@@ -37,9 +37,9 @@ public class FetchDataServlet extends HttpServlet {
         languageDAO = new LanguageDAO();
         genreDAO = new GenreDAO();
         userDAO = new UserDAO();
-        guestDAO = new GuestDAO();
+        inquiryDAO = new InquiryDAO();
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -90,7 +90,13 @@ public class FetchDataServlet extends HttpServlet {
             switch (type) {
                 case "Movie" -> {
                     Movie movie = movieDAO.getMovieById(id);
-                    String movieLanguage = languageDAO.getLanguageById(movie.getLanguageId()).getLanguage();
+                    Language language = languageDAO.getLanguageById(movie.getLanguageId());
+                    String movieLanguage;
+                    if (language == null) {
+                        movieLanguage = "Unknown Language";
+                    } else {
+                        movieLanguage = language.getLanguage();
+                    }
                     List<Genre> movieGenres = genreDAO.getGenresByIds(movie.getGenreIds());
                     request.setAttribute("movie", movie);
                     request.setAttribute("movieLanguage", movieLanguage);
@@ -101,13 +107,13 @@ public class FetchDataServlet extends HttpServlet {
                 case "User" -> {
                     User user = userDAO.getUserById(id);
                     request.setAttribute("user", user);
-                    request.getRequestDispatcher("../adminView/viewUser.jsp").forward(request, response);
+                    request.getRequestDispatcher("/adminView/viewUser.jsp").forward(request, response);
                 }
                 
-                case "Guest" -> {
-                    Guest guest = guestDAO.getGuestById(id);
-                    request.setAttribute("guest", guest);
-                    request.getRequestDispatcher("../adminView/viewGuest.jsp").forward(request, response);
+                case "Inquiry" -> {
+                    Inquiry inquiry = inquiryDAO.getInquiryById(id);
+                    request.setAttribute("inquiry", inquiry);
+                    request.getRequestDispatcher("/adminView/viewInquiry.jsp").forward(request, response);
                 }
                 
                 default -> response.getWriter().println("<h1>No data available.</h1>");

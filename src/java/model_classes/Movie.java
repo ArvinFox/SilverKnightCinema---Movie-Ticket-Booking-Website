@@ -7,6 +7,32 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class Movie {
+    
+    public enum Status {
+        NOW_SHOWING("Now Showing"),
+        COMING_SOON("Coming Soon");
+
+        private final String dbValue;
+
+        Status(String dbValue) {
+            this.dbValue = dbValue;
+        }
+
+        @Override
+        public String toString() {
+            return dbValue;
+        }
+
+        public static Status fromString(String dbValue) {
+            for (Status status : Status.values()) {
+                if (status.dbValue.equalsIgnoreCase(dbValue)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Unknown status: " + dbValue);
+        }
+    }
+    
     private int movieId;
     private String title;
     private String synopsis;
@@ -19,12 +45,13 @@ public class Movie {
     private List<Map<String, String>> crew;
     private String posterUrl;
     private String trailerUrl;
+    private Status status;
     private Date createdAt;
 
     // Constructors
     public Movie() {}
     
-    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl) {
+    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl, Status status) {
         this.title = title;
         this.synopsis = synopsis;
         this.languageId = languageId;
@@ -36,9 +63,10 @@ public class Movie {
         this.crew = crew;
         this.posterUrl = posterUrl;
         this.trailerUrl = trailerUrl;
+        this.status = status;
     }
 
-    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl, Date createdAt) {
+    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl, Status status, Date createdAt) {
         this.title = title;
         this.synopsis = synopsis;
         this.languageId = languageId;
@@ -50,6 +78,7 @@ public class Movie {
         this.crew = crew;
         this.posterUrl = posterUrl;
         this.trailerUrl = trailerUrl;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -125,6 +154,9 @@ public class Movie {
 
     public String getTrailerUrl() { return trailerUrl; }
     public void setTrailerUrl(String trailerUrl) { this.trailerUrl = trailerUrl; }
+    
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }

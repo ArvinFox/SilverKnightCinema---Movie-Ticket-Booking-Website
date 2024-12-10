@@ -27,6 +27,7 @@ body {
     height: 5vh;
     background-color: #343a40;
     color: #ffffff;
+    z-index: 999;
 }
 
 .admin-header .brand h1 {
@@ -62,11 +63,12 @@ body {
     background-color: #f8f9fa;
     height: 100vh;
     position: fixed;
-    top: 7.5vh;
+    top: 5vh;
     left: 0;
-    padding-top: 50px;
+    padding-top: 70px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: width 0.3s;
+    transition: width 0.3s ease-in-out;
+    z-index: 500;
 }
 
 .admin-sidebar.collapsed {
@@ -135,7 +137,7 @@ body {
 /* Toggle sidebar button */
 .toggle-sidebar-btn {
     position: absolute;
-    top: 10px;
+    top: 30px;
     left: 10px;
     background: none;
     border: none;
@@ -160,6 +162,7 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 999;
 }
 
 .admin-footer p {
@@ -207,6 +210,77 @@ body {
 
 .modal.show {
   display: flex;  /* Make modal visible */
+}
+
+
+/* Admin Login */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #222;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: bold;
+    color: #444;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.login-container button:hover {
+    background-color: #388e3c;
+}
+
+.login-container button:active {
+    background-color: #2e7d32;
+    transform: scale(0.98);
+}
+
+.login-container p {
+    color: #ff4d4d;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 
@@ -292,6 +366,11 @@ body {
     width: 100%;
 }
 
+.search-container .buttons-container {
+    display: flex;
+    column-gap: 20px;
+}
+
 .search-container button {
     background-color: #007bff;
     color: #fff;
@@ -304,47 +383,74 @@ body {
     background-color: #0056b3;
 }
 
-.movies-table {
+.search-container .reset-btn {
+    background-color: #f0ad4e;
+}
+
+.search-container .reset-btn:hover {
+    background-color: #ec971f;
+}
+
+.search-container .reset-btn:disabled {
+    background-color: #e6e6e6;
+    color: #a3a3a3;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-.movies-table th, .movies-table td {
+th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
 
-.movies-table th {
+th {
     background-color: #f4f4f9;
 }
 
-.movies-table .view-btn {
+.view-btn {
     background-color: #007bff;
     margin-right: 10px;
 }
 
-.movies-table .view-btn:hover {
+.view-btn:hover {
     background-color: #0056b3;
 }
 
-.movies-table .view-btn:active {
+.view-btn:active {
     background-color: #004085;
     transform: scale(0.98);
 }
 
-.movies-table .delete-btn {
+.delete-btn {
     background-color: #dc3545;
 }
 
-.movies-table .delete-btn:hover {
+.delete-btn:hover {
     background-color: #c82333;
 }
 
-.movies-table .delete-btn:active {
+.delete-btn:active {
     background-color: #a71d2a;
     transform: scale(0.98);
+}
+
+.entity-details p {
+    line-height: 1.6;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.entity-details strong {
+    font-weight: bold;
+    color: #444;
 }
 
 .form-group {
@@ -376,8 +482,7 @@ body {
     margin-bottom: 5px;
 }
 
-.form-group textarea,
-.movie-details textarea {
+textarea {
     max-width: 100%;
     min-width: 100%;
     min-height: 30px;
@@ -392,7 +497,7 @@ body {
     border: none;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, transform 0.1s ease;
 }
 
 .add-btn-link,
@@ -574,15 +679,12 @@ body {
 }
 
 .movie-details table {
-    width: 100%;
-    border-collapse: collapse;
     margin-top: 10px;
     margin-bottom: 16px;
 }
 
 .movie-details th, .movie-details td {
-    padding: 10px;
-    text-align: left;
+    border: none;
     border-bottom: 1px solid #ddd;
 }
 
@@ -610,17 +712,5 @@ body {
     margin: 0 auto 20px;
     max-width: 100%;
     border-radius: 10px;
-}
-
-.movie-details p {
-    line-height: 1.6;
-    margin: 0px;
-    margin-top: 10px;
-    margin-bottom: 4px;
-}
-
-.movie-details strong {
-    font-weight: bold;
-    color: #444;
 }
 
