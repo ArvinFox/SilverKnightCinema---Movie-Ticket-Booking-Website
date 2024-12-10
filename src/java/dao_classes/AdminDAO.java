@@ -92,6 +92,25 @@ public class AdminDAO {
         }
     }
     
+    //Method to get total admin count
+    public int getTotalAdmins() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM admins";
+        
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery()) {
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching total admin count: " + e.getMessage());
+        }
+        return count;
+    }
+    
+    
     // Utility method to populate Admin object from ResultSet
     private Admin populateAdmin(ResultSet rs) throws SQLException {
         Admin admin = new Admin();

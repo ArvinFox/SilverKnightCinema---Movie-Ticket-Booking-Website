@@ -284,6 +284,60 @@ body {
 }
 
 
+/* ------ Dashboard ------ */
+.dashboard-content {
+    min-height: calc(100vh - 50px);
+    background-color: #ffffff;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h3 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #343a40;
+}
+
+.stat-box p {
+    margin: 0;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.quick-action-links {
+    margin-top: 30px;
+}
+
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.quick-action-links .action-btn {
+    background-color: #007bff;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+.quick-action-links .action-btn:hover {
+    background-color: #0056b3;
+}
+
 /* Common Styles for Pages */
 .sub-content {
     max-width: 800px;
