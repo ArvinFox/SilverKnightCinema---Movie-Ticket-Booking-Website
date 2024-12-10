@@ -4,7 +4,6 @@ import dao_classes.UserDAO;
 import model_classes.User;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,6 +38,8 @@ public class ForgotPasswordServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
+       request.removeAttribute("errorMessage");
+        
        String email = request.getParameter("email");
         
         try{
@@ -52,32 +53,27 @@ public class ForgotPasswordServlet extends HttpServlet
                {
                     //send email
                     String randomToken = generateOTP();
-                    String resetLink = "http://localhost:8080/SilverKnightCinema/resetPassword.jsp?email="  +email + "&randomToken=" +randomToken;
+                    String resetLink = "http://localhost:8080/SilverKnightCinema/resetPassword.jsp?email="  +email + "&=" +randomToken;
                     String subject = "Password reset link - SilverKnight Cinema";
                     String message = "Hi " +user.getFirstName()+ "\n\n To reset your password, please follow the link below "
                             + "and enter a new password : \n " +resetLink+ "\n\n Please Note : This link will be valid for only 05 minutes."
                             + "\n If you didn't request this password reset, please ignore this email."
-                            + "\n\n Best regards \n Silver Knight Cinema";
+                            + "\n Best regards \n Silver Knight Cinema";
                     EmailUtil.sendEmail(email, subject, message);
 
-                    response.setContentType("text/html");
-                    PrintWriter writer = response.getWriter();
-                    writer.println("<p>Password reset link has been sent to your email</p>");
+                    request.setAttribute("successMessage", "Password reset link has been sent to your email");
+                    request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
                 }
                else
                {
-                   //Error
-                    response.setContentType("text/html");
-                    PrintWriter writer = response.getWriter();
-                    writer.println("<p>Your account has been suspended. Please try again.</p>");
+                   request.setAttribute("errorMessage", "Your account has been suspended.");
+                   request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
                }
            }
            else
            {
-               //Error
-               response.setContentType("text/html");
-               PrintWriter writer = response.getWriter();
-               writer.println("<p>Incorrect Email Address. Please try again.</p>");
+                request.setAttribute("errorMessage", "Incorrect Email Address. Please try again.");
+                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
            }
         }
         catch (Exception ex)

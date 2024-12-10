@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reset Password | SilverKnight Cinema</title>
         <link rel="stylesheet" href="assets/css/forms.css">
+        <c:url value="/SilverKnightCinema/resetPassword" var="resetPasswordUrl"/>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -24,14 +26,19 @@
                     <input type="hidden" name="email" value="<%=request.getParameter("email")%>"> 
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="new_password" placeholder="Password" maxlength="12" id="newPassword" class="input-field" required/>
+                    <input type="password" name="new_password" placeholder="Password" maxlength="12" id="newPassword" class="input-field" required oninput="clearErrorMessage()"/>
                     <br><br>
                     
                     <label for="text"> Verify Password </label>
                     <br>
-                    <input type="password" name="verify_password" placeholder="Verify Password" maxlength="12" id="verifyPassword" class="input-field" required/>
-                    <br><br>
-                    <p id="errorMessage"></p>
+                    <input type="password" name="verify_password" placeholder="Verify Password" maxlength="12" id="verifyPassword" class="input-field" required oninput="clearErrorMessage()"/>
+                    
+                    <!-- Display error message -->
+                    <c:if test="${errorMessage != null}">
+                        <div id="error-message"> ${errorMessage} </div>
+                    </c:if>
+                    
+                    <p id="message"> </p>
                     
                     <div class="btn">
                         <input type="submit" value="Reset Password" name="resetPwd" id="butReset"/>
@@ -47,7 +54,7 @@
             {
                 let newPassword = document.getElementById("newPassword").value;
                 let verifyPassword = document.getElementById("verifyPassword").value;
-                let errorMessage = document.getElementById("errorMessage");
+                var errorMessage = document.getElementById("message");
 
                 if(newPassword !== verifyPassword)
                 {
@@ -60,5 +67,17 @@
                 return true;
             }
         </script>
+        
+        <!-- to clear error message -->
+        <script>
+            function clearErrorMessage() {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = ''; 
+                }
+            }
+        </script>
+        
     </body>
 </html>
+

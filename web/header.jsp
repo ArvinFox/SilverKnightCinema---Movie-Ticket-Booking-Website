@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="model_classes.User"%>
+<%@page import="dao_classes.UserDAO"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,22 +21,47 @@
         <script src="https://kit.fontawesome.com/16735b712d.js" crossorigin="anonymous"></script> 
     </head>
     <body>
+        <%
+            UserDAO userDao = new UserDAO();
+            Cookie[] cookies = request.getCookies();
+            if(cookies != null)
+            {
+                for(Cookie c : cookies)
+                {
+                    if("email".equals(c.getName()))
+                    {
+                        User user = userDao.getUserByEmail(c.getValue());
+                        request.setAttribute("user",user);
+                        break;
+                    }
+                }
+            }
+        %>
+        
         <nav>
             <div class="logo">
                 <a href="#" > <img src="assets/images/logo.png" alt="Logo"/> </a>
             </div>
-            <ul id="menuList">
+            <ul class="navUl" id="menuList">
                 <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
                 <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
                 <li class="navLink"> <a href="locations.jsp"> Locations </a></li>
                 <li class="navLink"> <a href="dealsAndOffers.jsp"> Deals & Offers </a></li>
-                <c:if test="${sessionScope.user == null}">
+                <c:if test="${user == null}">
                     <li> <button onclick="loginfunction()"> Login </button> </li>
                 </c:if>
                     
-                <c:if test="${sessionScope.user != null}">
-                    <li> <button onclick="loginfunction()" disabled> Welcome, ${user.firstName}! </button> </li>
-                </c:if>    
+                <c:if test="${user != null}">
+                    <div class="tooltip-container">
+                        <li> <button onclick="loginfunction()" disabled> Hi, ${user.firstName}! </button> </li>
+                        <div class="tooltip-content">
+                            <ul id="tooltip-list">
+                                <li class="tooltip-navLink"><a class="tooltip-link" href="userProfile.jsp">User Profile</a></li>
+                                <li class="tooltip-navLink"><a class="tooltip-link" href="LogoutServlet">Logout</a></li>
+                            </ul>
+                        </div>                   
+                    </div>
+                </c:if>
             </ul>
             <div class="menu-icon">
                 <i class="fa-solid fa-bars"  onclick="toggleMenu()"></i>

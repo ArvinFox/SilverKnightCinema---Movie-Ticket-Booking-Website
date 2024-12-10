@@ -31,7 +31,7 @@ img{
   margin-top: 10px;
 }
 
-nav ul{
+nav .navUl{
     display: flex;
     gap: 40px;
     align-items: center;
@@ -39,13 +39,13 @@ nav ul{
     margin-right: 20px;
 }
 
-nav ul li{
+nav .navUl .navLink{
     list-style-type: none;
     display: inline-block;
     margin: 0 5px;
 }
 
-nav ul li a{
+nav .navUl .navLink a{
     text-decoration: none;
     color: #ffffff;
     font-size: 17px;
@@ -53,7 +53,7 @@ nav ul li a{
     cursor: pointer;
 }
 
-.navLink::after{
+.navLink::after, .tooltip-navLink::after{
   content: '';
   width: 0%;
   height: 2px;
@@ -63,11 +63,11 @@ nav ul li a{
   transition: 0.5s;
 }
 
-.navLink:hover::after {
+.navLink:hover::after , .tooltip-navLink:hover::after{
   width: 100%;
 }
 
-nav ul li a.active, nav ul li a:hover
+nav .navUl .navLink a.active, nav .navUl .navLink a:hover
 {
   color: red;
 }
@@ -91,6 +91,84 @@ nav ul li button{
 .menu-icon i{
     color: #ffffff;
     font-size: 30px;
+}
+
+/*-----------Css for tooltip------------*/
+.tooltip-container {
+    position: relative;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+    border-radius: 20px;
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+}
+
+.tooltip-container button {
+    display: block; 
+}
+
+.tooltip-content {
+    position: absolute;
+    left: 50%;
+    font-size: 20px;
+    top: 100%; 
+    transform: translateX(-50%);
+    color: black;
+    background: black;
+    white-space: nowrap;
+    padding: 10px 15px;
+    border-radius: 7px;
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s; 
+    display: none;
+    border: 1px solid yellow;
+    width: fit-content;
+}
+
+.tooltip-content::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -10px; 
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: black; 
+}
+
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    display: flex;
+    transition: opacity 0.3s ease, visibility 0s; 
+}
+
+.tooltip-content .tooltip-link{
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.tooltip-content .tooltip-link:hover{
+    color: red;
+}
+
+.tooltip-content #tooltip-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tooltip-navLink{
+    display: block;
+    padding-bottom:10px;
 }
 
 /*-----------Css for Footer------------*/
@@ -270,6 +348,20 @@ footer{
     flex-direction: column;
     color: white;
     justify-content: center;
+}
+
+.banner-foods{
+  background: url('../images/terms-banner.jpg')no-repeat;
+  min-height: 380px;
+  width: 100%;
+  overflow: hidden;
+  position: relative; 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
 }
 
 .banner-title{
@@ -1423,6 +1515,282 @@ footer{
     margin: auto;
     text-align: center;
 }
+            /*----------Css for Food & Beverages-----------*/
+            
+/*----------Css for Food & Beverages Subnav-----------*/
+.food-section{
+  min-height: 900px;
+}
+
+.container-foods {
+  width: 100%;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  margin: 10px;
+  background-color: #ffffff;
+  top: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 1500px;
+}
+
+.food-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  background-color: #e4e9fd;
+}
+
+.food-tabs h3 {
+  background-color: #D9D9D9;
+  text-align: center;
+  padding: 15px 50px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.tab-content {
+  background-color: #ffffff;
+  padding: 50px 40px;
+  display: none;
+  width: 70%;
+}
+
+.tab-content.active{
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 900px;
+}
+
+.food-tabs .active {
+  background-color: #ffffff;
+  color: #4d5bf9;
+}
+
+/*----------Css for Food & Beverages item cards-----------*/
+.item{
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+  height: 330px;
+  text-align: center;
+}
+
+.item img{
+  height: 80px;
+  margin: 10px;
+}
+
+.item-title{
+  color: #4d5bf9;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.price {
+  margin-bottom: 5px;
+}
+
+input[type='number']{
+  width: 50px;
+  height: 20px;
+  margin: 5px;
+  padding: 5px;
+}
+
+#butCart{
+  color: white;
+  font-size: 17px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  border-radius: 10px;
+  border-style: none;
+  background: #FF543E;
+  cursor: pointer;
+  margin-top: 30px;
+  grid-column: span 2;
+}
+
+#butCart:hover ,#payNow:hover{
+  background: red;
+}
+
+.cart-box {
+    background-color: #fff;
+    padding: 20px;
+    width: 30%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute; 
+    top: 75%;           
+    right: 20px;       
+    z-index: 1000;
+    margin-right: 15px;
+}
+
+.cart-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th, .cart-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.cart-summary {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+
+#payNow {
+    width: 100%;
+    padding: 12px;
+    background-color:#FF543E;
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 480px){
+    .food-section{
+       min-height: 2300px;
+    }
+    
+    .item{
+      width: 100%;
+      margin: 10px;
+      margin-left: 50px;
+    }
+
+    input[type="number"]{
+      width: 40px;
+    }
+
+    .item .item-title{
+      font-size: 16px;
+    }
+
+    .food-tabs h3 {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+
+    .food-tabs {
+      grid-template-columns: 1fr;
+    }
+    
+    .cart-box {
+        position: relative;        
+        bottom:0;             
+        left: 0;                
+        width: 90%;  
+        padding: 10px; 
+        margin: 20px;
+    }
+    
+    .cart-header{
+        text-align: center;
+    }
+    
+    #butCart{
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) and (min-width:500px){
+    
+    .container-foods {
+      display: block;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .food-tabs {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tab-content{
+      width: 100%;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .item{
+      width: 100%;
+      margin: 10px;
+      margin-left: 30px;
+    }
+  
+    .cart-box {
+        position: relative; 
+        width: 80%;       
+        margin: 20px;   
+        top: auto;         
+        right: auto;      
+        box-sizing: border-box;
+    }
+
+    .cart-header {
+        font-size: 18px;  
+    }
+
+    .cart-table th, .cart-table td {
+        font-size: 14px; 
+        padding: 8px;
+    }
+
+    .cart-summary {
+        font-size: 16px;  
+    }
+
+    .total {
+        font-size: 14px; 
+    }
+
+    #payNow {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+@media(max-width:1300px) and (min-width:900px){
+    .cart-box{
+        top: 75%;
+        margin-top: 20px;
+    }
+}
 
 @media(max-width: 660px){
     .seat-container{
@@ -1560,7 +1928,7 @@ footer{
 }
 
 @media (max-width: 945px){
-    nav ul{
+    nav .navUl{
         position: absolute;
         top: 69px;
         left: 0;
@@ -1571,19 +1939,22 @@ footer{
         gap: 0;
         overflow: hidden;
         width: 100%;
+        min-height: auto;
+        height: auto;
+        padding-bottom: 10px; 
     }
     
-    nav ul li{
+    nav .navUl .navLi{
         padding: 20px;
         padding-top: 0;
         padding-left: 10px;
     }
     
-    nav a{
+    nav .navLink{
         font-size: 20px;
     }
     
-    a.active, a:hover{
+    .navLink.active, .navLink:hover{
         border: none;
         color: red;
     }
@@ -1594,6 +1965,25 @@ footer{
     
     #menuList{
         transition: all 0.5s;
+    }
+    
+    .tooltip-container button {
+        display: block;  
+        margin: 0 auto;  
+    }
+
+    .tooltip-content {
+        display: block; 
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .tooltip-content #tooltip-list {
+        padding-left: 0; 
+    }
+
+    .tooltip-navLink {
+        padding-bottom: 5px; 
     }
     
     .banner-title{
@@ -1716,11 +2106,11 @@ footer{
         height: 80px;
     }
 
-    nav ul{
+    nav .navUl .navLi{
         margin-right: 20px;
     }
 
-    nav a{
+    nav .navLink{
         font-size: 20px;
     }
 }

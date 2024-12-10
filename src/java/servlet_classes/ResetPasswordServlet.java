@@ -4,7 +4,6 @@ import dao_classes.UserDAO;
 import model_classes.User;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -41,6 +40,8 @@ public class ResetPasswordServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
+        request.removeAttribute("errorMessage");
+        
         UserDAO user_dao = new UserDAO();
         String email = request.getParameter("email");
         String newPwd = request.getParameter("new_password");
@@ -57,20 +58,14 @@ public class ResetPasswordServlet extends HttpServlet
                 user_dao.resetPassword(email, hashedPassword);
                 
                 HttpSession session = request.getSession();
-                    Boolean isLinkUsed = (Boolean) session.getAttribute("isLinkUsed");
+                Boolean isLinkUsed = (Boolean) session.getAttribute("isLinkUsed");
 
-                    if(isLinkUsed != null && isLinkUsed)
-                    {
-                        response.setContentType("text/html");
-                        PrintWriter writer = response.getWriter();
-                        writer.println("<p>This link has been already used. Request a new email again</p>");
-                        return;
-                    }
-                    else
-                    {
-                        response.sendRedirect("login.jsp");
-                    }
-                    session.setAttribute("isLinkUsed", true);
+                if(isLinkUsed != null && isLinkUsed)
+                {
+                    request.setAttribute("errorMessage", "This link has been already used. Request a new email again");
+                    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+                }
+                session.setAttribute("isLinkUsed", true);
                 
                 long expireTime = System.currentTimeMillis() + (5*60*1000);
                 Cookie linkExpireCookie = new Cookie("linkExpire", String.valueOf(expireTime));
@@ -100,9 +95,8 @@ public class ResetPasswordServlet extends HttpServlet
                 
                 if(linkExpired)
                 {
-                    response.setContentType("text/html");
-                    PrintWriter writer = response.getWriter();
-                    writer.println("<p>This link has been expired. Request a new email again</p>");
+                    request.setAttribute("errorMessage", "This link has been expired. Request a new email again");
+                    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
                 }
                 else
                 {

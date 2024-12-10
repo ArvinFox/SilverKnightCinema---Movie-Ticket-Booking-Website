@@ -115,6 +115,21 @@ color: red;
     background-color: #971114;
 }
 
+/*Css for all messages */
+#error-message, #message{
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+#success-message{
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
 @media (max-width: 500px) {
     .form {
       width: 300px;

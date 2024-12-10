@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,8 +26,17 @@
                 <form name="loginForm" method="POST" action="ForgotPasswordServlet">
                     <label for="text"> Email </label>
                     <br>
-                    <input type="email" name="email" placeholder="Email" class="input-field" required/>
-                    <br><br>
+                    <input type="email" name="email" placeholder="Email" class="input-field" required oninput="clearErrorMessage()"/>
+                    
+                    <!-- Display error message -->
+                    <c:if test="${errorMessage != null}">
+                        <div id="error-message"> ${errorMessage} </div>
+                    </c:if>
+                    
+                    <!-- Display email sent successful message -->
+                    <c:if test="${successMessage != null}">
+                        <div id="success-message"> ${successMessage} </div>
+                    </c:if>
                     
                     <div class="btn">
                         <input type="submit" value="Continue" name="continue" id="button"/>
@@ -42,5 +52,14 @@
         
         <jsp:include page="footer.jsp"/>
         
+        <!-- to clear error message -->
+        <script>
+            function clearErrorMessage() {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = ''; 
+                }
+            }
+        </script>
     </body>
 </html>

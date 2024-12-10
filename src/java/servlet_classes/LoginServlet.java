@@ -4,9 +4,9 @@ import dao_classes.UserDAO;
 import model_classes.User;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,15 +31,42 @@ public class LoginServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        boolean isLoggedIn = false;
+        
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            isLoggedIn = true;
+        }
+        
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null)
+        {
+            for(Cookie c : cookies)
+            {
+                if("email".equals(c.getName()))
+                {
+                    isLoggedIn = true;
+                }
+            }
+        }
+        
+        if (isLoggedIn) {
+            response.sendRedirect("termsAndConditions.jsp");
+        } else {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
+        request.removeAttribute("errorMessage");
+        
         String email = request.getParameter("email");
         String pwd = request.getParameter("password");
+        boolean rememberMe = request.getParameter("rememberMe") != null;
         
         User isValidUser;
         try{
@@ -54,20 +81,25 @@ public class LoginServlet extends HttpServlet
                 {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", user);
+                    
+                    if(rememberMe)
+                    {
+                        Cookie c = new Cookie("email", email);
+                        c.setMaxAge(3*24*60*60);
+                        response.addCookie(c);
+                    }
                     response.sendRedirect("termsAndConditions.jsp");
                 }
                 else
                 {
-                    response.setContentType("text/html");
-                    PrintWriter writer = response.getWriter();
-                    writer.println("<p>Your account is suspended. Please try again.</p>");
+                    request.setAttribute("errorMessage", "Your account has been suspended");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             }
             else
             {
-                response.setContentType("text/html");
-                PrintWriter writer = response.getWriter();
-                writer.println("<p>Invalid username or password. Please try again.</p>");
+                request.setAttribute("errorMessage", "Invalid username or password. Please try again.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
         catch (Exception ex)

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,12 +23,12 @@
                     <h1 class="form-heading"> Login </h1> <br>
                     <label for="text"> Email </label>
                     <br>
-                    <input type="email" name="email" placeholder="Email" class="input-field" required/>
+                    <input type="email" name="email" placeholder="Email" class="input-field" required oninput="clearErrorMessage()"/>
                     <br><br>
                     
                     <label for="text"> Password </label>
                     <br>
-                    <input type="password" name="password" placeholder="Password" maxlength="12" class="input-field" required/>
+                    <input type="password" name="password" placeholder="Password" maxlength="12" class="input-field" required oninput="clearErrorMessage()"/>
                     <br><br>
                     
                     <div class="div">
@@ -38,7 +39,11 @@
                         <a href="forgotPassword" class="link"> Forgot Password?</a>
                     </div>
                     
-                    <br><br>
+                    <!-- Display error message -->
+                    <c:if test="${errorMessage != null}">
+                        <div id="error-message"> ${errorMessage}  </div>
+                    </c:if>
+                    
                     <div class="btn">
                         <input type="submit" value="Login" name="login" id="button"/>
                     </div>
@@ -52,5 +57,15 @@
         </section>
         
         <jsp:include page="footer.jsp"/>
+        
+        <!-- to clear error message -->
+        <script>
+            function clearErrorMessage() {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = ''; 
+                }
+            }
+        </script>
     </body>
 </html>

@@ -1,18 +1,18 @@
 <%-- 
     Document   : checkout
     Created on : Dec 3, 2024, 6:00:39 PM
-    Author     : sanuj
+    Author     : sanuji
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-        <head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <title>Payment Summary</title>
-            <link rel="stylesheet" href="assets/css/movies.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        </head>
+        <title>Payment Summary</title>
+        <link rel="stylesheet" href="assets/css/movies.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
 <body>
     <jsp:include page="header.jsp"/>
     
@@ -74,7 +74,7 @@
             
             <div class="card-box">
                 <div class="card-header">
-                    <i class="fas fa-plus"></i> Add Snacks & Beverages
+                    <a href="foodsAndBeverages.jsp"><i class="fas fa-plus"></i> </a>Add Snacks & Beverages
                 </div>
             <table class="card-table">
                 <thead>
