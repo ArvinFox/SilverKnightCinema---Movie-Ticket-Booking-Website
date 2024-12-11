@@ -174,16 +174,89 @@ if (filterHeader) {
 
 
 // JavaScript for confirming deletion
+function confirmUserDelete(userName, userEmail, userId) {
+ return confirm(`Are you sure you want to delete the user "${userName}" (Email: ${userEmail}) [ID: ${userId}]? \nThis action cannot be undone.`);
+}
+
+function confirmGuestDelete(guestName, guestEmail, guestId) {
+  return confirm(`Are you sure you want to delete the guest "${guestName}" (Email: ${guestEmail}) [ID: ${guestId}]? \nThis action cannot be undone.`);
+}
+
+function confirmPromotionDelete(promotionName, promotionId) {
+  return confirm(`Are you sure you want to delete the promotion "${promotionName}" [ID: ${promotionId}]? \nThis action cannot be undone.`);
+}
+
 function confirmMovieDelete(movieTitle, movieId) {
   return confirm(`Are you sure you want to delete the movie "${movieTitle}" [ID: ${movieId}]? \nThis action cannot be undone.`);
 }
 
-function confirmGenreDelete(genreName, genreId) {
-  return confirm(`Are you sure you want to delete the genre "${genreName}" [ID: ${genreId}]? \nThis action cannot be undone.`);
+async function confirmGenreDelete(genreName, genreId) {
+  try {
+    const movies = await fetchMoviesByLanguageOrGenre(genreId, 'genre');
+
+    let movieDetailsMessage = "";
+    if (movies && movies.length > 0) {
+      movieDetailsMessage = "\n\nThe following movies are associated with this genre and will also be deleted:\n";
+      movieDetailsMessage += movies
+        .map((movie, index) => `  ${index + 1}. ${movie.title} [ID: ${movie.movieId}]`)
+        .join("\n");
+      movieDetailsMessage += "\n";
+    }
+
+    const confirmationMessage = 
+      `Are you sure you want to delete the genre "${genreName}" [ID: ${genreId}]?` +
+      movieDetailsMessage +
+      "\nThis action cannot be undone.";
+
+    return confirm(confirmationMessage);
+
+  } catch (error) {
+    console.error("Error while fetching movies: ", error);
+    alert("An error occurred while checking associated movies. Please try again.");
+    return false;
+  }
 }
 
-function confirmLanguageDelete(languageName, languageId) {
-  return confirm(`Are you sure you want to delete the language "${languageName}" [ID: ${languageId}]? \nThis action cannot be undone.`);
+async function confirmLanguageDelete(languageName, languageId) {
+  try {
+    const movies = await fetchMoviesByLanguageOrGenre(languageId, 'language');
+
+    let movieDetailsMessage = "";
+    if (movies && movies.length > 0) {
+      movieDetailsMessage = "\n\nThe following movies are associated with this language and will also be deleted:\n";
+      movieDetailsMessage += movies
+        .map((movie, index) => `  ${index + 1}. ${movie.title} [ID: ${movie.movieId}]`)
+        .join("\n");
+      movieDetailsMessage += "\n";
+    }
+
+    const confirmationMessage = 
+      `Are you sure you want to delete the language "${languageName}" [ID: ${languageId}]?` +
+      movieDetailsMessage +
+      "\nThis action cannot be undone.";
+
+    return confirm(confirmationMessage);
+
+  } catch (error) {
+    console.error("Error while fetching movies: ", error);
+    alert("An error occurred while checking associated movies. Please try again.");
+    return false;
+  }
+}
+
+async function fetchMoviesByLanguageOrGenre(id, type) {
+  try {
+    const response = await fetch("../fetch?" + type + "Id=" + id);
+    if (!response.ok) throw new Error("Failed to fetch movies by " + type);
+
+    const data = await response.json();
+    const { movies } = data;
+
+    return movies;
+
+  } catch (error) {
+    console.error("Error fetching movies by language or genre: ", error);
+  }
 }
 
 function confirmInquiryDelete(inquirySubject, inquiryId) {
@@ -192,9 +265,9 @@ function confirmInquiryDelete(inquirySubject, inquiryId) {
 //
 
 
-// JavaScript for uploading movie poster file (separately)
-function uploadMoviePoster() {
-  document.getElementById('movieForm').addEventListener('submit', async function (e) {
+// JavaScript for uploading poster files (separately)
+function uploadPoster(type) {
+  document.getElementById(`${type}Form`).addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent the default form submission
 
     // File upload
@@ -203,6 +276,7 @@ function uploadMoviePoster() {
       const file = posterInput.files[0];
       const formData = new FormData();
       formData.append('poster', file);
+      formData.append('type', type);
 
       const uploadResponse = await fetch('../upload', {
         method: 'POST',
@@ -281,6 +355,7 @@ let initialCastState = [];
 let initialCrewState = [];
 let initialLanguage = '';
 let initialMovieStatus = '';
+let initialPromotionStatus = '';
 
 const allLanguages = [];
 const allGenres = [];
@@ -318,6 +393,10 @@ async function toggleEditMode(editMode, type = null) {
       toggleMovieEdit(true);
     }
 
+    if (type === 'promotion') {
+      togglePromotionEdit(true);
+    }
+
     elements.forEach(el => el.disabled = false);
     editButton.classList.add('hidden');
     actionButtons.classList.remove('hidden');
@@ -330,11 +409,57 @@ async function toggleEditMode(editMode, type = null) {
     if (type === 'movie') {
       toggleMovieEdit(false);
     }
+
+    if (type === 'promotion') {
+      togglePromotionEdit(false);
+    }
    
     elements.forEach(el => el.disabled = true);
     editButton.classList.remove('hidden');
     actionButtons.classList.add('hidden');
     actionButtons.style.display = "none";
+  }
+}
+
+function togglePromotionEdit(editMode) {
+  const statusContainer = document.getElementById('status-container');
+
+  if (editMode) {
+    initialPromotionStatus = statusContainer.querySelector("input").value;
+
+    statusContainer.innerHTML = "";
+    const select = document.createElement("select");
+    select.classList.add("form-control");
+    select.id = "status";
+    select.name = "status";
+    select.required = true;
+
+    const activeOption = document.createElement("option");
+    activeOption.value = "active";
+    activeOption.textContent = "Active";
+
+    if ("Active" === initialPromotionStatus) {
+      activeOption.selected = true;
+    }
+
+    select.appendChild(activeOption);
+
+    const inactiveOption = document.createElement("option");
+    inactiveOption.value = "inactive";
+    inactiveOption.textContent = "Inactive";
+
+    if ("Inactive" === initialPromotionStatus) {
+      inactiveOption.selected = true;
+    }
+
+    select.appendChild(inactiveOption);
+
+    statusContainer.appendChild(select);
+
+  } else {
+    statusContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialPromotionStatus}" disabled>
+    `;
   }
 }
 
@@ -574,6 +699,20 @@ function resetChanges(type = null) {
   // Reset each section
   if (type === 'movie') {
     resetMovie();
+  }
+
+  if (type === 'promotion') {
+    resetPromotion();
+  }
+}
+
+function resetPromotion() {
+  const statusContainer = document.getElementById('status-container');
+  const selectElement = statusContainer.querySelector("select");
+
+  const initialStatusOption = Array.from(selectElement.options).find(option => option.textContent === initialPromotionStatus);
+  if (initialStatusOption) {
+    initialStatusOption.selected = true;
   }
 }
 

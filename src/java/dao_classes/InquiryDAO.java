@@ -31,6 +31,55 @@ public class InquiryDAO {
         }
     }
     
+    // Method to get searched inquiries
+    public List<Inquiry> getSearchedInquiries(String email, String subject, String startDate, String endDate) {
+        List<Inquiry> inquiries = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM inquiries WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (email != null && !email.trim().isEmpty()) {
+            query.append(" AND email LIKE ?");
+            parameters.add("%" + email.trim() + "%");
+        }
+        
+        if (subject != null && !subject.trim().isEmpty()) {
+            query.append(" AND subject LIKE ?");
+            parameters.add("%" + subject.trim() + "%");
+        }
+        
+        if (startDate != null && !startDate.trim().isEmpty()) {
+            query.append(" AND createdAt >= ?");
+            parameters.add(startDate.trim());
+        }
+        
+        if (endDate != null && !endDate.trim().isEmpty()) {
+            query.append(" AND createdAt <= ?");
+            parameters.add(endDate.trim());
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Inquiry inquiry = populateInquiry(rs);
+                    inquiries.add(inquiry);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched inquiries: " + e.getMessage());
+        }
+        
+        return inquiries;
+    }
+    
     // Method to get inquiry by its id
     public Inquiry getInquiryById(int inquiryId) {
         Inquiry inquiry = null;

@@ -60,6 +60,57 @@ public class UserDAO {
         return user;
     }
     
+    // Method to get searched users
+    public List<User> getSearchedUsers(String name, String email, String contactNumber, String status) {
+        List<User> users = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM users WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (name != null && !name.trim().isEmpty()) {
+            query.append(" AND (firstName LIKE ? OR lastName LIKE ? OR CONCAT(firstName, ' ', lastName) LIKE ?)");
+            parameters.add("%" + name.trim() + "%");
+            parameters.add("%" + name.trim() + "%");
+            parameters.add("%" + name.trim() + "%");
+        }
+        
+        if (email != null && !email.trim().isEmpty()) {
+            query.append(" AND email LIKE ?");
+            parameters.add("%" + email.trim() + "%");
+        }
+        
+        if (contactNumber != null && !contactNumber.trim().isEmpty()) {
+            query.append(" AND contactNumber LIKE ?");
+            parameters.add("%" + contactNumber.trim() + "%");
+        }
+        
+        if (status != null && !status.trim().isEmpty() && !status.equals("any")) {
+            query.append(" AND accountStatus = ?");
+            parameters.add(status);
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    User user = populateUser(rs);
+                    users.add(user);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched users: " + e.getMessage());
+        }
+        
+        return users;
+    }
+    
     // Method to check if email is already registered
     public boolean isEmailRegistered(String email) {
         boolean isRegistered = false;

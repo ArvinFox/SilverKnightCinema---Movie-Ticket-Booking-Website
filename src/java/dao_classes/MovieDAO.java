@@ -40,6 +40,69 @@ public class MovieDAO {
         }
     }
     
+    // Method to get searched movies
+    public List<Movie> getSearchedMovies(String title, String genre, String language, String releaseDateFrom, String releaseDateTo, String status) {
+        List<Movie> movies = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM movies WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (title != null && !title.trim().isEmpty()) {
+            query.append(" AND title LIKE ?");
+            parameters.add("%" + title.trim() + "%");
+        }
+        
+        if (genre != null && !genre.trim().isEmpty() && !genre.equals("any")) {
+            query.append(" AND JSON_CONTAINS(genreIds, CAST(? AS JSON))");
+            parameters.add("[" + Integer.valueOf(genre) + "]");
+        }
+        
+        if (language != null && !language.trim().isEmpty() && !language.equals("any")) {
+            query.append(" AND languageId = ?");
+            parameters.add(Integer.valueOf(language));
+        }
+        
+        if (releaseDateFrom != null && !releaseDateFrom.trim().isEmpty()) {
+            query.append(" AND releaseDate >= ?");
+            parameters.add(releaseDateFrom.trim());
+        }
+        
+        if (releaseDateTo != null && !releaseDateTo.trim().isEmpty()) {
+            query.append(" AND releaseDate <= ?");
+            parameters.add(releaseDateTo.trim());
+        }
+        
+        if (status != null && !status.trim().isEmpty() && !status.equals("any")) {
+            query.append(" AND status = ?");
+            if (status.equals("NOW_SHOWING")) {
+                parameters.add("Now Showing");
+            } else {
+                parameters.add("Coming Soon");
+            }
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Movie movie = populateMovie(rs);
+                    movies.add(movie);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched movies: " + e.getMessage());
+        }
+        
+        return movies;
+    }
+    
     // Method to get movie by its id
     public Movie getMovieById(int movieId) {
         Movie movie = null;
@@ -104,6 +167,38 @@ public class MovieDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in deleting movie: " + e.getMessage());
+        }
+    }
+    
+    // Method to delete movies by language
+    public void deleteMoviesByLanguage(int languageId) {
+        String query = "DELETE FROM movies WHERE languageId = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, languageId);
+            ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in deleting movies by language: " + e.getMessage());
+        }
+    }
+    
+    // Method to delete movies by genre
+    public void deleteMoviesByGenre(int genreId) {
+        String query = "DELETE FROM movies WHERE JSON_CONTAINS(genreIds, CAST(? AS JSON))";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, "[" + genreId + "]");
+            ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in deleting movies by genre: " + e.getMessage());
         }
     }
     

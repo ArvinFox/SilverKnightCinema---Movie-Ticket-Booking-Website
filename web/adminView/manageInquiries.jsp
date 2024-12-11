@@ -32,7 +32,7 @@
             </div>
             
             <div class="search-container" id="filterOptions">
-                <form action="manageInquiries" method="get">
+                <form id="searchForm" action="manageInquiries" method="get">
                     <label for="email">Email:</label>
                     <input type="text" name="email" id="email" placeholder="Search by email" 
                         value="${param.email != null ? param.email : ''}">
@@ -51,7 +51,7 @@
 
                     <div class="buttons-container">
                         <button type="button" class="reset-btn" ${empty param.email && empty param.subject && empty param.startDate && empty param.endDate ? 'disabled' : ''} onclick="window.location.href = 'manageInquiries'">Reset Filters</button>
-                        <button type="submit">Search</button>
+                        <button type="button" onclick="validateSearchInput()">Search</button>
                     </div>
                 </form>
             </div>
@@ -104,7 +104,32 @@
 
         <%@ include file="../adminTemplates/footer.jsp" %>
         
+        <script>
+            function validateSearchInput() {
+                const emailInput = document.getElementById('email');
+                const subjectInput = document.getElementById('subject');
+                const startDateInput = document.getElementById('startDate');
+                const endDateInput = document.getElementById('endDate');
+
+                if (!emailInput.value.trim() && !subjectInput.value.trim() && !startDateInput.value.trim() && !endDateInput.value.trim()) {
+                    emailInput.classList.add("input-error");
+                    subjectInput.classList.add("input-error");
+                    startDateInput.classList.add("input-error");
+                    endDateInput.classList.add("input-error");
+
+                    setTimeout(() => {
+                        emailInput.classList.remove("input-error");
+                        subjectInput.classList.remove("input-error");
+                        startDateInput.classList.remove("input-error");
+                        endDateInput.classList.remove("input-error");
+                    }, 300);
+
+                    return false;
+                }
+
+                document.getElementById("searchForm").submit();
+            }
+        </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>
 </html>
-

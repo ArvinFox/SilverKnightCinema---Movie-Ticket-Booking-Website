@@ -2,6 +2,7 @@ package admin_servlet_classes;
 
 import model_classes.Genre;
 import dao_classes.GenreDAO;
+import dao_classes.MovieDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -15,10 +16,12 @@ import java.util.List;
 @WebServlet(name = "AdminManageGenresServlet", urlPatterns = {"/AdminManageGenresServlet", "/admin/manageGenres"})
 public class AdminManageGenresServlet extends HttpServlet {
     private GenreDAO genreDAO;
+    private MovieDAO movieDAO;
     
     @Override
     public void init() {
         genreDAO = new GenreDAO();
+        movieDAO = new MovieDAO();
     }
 
     @Override
@@ -27,6 +30,7 @@ public class AdminManageGenresServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
+        
         String searchedGenre = request.getParameter("genre");
         List<Genre> genreList;
         
@@ -77,6 +81,7 @@ public class AdminManageGenresServlet extends HttpServlet {
                 
                 case "delete" -> {
                     int genreId = Integer.parseInt(request.getParameter("genreId"));
+                    movieDAO.deleteMoviesByGenre(genreId);  // Delete movies associated with the genre
                     genreDAO.deleteGenre(genreId);
                     actionResponse = "Genre deleted successfully.";
                 }

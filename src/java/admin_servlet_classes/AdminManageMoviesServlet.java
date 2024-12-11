@@ -42,8 +42,30 @@ public class AdminManageMoviesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         
+        String title = request.getParameter("title");
+        String genre = request.getParameter("genre");
+        String language = request.getParameter("language");
+        String releaseDateFrom = request.getParameter("releaseDateFrom");
+        String releaseDateTo = request.getParameter("releaseDateTo");
+        String status = request.getParameter("status");
+        List<Movie> movieList;
+        
         if (username != null) {
-            List<Movie> movieList = movieDAO.getAllMovies();
+            if ((title != null && !title.trim().isEmpty()) || (genre != null && !genre.equals("any")) || (language != null && !language.equals("any")) || (releaseDateFrom != null && !releaseDateFrom.trim().isEmpty()) || (releaseDateTo != null && !releaseDateTo.trim().isEmpty()) || (status != null && !status.equals("any"))) {
+                
+                if (genre != null && !genre.equals("any")) {
+                    genre = String.valueOf(genreDAO.getGenreByName(genre).getGenreId());
+                }
+                if (language != null && !language.equals("any")) {
+                    language = String.valueOf(languageDAO.getLanguageByName(language).getLanguageId());
+                }
+                
+                movieList = movieDAO.getSearchedMovies(title, genre, language, releaseDateFrom, releaseDateTo, status);
+                
+            } else {
+                movieList = movieDAO.getAllMovies();
+            }
+            
             List<Language> languageList = languageDAO.getAllLanguages();
             List<Genre> genreList = genreDAO.getAllGenres();
             

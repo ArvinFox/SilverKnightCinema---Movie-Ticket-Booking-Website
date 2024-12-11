@@ -18,21 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Genres - Silver Knight Cinema</title>
         <link rel="stylesheet" href="../assets/css/adminStyles.css">
-        <style>
-            @keyframes shake {
-                0% { transform: translateX(0); }
-                25% { transform: translateX(-5px); }
-                50% { transform: translateX(5px); }
-                75% { transform: translateX(-5px); }
-                100% { transform: translateX(0); }
-            }
-
-            .input-error {
-                animation: shake 0.3s ease-in-out;
-                border: 2px solid red;
-                outline: none;
-            }
-        </style>
     </head>
     <body>
         <%@ include file="../adminTemplates/header.jsp" %>
@@ -76,10 +61,11 @@
                                 <td>${genre.genreId}</td>
                                 <td>${genre.name}</td>
                                 <td>
-                                    <form action="manageGenres" method="POST" onsubmit="return confirmGenreDelete('${genre.name}', '${genre.genreId}')">
+                                    <form id="deleteGenreForm" action="manageGenres" method="POST">
                                         <input type="submit" class="action-btn delete-btn" value="Delete" />
                                         <input type="hidden" name="action" value="delete" />
                                         <input type="hidden" name="genreId" value="${genre.genreId}"/>
+                                        <input type="hidden" name="genre" value="${genre.name}"/>
                                     </form>
                                 </td>
                             </tr>
@@ -118,8 +104,24 @@
 
                 document.getElementById("searchForm").submit();
             }
+
+            document.querySelectorAll('#deleteGenreForm').forEach(form => {
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const genreId = form.querySelector('input[name="genreId"]').value;
+                    const genreName = form.querySelector('input[name="genre"]').value;
+
+                    const confirmed = await confirmGenreDelete(genreName, genreId);
+
+                    if (confirmed) {
+                        form.submit();
+                    } else {
+                        console.log('Genre deletion canceled');
+                    }
+                });
+            }); 
         </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>
 </html>
-

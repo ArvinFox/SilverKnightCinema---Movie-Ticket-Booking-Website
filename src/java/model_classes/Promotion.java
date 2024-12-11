@@ -8,6 +8,7 @@ public class Promotion {
     private String description;
     private String code;
     private double discount;
+    private String posterUrl;
     private Date startDate;
     private Date endDate;
     private boolean isActive;
@@ -15,11 +16,12 @@ public class Promotion {
     // Constructors
     public Promotion() {}
     
-    public Promotion(String name, String description, String code, double discount, Date startDate, Date endDate, boolean isActive) {
+    public Promotion(String name, String description, String code, double discount, String posterUrl, Date startDate, Date endDate, boolean isActive) {
         this.name = name;
         this.description = description;
         this.code = code;
         this.discount = discount;
+        this.posterUrl = posterUrl;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
@@ -40,6 +42,9 @@ public class Promotion {
     
     public double getDiscount() { return discount; }
     public void setDiscount(double discount) { this.discount = discount; }
+    
+    public String getPosterUrl() { return posterUrl; }
+    public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
     
     public Date getStartDate() { return startDate; }
     public void setStartDate(Date startDate) { this.startDate = startDate; }

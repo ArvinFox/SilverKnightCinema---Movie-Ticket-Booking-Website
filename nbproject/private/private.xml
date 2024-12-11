@@ -3,32 +3,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addLanguage.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addGenre.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/MovieDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/LanguageDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminLogoutServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/GenreDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageLanguages.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageGenres.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminTemplates/header.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageLanguagesServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageInquiries.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageGenresServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/test_classes/TestServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/login.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/adminStyles.css</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Inquiry.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageMovies.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/FetchDataServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewMovie.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/InquiryDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewInquiry.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Movie.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/scripts/admin.js</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageMoviesServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageInquiriesServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addMovie.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageLanguagesServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageUsers.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/managePromotions.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addMovie.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageUsersServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Promotion.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewPromotion.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/UploadFileServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/MovieDAO.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/GuestDAO.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageGenresServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManagePromotionsServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageMovies.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageInquiries.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageGenres.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/scripts/admin.js</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewUser.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/adminStyles.css</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/PromotionDAO.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageMoviesServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addPromotion.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageInquiriesServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageLanguages.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/FetchDataServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/UserDAO.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/InquiryDAO.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/Last%20Commit%20SE%20II%20Project/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewMovie.jsp</file>
         </group>
     </open-files>
 </project-private>

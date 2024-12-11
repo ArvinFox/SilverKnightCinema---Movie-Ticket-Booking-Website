@@ -28,8 +28,18 @@ public class AdminManageInquiriesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         
+        String email = request.getParameter("email");
+        String subject = request.getParameter("subject");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        List<Inquiry> inquiryList;
+        
         if (username != null) {
-            List<Inquiry> inquiryList = inquiryDAO.getAllInquiries();
+            if ((email != null && !email.trim().isEmpty()) || (subject != null && !subject.trim().isEmpty()) || (startDate != null && !startDate.trim().isEmpty()) || (endDate != null && !endDate.trim().isEmpty())) {
+                inquiryList = inquiryDAO.getSearchedInquiries(email, subject, startDate, endDate);
+            } else {
+                inquiryList = inquiryDAO.getAllInquiries();
+            }
                     
             request.setAttribute("inquiryList", inquiryList);            
             request.getRequestDispatcher("../adminView/manageInquiries.jsp").forward(request, response);
@@ -64,8 +74,7 @@ public class AdminManageInquiriesServlet extends HttpServlet {
             
         } else {
             response.sendRedirect("login");
-        }
-        
+        }       
     }
 
     @Override

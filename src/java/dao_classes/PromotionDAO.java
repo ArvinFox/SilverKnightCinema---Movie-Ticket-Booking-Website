@@ -14,7 +14,7 @@ public class PromotionDAO {
     
     // Method to create a promotion
     public void createPromotion(Promotion promotion) {
-        String query = "INSERT INTO promotions (name, description, code, discount, startDate, endDate, isActive) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO promotions (name, description, code, discount, posterUrl, startDate, endDate, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -23,15 +23,70 @@ public class PromotionDAO {
             ps.setString(2, promotion.getDescription());
             ps.setString(3, promotion.getCode());
             ps.setDouble(4, promotion.getDiscount());
-            ps.setDate(5, promotion.getStartDate());
-            ps.setDate(6, promotion.getEndDate());
-            ps.setBoolean(7, promotion.getIsActive());
+            ps.setString(5, promotion.getPosterUrl());
+            ps.setDate(6, promotion.getStartDate());
+            ps.setDate(7, promotion.getEndDate());
+            ps.setBoolean(8, promotion.getIsActive());
             ps.executeUpdate();
             
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in creating promotion: " + e.getMessage());
         }
+    }
+    
+    // Method to get searched promotions
+    public List<Promotion> getSearchedPromotions(String name, Double discount, String startDate, String endDate, String status) {
+        List<Promotion> promotions = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM promotions WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (name != null && !name.trim().isEmpty()) {
+            query.append(" AND name LIKE ?");
+            parameters.add("%" + name.trim() + "%");
+        }
+        
+        if (discount != null) {
+            query.append(" AND discount = ?");
+            parameters.add(discount);
+        }
+        
+        if (startDate != null && !startDate.trim().isEmpty()) {
+            query.append(" AND startDate >= ?");
+            parameters.add(java.sql.Date.valueOf(startDate));
+        }
+        
+        if (endDate != null && !endDate.trim().isEmpty()) {
+            query.append(" AND endDate <= ?");
+            parameters.add(java.sql.Date.valueOf(endDate));
+        }
+        
+        if (status != null && !status.trim().equalsIgnoreCase("any")) {
+            query.append(" AND isActive = ?");
+            parameters.add(status.equalsIgnoreCase("Active"));
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Promotion promotion = populatePromotion(rs);
+                    promotions.add(promotion);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched promotions: " + e.getMessage());
+        }
+        
+        return promotions;
     }
     
     // Method to get promotion by its code
@@ -82,7 +137,7 @@ public class PromotionDAO {
     
     // Method to update promotion details
     public void updatePromotion(Promotion promotion) {
-        String query = "UPDATE promotions SET name = ?, description = ?, code = ?, discount = ?, startDate = ?, endDate = ?, isActive = ? WHERE promotionId = ?";
+        String query = "UPDATE promotions SET name = ?, description = ?, code = ?, discount = ?, posterUrl = ?, startDate = ?, endDate = ?, isActive = ? WHERE promotionId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -91,10 +146,11 @@ public class PromotionDAO {
             ps.setString(2, promotion.getDescription());
             ps.setString(3, promotion.getCode());
             ps.setDouble(4, promotion.getDiscount());
-            ps.setDate(5, promotion.getStartDate());
-            ps.setDate(6, promotion.getEndDate());
-            ps.setBoolean(7, promotion.getIsActive());
-            ps.setInt(8, promotion.getPromotionId());
+            ps.setString(5, promotion.getPosterUrl());
+            ps.setDate(6, promotion.getStartDate());
+            ps.setDate(7, promotion.getEndDate());
+            ps.setBoolean(8, promotion.getIsActive());
+            ps.setInt(9, promotion.getPromotionId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -191,6 +247,7 @@ public class PromotionDAO {
         promotion.setDescription(rs.getString("description"));
         promotion.setCode(rs.getString("code"));
         promotion.setDiscount(rs.getDouble("discount"));
+        promotion.setPosterUrl(rs.getString("posterUrl"));
         promotion.setStartDate(rs.getDate("startDate"));
         promotion.setEndDate(rs.getDate("endDate"));
         promotion.setIsActive(rs.getBoolean("isActive"));

@@ -40,6 +40,7 @@
                 
                 <div class="movie-details entity-details">
                     <img src="../${movie.posterUrl}" alt="${movie.title}" width="200px">
+                    <input type="hidden" name="posterUrl" value="${movie.posterUrl}">
 
                     <p><strong>Movie ID:</strong></p>
                     <input type="text" class="form-control" value="${movie.movieId}" disabled>

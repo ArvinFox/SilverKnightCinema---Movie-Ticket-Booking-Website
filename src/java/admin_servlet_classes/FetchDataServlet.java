@@ -10,6 +10,8 @@ import model_classes.Genre;
 import dao_classes.GenreDAO;
 import model_classes.User;
 import dao_classes.UserDAO;
+import model_classes.Promotion;
+import dao_classes.PromotionDAO;
 import model_classes.Inquiry;
 import dao_classes.InquiryDAO;
 
@@ -19,6 +21,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+// import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class FetchDataServlet extends HttpServlet {
     private LanguageDAO languageDAO;
     private GenreDAO genreDAO;
     private UserDAO userDAO;
+    private PromotionDAO promotionDAO;
     private InquiryDAO inquiryDAO;
     
     @Override
@@ -37,6 +41,7 @@ public class FetchDataServlet extends HttpServlet {
         languageDAO = new LanguageDAO();
         genreDAO = new GenreDAO();
         userDAO = new UserDAO();
+        promotionDAO = new PromotionDAO();
         inquiryDAO = new InquiryDAO();
     }
     
@@ -44,15 +49,37 @@ public class FetchDataServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Language> languages = languageDAO.getAllLanguages();
-        List<Genre> genres = genreDAO.getAllGenres();
+        Map<String, Object> result = new HashMap<>();
+        
+        String languageIdParam = request.getParameter("languageId");
+        String genreIdParam = request.getParameter("genreId");
+        
+        if (languageIdParam != null || genreIdParam != null) {
+            if (languageIdParam != null) {
+                int languageId = Integer.parseInt(languageIdParam);
+                List<Movie> moviesByLanguage = movieDAO.getMoviesByLanguage(languageId);
+                result.put("movies", moviesByLanguage);
+            } else if (genreIdParam != null) {
+                /*
+                int[] genreIds = Arrays.stream(genreIdParam.split(","))
+                                        .mapToInt(Integer::parseInt)
+                                        .toArray();
+                */
+                int genreId = Integer.parseInt(genreIdParam);
+                List<Movie> moviesByGenre = movieDAO.getMoviesByGenres(new int[] {genreId});
+                result.put("movies", moviesByGenre);
+            }
+            
+        } else {
+            List<Language> languages = languageDAO.getAllLanguages();
+            List<Genre> genres = genreDAO.getAllGenres();
+            
+            result.put("languages", languages);
+            result.put("genres", genres);
+        }
         
         // Convert lists to JSON
         Gson gson = new Gson();
-        Map<String, Object> result = new HashMap<>();
-        result.put("languages", languages);
-        result.put("genres", genres);
-        
         String jsonResponse = gson.toJson(result);
 
         // Write JSON response
@@ -108,6 +135,12 @@ public class FetchDataServlet extends HttpServlet {
                     User user = userDAO.getUserById(id);
                     request.setAttribute("user", user);
                     request.getRequestDispatcher("/adminView/viewUser.jsp").forward(request, response);
+                }
+                
+                case "Promotion" -> {
+                    Promotion promotion = promotionDAO.getPromotionById(id);
+                    request.setAttribute("promotion", promotion);
+                    request.getRequestDispatcher("/adminView/viewPromotion.jsp").forward(request, response);
                 }
                 
                 case "Inquiry" -> {

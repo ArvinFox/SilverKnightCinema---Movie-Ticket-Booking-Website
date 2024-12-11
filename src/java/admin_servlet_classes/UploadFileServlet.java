@@ -18,7 +18,6 @@ import java.nio.file.Paths;
     maxRequestSize = 1024 * 1024 * 50 // 50MB
 )
 public class UploadFileServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "assets/images/posters";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,26 +29,41 @@ public class UploadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // Retrieve the 'type' parameter to determine the upload directory
+        String type = request.getParameter("type");
+        String uploadDir;
+        
+        // Determine the upload directory based on the 'type' parameter
+        if ("movie".equalsIgnoreCase(type)) {
+            uploadDir = "assets/images/posters";
+        } else if ("promotion".equalsIgnoreCase(type)) {
+            uploadDir = "assets/images";
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print("Invalid type parameter.");
+            return;
+        }
+        
         // Retrieve the uploaded file part
         Part filePart = request.getPart("poster");
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();  // Get the original file name
 
             // Get the absolute path of the upload directory from the web application root
-            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
+            String uploadPath = getServletContext().getRealPath("") + File.separator + uploadDir;
 
             // Create the directory if it doesn't exist
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();  // Creates all non-existing parent directories as well
+            File uploadDirectory = new File(uploadPath);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();  // Creates all non-existing parent directories as well
             }
 
             // Create the file object to write the uploaded file
             File file = new File(uploadPath + File.separator + fileName);
             filePart.write(file.getAbsolutePath());  // Write the file to disk
 
-            response.getWriter().print(UPLOAD_DIR + "/" + fileName);
-            System.out.println(UPLOAD_DIR + "/" + fileName);
+            response.getWriter().print(uploadDir + "/" + fileName);
+            System.out.println(uploadDir + "/" + fileName);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().print("No file provided or file size is zero.");
@@ -58,6 +72,6 @@ public class UploadFileServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Servlet used to upload movie posters.";
+        return "Servlet used to upload posters.";
     }
 }

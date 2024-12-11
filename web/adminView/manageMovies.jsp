@@ -34,24 +34,24 @@
             </div>
             
             <div class="search-container" id="filterOptions">
-                <form action="manageMovies" method="get">
+                <form id="searchForm" action="manageMovies" method="get">
                     <label for="title">Title:</label>
                     <input type="text" name="title" id="title" placeholder="Search by title" 
                            value="${param.title != null ? param.title : ''}">
 
                     <label for="genre">Genre:</label>
                     <select name="genre" id="genre">
-                        <option value="">Select Genre</option>
+                        <option value="any">All Genres</option>
                         <c:forEach var="genre" items="${genreList}">
-                            <option value="${genre.genreId}" ${genre.name == param.genre ? "selected" : ""}>${genre.name}</option>
+                            <option value="${genre.name}" ${genre.name == param.genre ? "selected" : ""}>${genre.name}</option>
                         </c:forEach>
                     </select>
 
                     <label for="language">Language:</label>
                     <select name="language" id="language">
-                        <option value="">Select Language</option>
+                        <option value="any">All Languages</option>
                         <c:forEach var="language" items="${languageList}">
-                            <option value="${language.languageId}" ${language.language == param.language ? "selected" : ""}>${language.language}</option>
+                            <option value="${language.language}" ${language.language == param.language ? "selected" : ""}>${language.language}</option>
                         </c:forEach>
                     </select>
 
@@ -65,14 +65,14 @@
 
                     <label for="status">Status:</label>
                     <select name="status" id="status">
-                        <option value="">Select Status</option>
+                        <option value="any">Any Status</option>
                         <option value="NOW_SHOWING" ${param.status == 'NOW_SHOWING' ? 'selected' : ''}>Now Showing</option>
                         <option value="COMING_SOON" ${param.status == 'COMING_SOON' ? 'selected' : ''}>Coming Soon</option>
                     </select>
 
                     <div class="buttons-container">
                         <button type="button" class="reset-btn" ${empty param.title && empty param.genre && empty param.language && empty param.releaseDateFrom && empty param.releaseDateTo && empty param.status ? 'disabled' : ''} onclick="window.location.href = 'manageMovies'">Reset Filters</button>
-                        <button type="submit">Search</button>
+                        <button type="button" onclick="validateSearchInput()">Search</button>
                     </div>
                 </form>
             </div>
@@ -131,6 +131,38 @@
 
         <%@ include file="../adminTemplates/footer.jsp" %>
         
+        <script>
+            function validateSearchInput() {
+                const titleInput = document.getElementById('title');
+                const genreInput = document.getElementById('genre');
+                const languageInput = document.getElementById('language');
+                const releaseDateFromInput = document.getElementById('releaseDateFrom');
+                const releaseDateToInput = document.getElementById('releaseDateTo');
+                const statusInput = document.getElementById('status');
+
+                if (!titleInput.value.trim() && genreInput.value.trim() === "any" && languageInput.value.trim() === "any" && !releaseDateFromInput.value.trim() && !releaseDateToInput.value.trim() && statusInput.value.trim() === "any") {
+                    titleInput.classList.add("input-error");
+                    genreInput.classList.add("input-error");
+                    languageInput.classList.add("input-error");
+                    releaseDateFromInput.classList.add("input-error");
+                    releaseDateToInput.classList.add("input-error");
+                    statusInput.classList.add("input-error");
+
+                    setTimeout(() => {
+                        titleInput.classList.remove("input-error");
+                        genreInput.classList.remove("input-error");
+                        languageInput.classList.remove("input-error");
+                        releaseDateFromInput.classList.remove("input-error");
+                        releaseDateToInput.classList.remove("input-error");
+                        statusInput.classList.remove("input-error");
+                    }, 300);
+
+                    return false;
+                }
+
+                document.getElementById("searchForm").submit();
+            }
+        </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>
 </html>

@@ -2,6 +2,7 @@ package admin_servlet_classes;
 
 import model_classes.Language;
 import dao_classes.LanguageDAO;
+import dao_classes.MovieDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -15,10 +16,12 @@ import java.util.List;
 @WebServlet(name = "AdminManageLanguagesServlet", urlPatterns = {"/AdminManageLanguagesServlet", "/admin/manageLanguages"})
 public class AdminManageLanguagesServlet extends HttpServlet {
     private LanguageDAO languageDAO;
+    private MovieDAO movieDAO;
     
     @Override
     public void init() {
         languageDAO = new LanguageDAO();
+        movieDAO = new MovieDAO();
     }
 
     @Override
@@ -27,6 +30,7 @@ public class AdminManageLanguagesServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
+        
         String searchedLanguage = request.getParameter("language");
         List<Language> languageList;
         
@@ -76,7 +80,8 @@ public class AdminManageLanguagesServlet extends HttpServlet {
                 }
                 
                 case "delete" -> {
-                    int languageId = Integer.parseInt(request.getParameter("languageId"));
+                    int languageId = Integer.parseInt(request.getParameter("languageId"));                
+                    movieDAO.deleteMoviesByLanguage(languageId);    // Delete movies associated with the language              
                     languageDAO.deleteLanguage(languageId);
                     actionResponse = "Language deleted successfully.";
                 }

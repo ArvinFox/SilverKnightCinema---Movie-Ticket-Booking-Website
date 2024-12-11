@@ -30,6 +30,50 @@ public class GuestDAO {
         }
     }
     
+    // Method to get searched guests
+    public List<Guest> getSearchedGuests(String name, String email, String contactNumber) {
+        List<Guest> guests = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM guests WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (name != null && !name.trim().isEmpty()) {
+            query.append(" AND name LIKE ?");
+            parameters.add("%" + name.trim() + "%");
+        }
+        
+        if (email != null && !email.trim().isEmpty()) {
+            query.append(" AND email LIKE ?");
+            parameters.add("%" + email.trim() + "%");
+        }
+        
+        if (contactNumber != null && !contactNumber.trim().isEmpty()) {
+            query.append(" AND contactNumber LIKE ?");
+            parameters.add("%" + contactNumber.trim() + "%");
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Guest guest = populateGuest(rs);
+                    guests.add(guest);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched genres: " + e.getMessage());
+        }
+        
+        return guests;
+    }
+    
     // Method to get guest by their email
     public Guest getGuestByEmail(String email) {
         Guest guest = null;

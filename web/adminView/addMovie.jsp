@@ -130,7 +130,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadMoviePoster()">Add Movie</button>
+                <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadPoster('movie')">Add Movie</button>
             </form>
         </div>
 

@@ -452,6 +452,20 @@ body {
     opacity: 0.7;
 }
 
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.input-error {
+    animation: shake 0.3s ease-in-out;
+    border: 2px solid red;
+    outline: none;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -493,6 +507,13 @@ th {
 .delete-btn:active {
     background-color: #a71d2a;
     transform: scale(0.98);
+}
+
+.entity-details img {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 100%;
+    border-radius: 10px;
 }
 
 .entity-details p {
@@ -761,10 +782,31 @@ textarea {
     text-decoration: underline;
 }
 
-.movie-details img {
-    display: block;
-    margin: 0 auto 20px;
-    max-width: 100%;
-    border-radius: 10px;
+
+/* Users */
+.suspend-btn {
+    background-color: #ff4d4d;
+}
+
+.suspend-btn:hover {
+    background-color: #e60000;
+}
+
+.suspend-btn:active {
+    background-color: #cc0000;
+    transform: scale(0.98);
+}
+
+.activate-btn {
+    background-color: #4caf50;
+}
+
+.activate-btn:hover {
+    background-color: #388e3c;
+}
+
+.activate-btn:active {
+    background-color: #2e7d32;
+    transform: scale(0.98);
 }
 

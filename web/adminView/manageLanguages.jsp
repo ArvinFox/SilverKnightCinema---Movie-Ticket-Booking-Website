@@ -18,21 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Languages - Silver Knight Cinema</title>
         <link rel="stylesheet" href="../assets/css/adminStyles.css">
-        <style>
-            @keyframes shake {
-                0% { transform: translateX(0); }
-                25% { transform: translateX(-5px); }
-                50% { transform: translateX(5px); }
-                75% { transform: translateX(-5px); }
-                100% { transform: translateX(0); }
-            }
-
-            .input-error {
-                animation: shake 0.3s ease-in-out;
-                border: 2px solid red;
-                outline: none;
-            }
-        </style>
     </head>
     <body>
         <%@ include file="../adminTemplates/header.jsp" %>
@@ -76,10 +61,11 @@
                                 <td>${language.languageId}</td>
                                 <td>${language.language}</td>
                                 <td>
-                                    <form action="manageLanguages" method="POST" onsubmit="return confirmLanguageDelete('${language.language}', '${language.languageId}')">
+                                    <form id="deleteLanguageForm" action="manageLanguages" method="POST">
                                         <input type="submit" class="action-btn delete-btn" value="Delete" />
                                         <input type="hidden" name="action" value="delete" />
                                         <input type="hidden" name="languageId" value="${language.languageId}"/>
+                                        <input type="hidden" name="language" value="${language.language}"/>
                                     </form>
                                 </td>
                             </tr>
@@ -118,6 +104,23 @@
 
                 document.getElementById("searchForm").submit();
             }
+
+            document.querySelectorAll('#deleteLanguageForm').forEach(form => {
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const languageId = form.querySelector('input[name="languageId"]').value;
+                    const languageName = form.querySelector('input[name="language"]').value;
+
+                    const confirmed = await confirmLanguageDelete(languageName, languageId);
+
+                    if (confirmed) {
+                        form.submit();
+                    } else {
+                        console.log('Language deletion canceled');
+                    }
+                });
+            });        
         </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>
