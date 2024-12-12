@@ -479,12 +479,12 @@ footer{
 }
 
 .deals-h2 {
-    font-family: 'roboto';
-    font-size: 28px !important;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 500;
 }
 
 .deals-span{
+    font-weight: 700;
     color: red; 
     font-style: italic;
     font-size:32px;

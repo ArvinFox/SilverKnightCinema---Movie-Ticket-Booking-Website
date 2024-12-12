@@ -46,7 +46,7 @@
                 <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
                 <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
                 <li class="navLink"> <a href="locations.jsp"> Locations </a></li>
-                <li class="navLink"> <a href="dealsAndOffers.jsp"> Deals & Offers </a></li>
+                <li class="navLink"> <a href="dealsAndOffers"> Deals & Offers </a></li>
                 <c:if test="${user == null}">
                     <li> <button onclick="loginfunction()"> Login </button> </li>
                 </c:if>

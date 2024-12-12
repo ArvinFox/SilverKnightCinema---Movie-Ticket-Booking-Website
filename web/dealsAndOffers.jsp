@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,23 +27,35 @@
         
         <section class="deals-and-offers">
             <h2 class="deals-h2"> Dive into Exclusive Discounts, Early Bird Offers, and Curated Movie Selections.               Your Ultimate Movie Adventure<span class="deals-span">  STARTS NOW!</span></h2>
-            <div class="deal">
-                <h3>Blockbuster Discounts
-                <p>Enjoy <span class="highlight">20% off</span> on tickets for the latest blockbusters every                           weekend!</p></h3>
-                <img src="assets/images/deals-and-offers-image1.png" alt="Blockbuster Image">
-            </div>
-
-            <div class="deal">
-                <img src="assets/images/deals-and-offers-image2.jpeg" alt="Early Bird Image">
-                <h3>Early Bird Specials
-                <p>Get <span class="highlight">10% off</span> when you book your tickets a week in advance. Perfect                    for planning your movie nights!</p></h3>
-            </div>
-
-            <div class="deal">
-                <h3>Combo Deals
-                <p><span class="highlight">Buy 2 tickets and get 50% off</span> on the third. Bring your friends                       and family for an epic movie marathon!</p></h3>
-                <img src="assets/images/deals-and-offers-image3.jpg" alt="Combo Image">
-            </div>
+            
+            <c:if test="${not empty activePromotion}">
+                <c:forEach var="promotion" items="${activePromotion}">
+                    <c:choose>
+                        <c:when test="${promotion.promotionId % 2 == 0}">
+                           <div class="deal">
+                                <h3>${promotion.name}
+                                <p> ${promotion.description} </p>
+                                </h3>
+                                <img src="${promotion.posterUrl}" alt="${promotion.name}">
+                            </div> 
+                        </c:when>
+                        
+                        <c:otherwise>
+                            <div class="deal">
+                                <img src="${promotion.posterUrl}" alt="${promotion.name}"> 
+                                <h3>${promotion.name}
+                                <p>${promotion.description}</p>
+                                </h3>
+                            </div> 
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:if>
+            
+            <c:if test="${empty activePromotion}">
+                <h3 style="text-align: center; color: red; font-size: 20px;">No Promotions Available</h3>
+            </c:if>
+              
         </section>
         
         <jsp:include page="footer.jsp" />

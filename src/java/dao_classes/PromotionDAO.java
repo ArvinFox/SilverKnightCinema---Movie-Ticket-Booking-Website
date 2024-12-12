@@ -197,6 +197,29 @@ public class PromotionDAO {
         return promotions;
     }
     
+    // Method to get all active promotions
+    public List<Promotion> getAllActivePromotions() {
+        List<Promotion> activePromotions = new ArrayList<>();
+        String query = "SELECT * FROM promotions WHERE isActive = TRUE";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Promotion promotion = populatePromotion(rs);
+                activePromotions.add(promotion);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching promotions: " + e.getMessage());
+        }
+        
+        return activePromotions;
+    }
+    
+    
     // Method to get the total number of promotions
     public int getTotalPromotions() {
         int count = 0;
