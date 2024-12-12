@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType ="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +19,11 @@
         
         <section class="form-content">
             <div class="form">
-                <form name="loginForm" method="POST">
+                <form name="loginForm" method="POST" action="SignupServlet">
                     <h1 class="form-heading"> Sign Up </h1> <br>
                     <label for="text"> First Name </label>
                     <br>
-                    <input type="text" name="fname" placeholder="First Name" class="input-field" required/>
+                    <input type="text" name="fname" placeholder="First Name" class="input-field" required oninput="clearErrorMessage()"/>
                     <br><br>
                     <label for="text"> Last Name </label>
                     <br>
@@ -45,6 +46,11 @@
                     <input type="password" name="confirm_password" placeholder="Confirm Password" maxlength="12" class="input-field" required/>
                     <br><br>
                     
+                    <!-- Display error message -->
+                    <c:if test="${errorMessage != null}">
+                        <div id="error-message"> ${errorMessage}  </div>
+                    </c:if>
+                    
                     <div class="btn">
                         <input type="submit" value="Sign Up" name="signup" id="button"/>
                     </div>
@@ -59,16 +65,27 @@
         
     <jsp:include page="footer.jsp"/>
     
-    <!-- Javascript for Allow only numbers in contact input field  -->
+    
         <script>
+            
+            <!-- Javascript for Allow only numbers in contact input field  -->
             function onlyNumbers(e){
                 var contact = (e.which) ? e.which : e.keyCode;
                 if(contact > 31 && (contact < 48 || contact > 57)){
                     e.preventDefault();
                 }
             }
+            
+            <!-- to clear error message -->
+            function clearErrorMessage() {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = ''; 
+                }
+            }
+            
         </script>
-
+    
 </body>
 </html>
 

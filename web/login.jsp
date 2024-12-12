@@ -50,7 +50,7 @@
                     
                     <p class="account-para">
                         Need an account?
-                        <a href="signup.jsp" class="link"> Create an account </a>
+                        <a href="signup" class="link"> Create an account </a>
                     </p>
                 </form>
              </div>
