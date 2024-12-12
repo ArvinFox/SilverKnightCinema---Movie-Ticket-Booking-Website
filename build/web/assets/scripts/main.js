@@ -1,3 +1,11 @@
+
+//--------------------(footer optimized)-----------------
+const body = document.body;
+if(body.style.overflow !== "hidden") {
+    const footer = document.querySelector("footer");
+    footer.style.position = "fixed";
+}
+
 //For FAQ Popup Answers
 
 document.querySelectorAll('.faq-question').forEach(question => {
@@ -516,3 +524,5 @@ childDecrementBtn.addEventListener('click', () => {
     updateTicketCount();
     updateIncrementDecrementStates();
 });
+
+

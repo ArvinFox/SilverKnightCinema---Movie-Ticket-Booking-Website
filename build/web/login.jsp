@@ -58,6 +58,7 @@
         
         <jsp:include page="footer.jsp"/>
         
+        
         <!-- to clear error message -->
         <script>
             function clearErrorMessage() {
@@ -67,5 +68,7 @@
                 }
             }
         </script>
+        <script src="assets/scripts/main.js"></script>
+        
     </body>
 </html>

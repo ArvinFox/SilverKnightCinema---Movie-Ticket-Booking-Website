@@ -82,6 +82,6 @@
         </div>
         <hr>
     </div>
-    <script src="scripts.js"></script>
+    <script src="assets/scripts/main.js"></script>
 </body>
 </html>

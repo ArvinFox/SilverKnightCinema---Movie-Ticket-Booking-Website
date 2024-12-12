@@ -6,6 +6,10 @@
     font-size: 16px;
 }
 
+.main {
+    margin-top: 70px;
+}
+
 /*----------Css for Navigation-----------*/
 nav{
     padding: 10px 30px;
@@ -176,8 +180,11 @@ footer{
     background: black;
     color: #ffffff;
     padding: 20px 0;
-    margin-top: 40px;
+    margin-top: 20px;
+    position:relative;
     bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .container{

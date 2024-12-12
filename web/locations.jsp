@@ -80,5 +80,7 @@
          </div>
 
          <jsp:include page="footer.jsp" />
+         <script src="assets/scripts/main.js"></script>
+         
     </body>
 </html>
