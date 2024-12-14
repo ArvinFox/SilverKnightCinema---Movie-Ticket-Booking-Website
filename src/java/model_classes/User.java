@@ -14,6 +14,10 @@ public class User {
         AccountStatus(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -22,7 +26,7 @@ public class User {
 
         public static AccountStatus fromString(String dbValue) {
             for (AccountStatus status : AccountStatus.values()) {
-                if (status.dbValue.equalsIgnoreCase(dbValue)) {
+                if (status.dbValue.equalsIgnoreCase(dbValue) || status.name().equalsIgnoreCase(dbValue)) {
                     return status;
                 }
             }

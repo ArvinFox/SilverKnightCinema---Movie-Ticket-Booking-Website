@@ -103,6 +103,28 @@ public class BookingDAO {
         }
     }
     
+    // Method to get all bookings
+    public List<Booking> getAllBookings() {
+        List<Booking> bookings = new ArrayList<>();
+        String query = "SELECT * FROM bookings";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+                
+                while (rs.next()) {
+                    Booking booking = populateBooking(rs);
+                    bookings.add(booking);
+                }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching bookings: " + e.getMessage());
+        }
+        
+        return bookings;
+    }
+    
     // Method to get all bookings of user
     public List<Booking> getAllBookingsOfUser(int userId) {
         List<Booking> bookings = new ArrayList<>();

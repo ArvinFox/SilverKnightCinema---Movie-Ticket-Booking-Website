@@ -31,16 +31,18 @@ public class AdminManagePromotionsServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         
         String name = request.getParameter("name");
-        String discountParam = request.getParameter("discount");
-        Double discount = discountParam != null && !discountParam.isEmpty() ? Double.valueOf(discountParam) : null;
+        String minDiscountParam = request.getParameter("minDiscount");
+        Double minDiscount = minDiscountParam != null && !minDiscountParam.isEmpty() ? Double.valueOf(minDiscountParam) : null;
+        String maxDiscountParam = request.getParameter("maxDiscount");
+        Double maxDiscount = maxDiscountParam != null && !maxDiscountParam.isEmpty() ? Double.valueOf(maxDiscountParam) : null;
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         String status = request.getParameter("status");
         List<Promotion> promotionList;
         
         if (username != null) {
-            if ((name != null && !name.trim().isEmpty()) || (discount != null) || (startDate != null && !startDate.trim().isEmpty()) || (endDate != null && !endDate.trim().isEmpty()) || (status != null && !status.equals("any"))) {              
-                promotionList = promotionDAO.getSearchedPromotions(name, discount, startDate, endDate, status);
+            if ((name != null && !name.trim().isEmpty()) || (minDiscount != null) || (maxDiscount != null) || (startDate != null && !startDate.trim().isEmpty()) || (endDate != null && !endDate.trim().isEmpty()) || (status != null && !status.equals("any"))) {              
+                promotionList = promotionDAO.getSearchedPromotions(name, minDiscount, maxDiscount, startDate, endDate, status);
             } else {
                 promotionList = promotionDAO.getAllPromotions();
             }

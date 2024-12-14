@@ -125,12 +125,12 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select id="status" name="status" required>
-                        <option value="NOW_SHOWING">Now Showing</option>
-                        <option value="COMING_SOON">Coming Soon</option>
+                        <option value="Now Showing">Now Showing</option>
+                        <option value="Coming Soon">Coming Soon</option>
                     </select>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadPoster('movie')">Add Movie</button>
+                <button type="submit" class="action-btn add-btn-link font-16" onclick="uploadPoster('movie')">Add Movie</button>
             </form>
         </div>
 

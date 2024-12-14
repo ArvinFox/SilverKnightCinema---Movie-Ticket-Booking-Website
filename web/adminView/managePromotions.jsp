@@ -40,8 +40,12 @@
                            value="${param.name != null ? param.name : ''}">
                     
                     <label for="discount">Discount:</label>
-                    <input type="number" name="discount" id="discount" placeholder="Search by discount" step="0.01" min="0" max="100" 
-                           value="${param.discount != null ? param.discount : ''}">
+                    <div class="range-inputs">
+                        <input type="number" name="minDiscount" id="minDiscount" step="0.10" min="0" max="100" placeholder="Min Discount" 
+                               value="${param.minDiscount != null ? param.minDiscount : ''}">
+                        <input type="number" name="maxDiscount" id="maxDiscount" step="0.10" min="0" max="100" placeholder="Max Discount" 
+                               value="${param.maxDiscount != null ? param.maxDiscount : ''}">
+                    </div>
 
                     <label for="startDate">Start Date:</label>
                     <input type="date" name="startDate" id="startDate"
@@ -71,7 +75,7 @@
                         <tr>
                             <th>Promotion ID</th>
                             <th>Name</th>
-                            <th>Discount</th>
+                            <th>Discount (%)</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -116,21 +120,24 @@
         <script>
             function validateSearchInput() {
                 const nameInput = document.getElementById('name');
-                const discountInput = document.getElementById('discount');
+                const minDiscountInput = document.getElementById('minDiscount');
+                const maxDiscountInput = document.getElementById('maxDiscount');
                 const startDateInput = document.getElementById('startDate');
                 const endDateInput = document.getElementById('endDate');
                 const statusInput = document.getElementById('status');
 
-                if (!nameInput.value.trim() && !discount.value.trim() && !startDateInput.value.trim() && !endDateInput.value.trim() && statusInput.value.trim() === "any") {
+                if (!nameInput.value.trim() && !minDiscountInput.value.trim() && !maxDiscountInput.value.trim() && !startDateInput.value.trim() && !endDateInput.value.trim() && statusInput.value.trim() === "any") {
                     nameInput.classList.add("input-error");
-                    discountInput.classList.add("input-error");
+                    minDiscountInput.classList.add("input-error");
+                    maxDiscountInput.classList.add("input-error");
                     startDateInput.classList.add("input-error");
                     endDateInput.classList.add("input-error");
                     statusInput.classList.add("input-error");
 
                     setTimeout(() => {
                         nameInput.classList.remove("input-error");
-                        discountInput.classList.remove("input-error");
+                        minDiscountInput.classList.remove("input-error");
+                        maxDiscountInput.classList.remove("input-error");
                         startDateInput.classList.remove("input-error");
                         endDateInput.classList.remove("input-error");
                         statusInput.classList.remove("input-error");

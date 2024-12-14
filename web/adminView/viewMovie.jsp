@@ -4,10 +4,6 @@
     Author     : Umindu Haputhanthri
 --%>
 
-<%@page import="java.util.Map"%>
-<%@page import="org.json.JSONArray"%>
-<%@page import="org.json.JSONObject"%>
-<%@page import="model_classes.Movie"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -75,17 +71,7 @@
                     
                     <p><strong>Status:</strong></p>
                     <div id="status-container">
-                        <c:choose>
-                            <c:when test="${movie.status == 'NOW_SHOWING'}">
-                                <input type="text" class="form-control editable" value="Now Showing" disabled>
-                            </c:when>
-                            <c:when test="${movie.status == 'COMING_SOON'}">
-                                <input type="text" class="form-control editable" value="Coming Soon" disabled>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" class="form-control editable" value="Unknown" disabled>
-                            </c:otherwise>
-                        </c:choose>
+                        <input type="text" class="form-control editable" value="${movie.status.dbValue}" disabled>
                     </div>
 
                     <p><strong>Cast Members:</strong></p>

@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="discount">Discount</label>
-                    <input type="number" id="discount" name="discount" step="0.01" min="0" max="100" required>
+                    <label for="discount">Discount (%)</label>
+                    <input type="number" id="discount" name="discount" step="0.10" min="0" max="100" required>
                 </div>
 
                 <div class="form-group">
@@ -70,7 +70,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16" onclick="uploadPoster('promotion')">Add Promotion</button>
+                <button type="submit" class="action-btn add-btn-link font-16" onclick="uploadPoster('promotion')">Add Promotion</button>
             </form>
         </div>
 

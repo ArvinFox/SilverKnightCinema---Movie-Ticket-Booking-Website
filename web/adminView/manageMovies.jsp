@@ -66,8 +66,8 @@
                     <label for="status">Status:</label>
                     <select name="status" id="status">
                         <option value="any">Any Status</option>
-                        <option value="NOW_SHOWING" ${param.status == 'NOW_SHOWING' ? 'selected' : ''}>Now Showing</option>
-                        <option value="COMING_SOON" ${param.status == 'COMING_SOON' ? 'selected' : ''}>Coming Soon</option>
+                        <option value="Now Showing" ${param.status == 'Now Showing' ? 'selected' : ''}>Now Showing</option>
+                        <option value="Coming Soon" ${param.status == 'Coming Soon' ? 'selected' : ''}>Coming Soon</option>
                     </select>
 
                     <div class="buttons-container">
@@ -104,10 +104,11 @@
                                 <td>
                                     <div style="display: flex;">
                                         <input type="submit" id="openModal" class="action-btn view-btn" data-id="${movie.movieId}" data-action="view" data-type="Movie" value="View" />
-                                        <form action="manageMovies" method="POST" onsubmit="return confirmMovieDelete('${movie.title}', '${movie.movieId}')">
+                                        <form id="deleteMovieForm" action="manageMovies" method="POST">
                                             <input type="submit" class="action-btn delete-btn" value="Delete" />
                                             <input type="hidden" name="action" value="delete" />
                                             <input type="hidden" name="movieId" value="${movie.movieId}"/>
+                                            <input type="hidden" name="title" value="${movie.title}"/>
                                         </form>
                                     </div>
                                 </td>
@@ -162,6 +163,23 @@
 
                 document.getElementById("searchForm").submit();
             }
+            
+            document.querySelectorAll('#deleteMovieForm').forEach(form => {
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const movieId = form.querySelector('input[name="movieId"]').value;
+                    const movieTitle = form.querySelector('input[name="title"]').value;
+
+                    const confirmed = await confirmMovieDelete(movieTitle, movieId);
+
+                    if (confirmed) {
+                        form.submit();
+                    } else {
+                        console.log('Movie deletion canceled');
+                    }
+                });
+            });   
         </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>

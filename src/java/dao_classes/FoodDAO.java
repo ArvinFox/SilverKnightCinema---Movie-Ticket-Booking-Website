@@ -16,7 +16,7 @@ public class FoodDAO {
     
     // Method to add a food item
     public void addFoodItem(Food foodItem) {
-        String query = "INSERT INTO foods (itemName, itemType, price, stock) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO foods (itemName, itemType, price, stock, itemUrl) VALUES (?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -25,12 +25,72 @@ public class FoodDAO {
             ps.setString(2, foodItem.getItemType().toString());
             ps.setDouble(3, foodItem.getPrice());
             ps.setInt(4, foodItem.getStock());
+            ps.setString(5, foodItem.getItemUrl());
             ps.executeUpdate();
             
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in adding food item: " + e.getMessage());
         }
+    }
+    
+    // Method to get searched food items
+    public List<Food> getSearchedFoodItems(String itemName, String itemType, Double minPrice, Double maxPrice, Integer minStock, Integer maxStock) {
+        List<Food> foodItems = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM foods WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (itemName != null && !itemName.trim().isEmpty()) {
+            query.append(" AND itemName LIKE ?");
+            parameters.add("%" + itemName.trim() + "%");
+        }
+        
+        if (itemType != null && !itemType.equalsIgnoreCase("any")) {
+            query.append(" AND itemType = ?");
+            parameters.add(itemType);
+        }
+        
+        if (minPrice != null) {
+            query.append(" AND price >= ?");
+            parameters.add(minPrice);
+        }
+        
+        if (maxPrice != null) {
+            query.append(" AND price <= ?");
+            parameters.add(maxPrice);
+        }
+        
+        if (minStock != null) {
+            query.append(" AND stock >= ?");
+            parameters.add(minStock);
+        }
+        
+        if (maxStock != null) {
+            query.append(" AND stock <= ?");
+            parameters.add(maxStock);
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Food foodItem = populateFoodItem(rs);
+                    foodItems.add(foodItem);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched food items: " + e.getMessage());
+        }
+        
+        return foodItems;
     }
     
     // Method to get food item by its id
@@ -58,7 +118,7 @@ public class FoodDAO {
     
     // Method to update food item details
     public void updateFoodItem(Food foodItem) {
-        String query = "UPDATE foods SET itemName = ?, itemType = ?, price = ?, stock = ? WHERE itemId = ?";
+        String query = "UPDATE foods SET itemName = ?, itemType = ?, price = ?, stock = ?, itemUrl = ? WHERE itemId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -67,7 +127,8 @@ public class FoodDAO {
             ps.setString(2, foodItem.getItemType().toString());
             ps.setDouble(3, foodItem.getPrice());
             ps.setInt(4, foodItem.getStock());
-            ps.setInt(5, foodItem.getItemId());
+            ps.setString(5, foodItem.getItemUrl());
+            ps.setInt(6, foodItem.getItemId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -230,6 +291,7 @@ public class FoodDAO {
         foodItem.setItemType(ItemType.fromString(rs.getString("itemType")));
         foodItem.setPrice(rs.getDouble("price"));
         foodItem.setStock(rs.getInt("stock"));
+        foodItem.setItemUrl(rs.getString("itemUrl"));
         foodItem.setCreatedAt(rs.getDate("createdAt"));
         foodItem.setUpdatedAt(rs.getDate("updatedAt"));
         

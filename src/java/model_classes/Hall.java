@@ -16,6 +16,10 @@ public class Hall {
         Type(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -24,7 +28,7 @@ public class Hall {
 
         public static Type fromString(String dbValue) {
             for (Type type : Type.values()) {
-                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                if (type.dbValue.equalsIgnoreCase(dbValue) || type.name().equalsIgnoreCase(dbValue)) {
                     return type;
                 }
             }
@@ -37,24 +41,27 @@ public class Hall {
     private Type type;
     private int capacity;
     private String location;
+    private String hallUrl;
     private Date createdAt;
     private Date updatedAt;
     
     // Constructors
     public Hall() {}
     
-    public Hall(String name, Type type, int capacity, String location) {
+    public Hall(String name, Type type, int capacity, String location, String hallUrl) {
         this.name = name;
         this.type = type;
         this.capacity = capacity;
         this.location = location;
+        this.hallUrl = hallUrl;
     }
     
-    public Hall(String name, Type type, int capacity, String location, Date createdAt, Date updatedAt) {
+    public Hall(String name, Type type, int capacity, String location, String hallUrl, Date createdAt, Date updatedAt) {
         this.name = name;
         this.type = type;
         this.capacity = capacity;
         this.location = location;
+        this.hallUrl = hallUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -74,6 +81,9 @@ public class Hall {
     
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+    
+    public String getHallUrl() { return hallUrl; }
+    public void setHallUrl(String hallUrl) { this.hallUrl = hallUrl; }
     
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }

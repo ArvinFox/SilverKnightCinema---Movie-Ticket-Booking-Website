@@ -19,7 +19,6 @@
             <li><a href="managePromotions" class="<%= "managePromotions.jsp".equals(currentPage) ? "selected" : "" %>">Manage Promotions</a></li>
             <li><a href="manageHalls" class="<%= "manageHalls.jsp".equals(currentPage) ? "selected" : "" %>">Manage Halls</a></li>
             <li><a href="manageShowtimes" class="<%= "manageShowtimes.jsp".equals(currentPage) ? "selected" : "" %>">Manage Showtimes</a></li>
-            <li><a href="manageSeats" class="<%= "manageSeats.jsp".equals(currentPage) ? "selected" : "" %>">Manage Seats</a></li>
             <li><a href="manageBookings" class="<%= "manageBookings.jsp".equals(currentPage) ? "selected" : "" %>">Manage Bookings</a></li>
             <li><a href="manageFoods" class="<%= "manageFoods.jsp".equals(currentPage) ? "selected" : "" %>">Manage Foods</a></li>
             <li><a href="manageInquiries" class="<%= "manageInquiries.jsp".equals(currentPage) ? "selected" : "" %>">Manage Inquiries</a></li>

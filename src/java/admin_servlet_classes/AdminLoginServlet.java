@@ -49,7 +49,8 @@ public class AdminLoginServlet extends HttpServlet {
             response.sendRedirect("dashboard");
             
         } else {
-            // Incorrect username or password
+            request.setAttribute("error", "Invalid username or password");
+            request.getRequestDispatcher("../adminView/login.jsp").forward(request, response);
         }
     }
 

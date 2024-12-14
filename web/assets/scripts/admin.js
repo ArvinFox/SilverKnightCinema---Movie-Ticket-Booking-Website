@@ -182,12 +182,72 @@ function confirmGuestDelete(guestName, guestEmail, guestId) {
   return confirm(`Are you sure you want to delete the guest "${guestName}" (Email: ${guestEmail}) [ID: ${guestId}]? \nThis action cannot be undone.`);
 }
 
+function confirmShowtimeDelete(movieTitle, hallName, showtimeId, showDate, showTime) {
+  return confirm(
+      `Are you sure you want to delete the showtime for the movie "${movieTitle}" [ID: ${showtimeId}]? \n` +
+      `  Hall: ${hallName} \n` +
+      `  Show Date: ${showDate} \n` +
+      `  Show Time: ${showTime} \n` +
+      `\nThis action cannot be undone.`
+  );
+}
+
+function confirmHallDelete(hallName, hallId) {
+  return confirm(`Are you sure you want to delete the hall "${hallName}" [ID: ${hallId}]? \nThis action cannot be undone.`);
+}
+
 function confirmPromotionDelete(promotionName, promotionId) {
   return confirm(`Are you sure you want to delete the promotion "${promotionName}" [ID: ${promotionId}]? \nThis action cannot be undone.`);
 }
 
-function confirmMovieDelete(movieTitle, movieId) {
-  return confirm(`Are you sure you want to delete the movie "${movieTitle}" [ID: ${movieId}]? \nThis action cannot be undone.`);
+function confirmFoodItemDelete(itemName, itemId) {
+  return confirm(`Are you sure you want to delete the item "${itemName}" [ID: ${itemId}]? \nThis action cannot be undone.`);
+}
+
+function confirmInquiryDelete(inquirySubject, inquiryId) {
+  return confirm(`Are you sure you want to delete the inquiry with subject "${inquirySubject}" [ID: ${inquiryId}]? \nThis action cannot be undone.`);
+}
+
+async function confirmMovieDelete(movieTitle, movieId) {
+  try {
+    const showtimes = await fetchShowtimesByMovie(movieId);
+
+    let showtimeDetailsMessage = "";
+    if (showtimes && showtimes.length > 0) {
+      showtimeDetailsMessage = "\n\nThe following showtimes are associated with this movie and will also be deleted:\n";
+      showtimeDetailsMessage += showtimes
+        .map((showtime, index) => `  ${index + 1}. ${showtime.hallName} on ${showtime.showDate} at ${showtime.formattedTime} [ID: ${showtime.showtimeId}]`)
+        .join("\n");
+      showtimeDetailsMessage += "\n";
+    }
+
+    const confirmationMessage =
+      `Are you sure you want to delete the movie "${movieTitle}" [ID: ${movieId}]?` +
+      showtimeDetailsMessage +
+      "\nThis action cannot be undone.";
+
+    return confirm(confirmationMessage);
+
+  } catch (error) {
+    console.error("Error in fetching showtimes: ", error);
+    alert("An error occurred while checking associated showtimes. Please try again.");
+    return false;
+  }
+}
+
+async function fetchShowtimesByMovie(id) {
+  try {
+    const response = await fetch("../fetch?showtimeMovieId=" + id);
+    if (!response.ok) throw new Error("Failed to fetch showtimes by movie");
+
+    const data = await response.json();
+    const { showtimes } = data;
+
+    return showtimes;
+
+  } catch (error) {
+    console.error("Error in fetching showtimes by movie: ", error);
+  }
 }
 
 async function confirmGenreDelete(genreName, genreId) {
@@ -211,7 +271,7 @@ async function confirmGenreDelete(genreName, genreId) {
     return confirm(confirmationMessage);
 
   } catch (error) {
-    console.error("Error while fetching movies: ", error);
+    console.error("Error in fetching movies: ", error);
     alert("An error occurred while checking associated movies. Please try again.");
     return false;
   }
@@ -238,7 +298,7 @@ async function confirmLanguageDelete(languageName, languageId) {
     return confirm(confirmationMessage);
 
   } catch (error) {
-    console.error("Error while fetching movies: ", error);
+    console.error("Error in fetching movies: ", error);
     alert("An error occurred while checking associated movies. Please try again.");
     return false;
   }
@@ -255,12 +315,8 @@ async function fetchMoviesByLanguageOrGenre(id, type) {
     return movies;
 
   } catch (error) {
-    console.error("Error fetching movies by language or genre: ", error);
+    console.error("Error in fetching movies by language or genre: ", error);
   }
-}
-
-function confirmInquiryDelete(inquirySubject, inquiryId) {
-  return confirm(`Are you sure you want to delete the inquiry with subject "${inquirySubject}" [ID: ${inquiryId}]? \nThis action cannot be undone.`);
 }
 //
 
@@ -356,13 +412,72 @@ let initialCrewState = [];
 let initialLanguage = '';
 let initialMovieStatus = '';
 let initialPromotionStatus = '';
+let initialFoodItemType = '';
+let initialHallType = '';
+let initialShowtimeHall = '';
+let initialShowtimeMovie = '';
 
 const allLanguages = [];
 const allGenres = [];
+const allFoodItemTypes = [];
+const allHallTypes = [];
+const allShowtimeHalls = [];
+const allShowtimeMovies = [];
+
+async function fetchShowtimeHallsAndMovies() {
+  try {
+    const response = await fetch('../fetch?showtimeHalls=true&showtimeMovies=true');
+    if (!response.ok) throw new Error('Failed to fetch showtime halls and movies');
+
+    const data = await response.json();
+    const { showtimeHalls, showtimeMovies } = data;
+
+    allShowtimeHalls.length = 0;
+    allShowtimeHalls.push(...showtimeHalls);
+
+    allShowtimeMovies.length = 0;
+    allShowtimeMovies.push(...showtimeMovies);
+
+  } catch (error) {
+    console.error('Error in fetching data: ', error);
+  }
+}
+
+async function fetchHallTypes() {
+  try {
+    const response = await fetch('../fetch?hallTypes=true');
+    if (!response.ok) throw new Error('Failed to fetch hall types');
+
+    const data = await response.json();
+    const { hallTypes } = data;
+
+    allHallTypes.length = 0;
+    allHallTypes.push(...hallTypes);
+
+  } catch (error) {
+    console.error('Error in fetching data: ', error);
+  }
+}
+
+async function fetchFoodItemTypes() {
+  try {
+    const response = await fetch('../fetch?foodItemTypes=true');
+    if (!response.ok) throw new Error('Failed to fetch food item types');
+
+    const data = await response.json();
+    const { itemTypes } = data;
+
+    allFoodItemTypes.length = 0;
+    allFoodItemTypes.push(...itemTypes);
+
+  } catch (error) {
+    console.error('Error in fetching data: ', error);
+  }
+}
 
 async function fetchLanguagesAndGenres() {
   try {
-    const response = await fetch('../fetch');
+    const response = await fetch('../fetch?languages=true&genres=true');
     if (!response.ok) throw new Error('Failed to fetch languages and genres');
 
     const data = await response.json();
@@ -385,16 +500,30 @@ async function toggleEditMode(editMode, type = null) {
   const actionButtons = document.querySelector('.action-buttons');
   const elements = document.querySelectorAll('.editable');
 
-  await fetchLanguagesAndGenres();
-
   if (editMode) {
     // Enable edit mode
     if (type === 'movie') {
+      await fetchLanguagesAndGenres();
       toggleMovieEdit(true);
+    }
+
+    if (type === 'hall') {
+      await fetchHallTypes();
+      toggleHallEdit(true);
+    }
+
+    if (type === 'showtime') {
+      await fetchShowtimeHallsAndMovies();
+      toggleShowtimeEdit(true);
     }
 
     if (type === 'promotion') {
       togglePromotionEdit(true);
+    }
+
+    if (type === 'foodItem') {
+      await fetchFoodItemTypes();
+      toggleFoodItemEdit(true);
     }
 
     elements.forEach(el => el.disabled = false);
@@ -410,14 +539,154 @@ async function toggleEditMode(editMode, type = null) {
       toggleMovieEdit(false);
     }
 
+    if (type === 'hall') {
+      toggleHallEdit(false);
+    }
+
+    if (type === 'showtime') {
+      toggleShowtimeEdit(false);
+    }
+
     if (type === 'promotion') {
       togglePromotionEdit(false);
+    }
+
+    if (type === 'foodItem') {
+      toggleFoodItemEdit(false);
     }
    
     elements.forEach(el => el.disabled = true);
     editButton.classList.remove('hidden');
     actionButtons.classList.add('hidden');
     actionButtons.style.display = "none";
+  }
+}
+
+function toggleShowtimeEdit(editMode) {
+  const hallContainer = document.getElementById('hall-container');
+  const movieContainer = document.getElementById('movie-container');
+
+  if (editMode) {
+    initialShowtimeHall = hallContainer.querySelector("input").value;
+    initialShowtimeMovie = movieContainer.querySelector("input").value;
+
+    hallContainer.innerHTML = "";
+    const hallSelect = document.createElement("select");
+    hallSelect.classList.add("form-control");
+    hallSelect.id = "hall";
+    hallSelect.name = "hall";
+    hallSelect.required = true;
+
+    allShowtimeHalls.forEach(hall => {
+      const option = document.createElement("option");
+      option.value = hall.hallId;
+      option.textContent = hall.name + " - " + hall.location;
+
+      if (hall.name + " - " + hall.location === initialShowtimeHall) {
+        option.selected = true;
+      }
+
+      hallSelect.appendChild(option);
+    });
+
+    hallContainer.appendChild(hallSelect);
+
+    movieContainer.innerHTML = "";
+    const movieSelect = document.createElement("select");
+    movieSelect.classList.add("form-control");
+    movieSelect.id = "movie";
+    movieSelect.name = "movie";
+    movieSelect.required = true;
+
+    allShowtimeMovies.forEach(movie => {
+      const option = document.createElement("option");
+      option.value = movie.movieId;
+      option.textContent = movie.title;
+
+      if (movie.title === initialShowtimeMovie) {
+        option.selected = true;
+      }
+
+      movieSelect.appendChild(option);
+    });
+
+    movieContainer.appendChild(movieSelect);
+
+  } else {
+    hallContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialShowtimeHall}" disabled>
+    `;
+    movieContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialShowtimeMovie}" disabled>
+    `;
+  }
+}
+
+function toggleHallEdit(editMode) {
+  const hallTypeContainer = document.getElementById('hall-type-container');
+
+  if (editMode) {
+    initialHallType = hallTypeContainer.querySelector("input").value;
+
+    hallTypeContainer.innerHTML = "";
+    const select = document.createElement("select");
+    select.classList.add("form-control");
+    select.id = "hallType";
+    select.name = "hallType";
+    select.required = true;
+
+    allHallTypes.forEach(hallType => {
+      const option = document.createElement("option");
+      option.value = hallType;
+      option.textContent = hallType;
+
+      if (hallType === initialHallType) {
+        option.selected = true;
+      }
+
+      select.appendChild(option);
+    });
+
+    hallTypeContainer.appendChild(select);
+
+  } else {
+    hallTypeContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialHallType}" disabled>
+    `;
+  }
+}
+
+function toggleFoodItemEdit(editMode) {
+  const itemTypeContainer = document.getElementById('item-type-container');
+
+  if (editMode) {
+    initialFoodItemType = itemTypeContainer.querySelector("input").value;
+
+    itemTypeContainer.innerHTML = "";
+    const select = document.createElement("select");
+    select.classList.add("form-control");
+    select.id = "itemType";
+    select.name = "itemType";
+    select.required = true;
+
+    allFoodItemTypes.forEach(itemType => {
+      const option = document.createElement("option");
+      option.value = itemType;
+      option.textContent = itemType;
+
+      if (itemType === initialFoodItemType) {
+        option.selected = true;
+      }
+
+      select.appendChild(option);
+    });
+
+    itemTypeContainer.appendChild(select);
+
+  } else {
+    itemTypeContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialFoodItemType}" disabled>
+    `;
   }
 }
 
@@ -587,7 +856,7 @@ function toggleMovieStatusEdit(editMode) {
     select.required = true;
 
     const nowShowingOption = document.createElement("option");
-    nowShowingOption.value = "NOW_SHOWING";
+    nowShowingOption.value = "Now Showing";
     nowShowingOption.textContent = "Now Showing";
 
     if ("Now Showing" === initialMovieStatus) {
@@ -597,7 +866,7 @@ function toggleMovieStatusEdit(editMode) {
     select.appendChild(nowShowingOption);
 
     const comingSoonOption = document.createElement("option");
-    comingSoonOption.value = "COMING_SOON";
+    comingSoonOption.value = "Coming Soon";
     comingSoonOption.textContent = "Coming Soon";
 
     if ("Coming Soon" === initialMovieStatus) {
@@ -701,8 +970,58 @@ function resetChanges(type = null) {
     resetMovie();
   }
 
+  if (type === 'hall') {
+    resetHall();
+  }
+
+  if (type === 'showtime') {
+    resetShowtime();
+  }
+
   if (type === 'promotion') {
     resetPromotion();
+  }
+
+  if (type === 'foodItem') {
+    resetFoodItem();
+  }
+}
+
+function resetShowtime() {
+  const hallContainer = document.getElementById('hall-container');
+  const hallSelectElement = hallContainer.querySelector("select");
+
+  const initialHallOption = Array.from(hallSelectElement.options).find(option => option.textContent === initialShowtimeHall);
+  if (initialHallOption) {
+    initialHallOption.selected = true;
+  }
+
+  const movieContainer = document.getElementById('movie-container');
+  const movieSelectElement = movieContainer.querySelector("select");
+
+  const initialMovieOption = Array.from(movieSelectElement.options).find(option => option.textContent === initialShowtimeMovie);
+  if (initialMovieOption) {
+    initialMovieOption.selected = true;
+  }
+}
+
+function resetHall() {
+  const hallTypeContainer = document.getElementById('hall-type-container');
+  const selectElement = hallTypeContainer.querySelector("select");
+
+  const initialHallTypeOption = Array.from(selectElement.options).find(option => option.textContent === initialHallType);
+  if (initialHallTypeOption) {
+    initialHallTypeOption.selected = true;
+  }
+}
+
+function resetFoodItem() {
+  const itemTypeContainer = document.getElementById('item-type-container');
+  const selectElement = itemTypeContainer.querySelector("select");
+
+  const initialFoodItemTypeOption = Array.from(selectElement.options).find(option => option.textContent === initialFoodItemType);
+  if (initialFoodItemTypeOption) {
+    initialFoodItemTypeOption.selected = true;
   }
 }
 

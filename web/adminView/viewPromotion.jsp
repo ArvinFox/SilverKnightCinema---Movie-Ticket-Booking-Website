@@ -51,8 +51,8 @@
                     <p><strong>Promo Code:</strong></p>
                     <input type="text" class="form-control editable" name="code" value="${promotion.code}" disabled>
 
-                    <p><strong>Discount:</strong></p>
-                    <input type="number" class="form-control editable" name="discount" value="${promotion.discount}" step="0.01" min="0" max="100" disabled>
+                    <p><strong>Discount (%):</strong></p>
+                    <input type="number" class="form-control editable" name="discount" value="${promotion.discount}" step="0.10" min="0" max="100" disabled>
 
                     <p><strong>Start Date:</strong></p>
                     <input type="date" class="form-control editable" name="startDate" value="${promotion.startDate}" disabled>

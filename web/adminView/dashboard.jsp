@@ -98,6 +98,7 @@
                     <button class="action-btn open-modal-btn" data-action="add" data-type="Movie">Add Movie</button>
                     <button class="action-btn open-modal-btn" data-action="add" data-type="Promotion">Create Promotion</button>
                     <button class="action-btn open-modal-btn" data-action="add" data-type="Showtime">Schedule Showtime</button>
+                    <button class="action-btn open-modal-btn" data-action="add" data-type="FoodItem">Add Food Item</button>
                 </div>
             </div>
         </div>

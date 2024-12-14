@@ -452,6 +452,11 @@ body {
     opacity: 0.7;
 }
 
+.range-inputs {
+    display: flex;
+    gap: 20px;
+}
+
 @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -576,21 +581,18 @@ textarea {
 }
 
 .add-btn-link,
-.add-movie-button,
 .edit-btn {
     padding: 10px 20px;
     background-color: #28a745;
 }
 
 .add-btn-link:hover,
-.add-movie-button:hover,
 .edit-btn:hover,
 .save-changes-button:hover {
     background-color: #218838;
 }
 
 .add-btn-link:active,
-.add-movie-button:active,
 .edit-btn:active,
 .save-changes-button:active {
     background-color: #1c7430;

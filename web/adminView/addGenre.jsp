@@ -31,7 +31,7 @@
                     <input type="text" id="genre" name="genre" required>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16">Add Genre</button>
+                <button type="submit" class="action-btn add-btn-link font-16">Add Genre</button>
             </form>
         </div>
 

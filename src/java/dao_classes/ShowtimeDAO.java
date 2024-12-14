@@ -31,6 +31,57 @@ public class ShowtimeDAO {
         }
     }
     
+    // Method to get searched showtimes
+    public List<Showtime> getSearchedShowtimes(Integer hallId, Integer movieId, String showDate, String showTime) {
+        List<Showtime> showtimes = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM showtimes WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (hallId != null) {
+            query.append(" AND hallId = ?");
+            parameters.add(hallId);
+        }
+        
+        if (movieId != null) {
+            query.append(" AND movieId = ?");
+            parameters.add(movieId);
+        }
+        
+        if (showDate != null && !showDate.trim().isEmpty()) {
+            query.append(" AND showDate = ?");
+            parameters.add(showDate);
+        }
+        
+        if (showTime != null && !showTime.trim().isEmpty()) {
+            query.append(" AND showTime = ?");
+            parameters.add(showTime + ":00");
+        }
+        
+        
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Showtime showtime = populateShowtime(rs);
+                    showtimes.add(showtime);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched showtimes: " + e.getMessage());
+        }
+        
+        return showtimes;
+    }
+    
     // Method to get showtime by its id
     public Showtime getShowtimeById(int showtimeId) {
         Showtime showtime = null;
@@ -88,6 +139,44 @@ public class ShowtimeDAO {
             e.printStackTrace();
             System.err.println("Error in deleting showtime: " + e.getMessage());
         }
+    }
+    
+    // Method to delete all showtimes of a movie
+    public void deleteShowtimesByMovie(int movieId) {
+        String query = "DELETE FROM showtimes WHERE movieId = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, movieId);
+            ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in deleting showtimes by movie: " + e.getMessage());
+        }
+    }
+    
+    // Method to get all showtimes
+    public List<Showtime> getAllShowtimes() {
+        List<Showtime> showtimes = new ArrayList<>();
+        String query = "SELECT * FROM showtimes";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+                
+                while (rs.next()) {
+                    Showtime showtime = populateShowtime(rs);
+                    showtimes.add(showtime);
+                }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching showtimes: " + e.getMessage());
+        }
+        
+        return showtimes;
     }
     
     // Method to get all showtimes of a specific movie

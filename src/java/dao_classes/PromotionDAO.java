@@ -36,7 +36,7 @@ public class PromotionDAO {
     }
     
     // Method to get searched promotions
-    public List<Promotion> getSearchedPromotions(String name, Double discount, String startDate, String endDate, String status) {
+    public List<Promotion> getSearchedPromotions(String name, Double minDiscount, Double maxDiscount, String startDate, String endDate, String status) {
         List<Promotion> promotions = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM promotions WHERE 1=1");
         
@@ -47,9 +47,14 @@ public class PromotionDAO {
             parameters.add("%" + name.trim() + "%");
         }
         
-        if (discount != null) {
-            query.append(" AND discount = ?");
-            parameters.add(discount);
+        if (minDiscount != null) {
+            query.append(" AND discount >= ?");
+            parameters.add(minDiscount);
+        }
+        
+        if (maxDiscount != null) {
+            query.append(" AND discount <= ?");
+            parameters.add(maxDiscount);
         }
         
         if (startDate != null && !startDate.trim().isEmpty()) {

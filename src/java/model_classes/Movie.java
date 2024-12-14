@@ -17,6 +17,10 @@ public class Movie {
         Status(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -25,7 +29,7 @@ public class Movie {
 
         public static Status fromString(String dbValue) {
             for (Status status : Status.values()) {
-                if (status.dbValue.equalsIgnoreCase(dbValue)) {
+                if (status.dbValue.equalsIgnoreCase(dbValue) || status.name().equalsIgnoreCase(dbValue)) {
                     return status;
                 }
             }

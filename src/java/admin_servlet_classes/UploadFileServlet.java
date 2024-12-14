@@ -37,7 +37,11 @@ public class UploadFileServlet extends HttpServlet {
         if ("movie".equalsIgnoreCase(type)) {
             uploadDir = "assets/images/posters";
         } else if ("promotion".equalsIgnoreCase(type)) {
-            uploadDir = "assets/images";
+            uploadDir = "assets/images/promotions";
+        } else if ("foodItem".equalsIgnoreCase(type)) {
+            uploadDir = "assets/images/foods";
+        } else if ("hall".equalsIgnoreCase(type)) {
+            uploadDir = "assets/images/halls";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().print("Invalid type parameter.");

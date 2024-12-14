@@ -31,7 +31,7 @@
                     <input type="text" id="language" name="language" required>
                 </div>
 
-                <button type="submit" class="action-btn add-movie-button font-16">Add Language</button>
+                <button type="submit" class="action-btn add-btn-link font-16">Add Language</button>
             </form>
         </div>
 

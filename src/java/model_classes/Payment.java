@@ -14,6 +14,10 @@ public class Payment {
         PaymentMethod(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -22,7 +26,7 @@ public class Payment {
 
         public static PaymentMethod fromString(String dbValue) {
             for (PaymentMethod method : PaymentMethod.values()) {
-                if (method.dbValue.equalsIgnoreCase(dbValue)) {
+                if (method.dbValue.equalsIgnoreCase(dbValue) || method.name().equalsIgnoreCase(dbValue)) {
                     return method;
                 }
             }

@@ -74,11 +74,7 @@ public class MovieDAO {
         
         if (status != null && !status.trim().isEmpty() && !status.equals("any")) {
             query.append(" AND status = ?");
-            if (status.equals("NOW_SHOWING")) {
-                parameters.add("Now Showing");
-            } else {
-                parameters.add("Coming Soon");
-            }
+            parameters.add(status);
         }
         
         try (Connection conn = DBConnection.getConnection();
@@ -219,6 +215,30 @@ public class MovieDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in fetching movies: " + e.getMessage());
+        }
+        
+        return movies;
+    }
+    
+    // Method to get all movies that are now in theatres (now showing)
+    public List<Movie> getNowShowingMovies() {
+        List<Movie> movies = new ArrayList<>();
+        String query = "SELECT * FROM movies WHERE status = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, Status.NOW_SHOWING.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Movie movie = populateMovie(rs);
+                    movies.add(movie);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching movies that are currently screening: " + e.getMessage());
         }
         
         return movies;

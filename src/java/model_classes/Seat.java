@@ -11,6 +11,10 @@ public class Seat {
         SeatType(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -19,7 +23,7 @@ public class Seat {
 
         public static SeatType fromString(String dbValue) {
             for (SeatType type : SeatType.values()) {
-                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                if (type.dbValue.equalsIgnoreCase(dbValue) || type.name().equalsIgnoreCase(dbValue)) {
                     return type;
                 }
             }

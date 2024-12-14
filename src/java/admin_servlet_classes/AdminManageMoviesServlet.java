@@ -7,6 +7,7 @@ import model_classes.Language;
 import dao_classes.LanguageDAO;
 import model_classes.Genre;
 import dao_classes.GenreDAO;
+import dao_classes.ShowtimeDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -27,12 +28,14 @@ public class AdminManageMoviesServlet extends HttpServlet {
     private MovieDAO movieDAO;
     private LanguageDAO languageDAO;
     private GenreDAO genreDAO;
+    private ShowtimeDAO showtimeDAO;
     
     @Override
     public void init() {
         movieDAO = new MovieDAO();
         languageDAO = new LanguageDAO();
         genreDAO = new GenreDAO();
+        showtimeDAO = new ShowtimeDAO();
     }
 
     @Override
@@ -107,6 +110,7 @@ public class AdminManageMoviesServlet extends HttpServlet {
                 
                 case "delete" -> {
                     int movieId = Integer.parseInt(request.getParameter("movieId"));
+                    showtimeDAO.deleteShowtimesByMovie(movieId);    // Delete showtimes associated with the movie
                     movieDAO.deleteMovie(movieId);
                     actionResponse = "Movie deleted successfully.";
                 }
@@ -173,7 +177,7 @@ public class AdminManageMoviesServlet extends HttpServlet {
         String trailerUrl = request.getParameter("trailerUrl");
         String status = request.getParameter("status");
 
-        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, Status.valueOf(status));
+        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, Status.fromString(status));
         return movie;
     }
 

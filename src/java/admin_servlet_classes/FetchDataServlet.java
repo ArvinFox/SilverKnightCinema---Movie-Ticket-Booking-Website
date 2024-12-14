@@ -12,6 +12,12 @@ import model_classes.User;
 import dao_classes.UserDAO;
 import model_classes.Promotion;
 import dao_classes.PromotionDAO;
+import model_classes.Food;
+import dao_classes.FoodDAO;
+import model_classes.Hall;
+import dao_classes.HallDAO;
+import model_classes.Showtime;
+import dao_classes.ShowtimeDAO;
 import model_classes.Inquiry;
 import dao_classes.InquiryDAO;
 
@@ -21,6 +27,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 // import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +40,9 @@ public class FetchDataServlet extends HttpServlet {
     private GenreDAO genreDAO;
     private UserDAO userDAO;
     private PromotionDAO promotionDAO;
+    private FoodDAO foodDAO;
+    private HallDAO hallDAO;
+    private ShowtimeDAO showtimeDAO;
     private InquiryDAO inquiryDAO;
     
     @Override
@@ -42,6 +52,9 @@ public class FetchDataServlet extends HttpServlet {
         genreDAO = new GenreDAO();
         userDAO = new UserDAO();
         promotionDAO = new PromotionDAO();
+        foodDAO = new FoodDAO();
+        hallDAO = new HallDAO();
+        showtimeDAO = new ShowtimeDAO();
         inquiryDAO = new InquiryDAO();
     }
     
@@ -51,31 +64,83 @@ public class FetchDataServlet extends HttpServlet {
         
         Map<String, Object> result = new HashMap<>();
         
+        String languagesParam = request.getParameter("languages");
+        String genresParam = request.getParameter("genres");
+        
         String languageIdParam = request.getParameter("languageId");
         String genreIdParam = request.getParameter("genreId");
         
-        if (languageIdParam != null || genreIdParam != null) {
-            if (languageIdParam != null) {
-                int languageId = Integer.parseInt(languageIdParam);
-                List<Movie> moviesByLanguage = movieDAO.getMoviesByLanguage(languageId);
-                result.put("movies", moviesByLanguage);
-            } else if (genreIdParam != null) {
-                /*
-                int[] genreIds = Arrays.stream(genreIdParam.split(","))
-                                        .mapToInt(Integer::parseInt)
-                                        .toArray();
-                */
-                int genreId = Integer.parseInt(genreIdParam);
-                List<Movie> moviesByGenre = movieDAO.getMoviesByGenres(new int[] {genreId});
-                result.put("movies", moviesByGenre);
-            }
-            
-        } else {
+        String foodItemTypesParam = request.getParameter("foodItemTypes");
+        
+        String hallTypesParam = request.getParameter("hallTypes");
+        
+        String showtimeHallsParam = request.getParameter("showtimeHalls");
+        String showtimeMoviesParam = request.getParameter("showtimeMovies");
+        
+        String showtimeMovieIdParam = request.getParameter("showtimeMovieId");
+        
+        if (languagesParam != null) {
             List<Language> languages = languageDAO.getAllLanguages();
-            List<Genre> genres = genreDAO.getAllGenres();
-            
             result.put("languages", languages);
+        }
+        
+        if (genresParam != null) {
+            List<Genre> genres = genreDAO.getAllGenres();
             result.put("genres", genres);
+        }
+        
+        if (languageIdParam != null) {
+            int languageId = Integer.parseInt(languageIdParam);
+            List<Movie> moviesByLanguage = movieDAO.getMoviesByLanguage(languageId);
+            result.put("movies", moviesByLanguage);
+        }
+        
+        if (genreIdParam != null) {
+            /*
+            int[] genreIds = Arrays.stream(genreIdParam.split(","))
+                                    .mapToInt(Integer::parseInt)
+                                    .toArray();
+            */
+            int genreId = Integer.parseInt(genreIdParam);
+            List<Movie> moviesByGenre = movieDAO.getMoviesByGenres(new int[] {genreId});
+            result.put("movies", moviesByGenre);
+        }
+        
+        if (foodItemTypesParam != null) {
+            List<String> itemTypes = new ArrayList<>();
+            for (Food.ItemType itemType : Food.ItemType.values()) {
+                itemTypes.add(itemType.toString());
+            }
+            result.put("itemTypes", itemTypes);
+        }
+        
+        if (hallTypesParam != null) {
+            List<String> hallTypes = new ArrayList<>();
+            for (Hall.Type hallType : Hall.Type.values()) {
+                hallTypes.add(hallType.toString());
+            }
+            result.put("hallTypes", hallTypes);
+        }
+        
+        if (showtimeHallsParam != null) {
+            List<Hall> showtimeHalls = hallDAO.getAllHalls();
+            result.put("showtimeHalls", showtimeHalls);
+        }
+        
+        if (showtimeMoviesParam != null) {
+            List<Movie> showtimeMovies = movieDAO.getNowShowingMovies();
+            result.put("showtimeMovies", showtimeMovies);
+        }
+        
+        if (showtimeMovieIdParam != null) {
+            int showtimeMovieId = Integer.parseInt(showtimeMovieIdParam);
+            List<Showtime> showtimes = showtimeDAO.getShowtimesByMovie(showtimeMovieId);
+            for (Showtime showtime : showtimes) {
+                Hall hall = hallDAO.getHallById(showtime.getHallId());
+                showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                showtime.setFormattedTime(showtime.getShowTime());
+            }
+            result.put("showtimes", showtimes);
         }
         
         // Convert lists to JSON
@@ -141,6 +206,31 @@ public class FetchDataServlet extends HttpServlet {
                     Promotion promotion = promotionDAO.getPromotionById(id);
                     request.setAttribute("promotion", promotion);
                     request.getRequestDispatcher("/adminView/viewPromotion.jsp").forward(request, response);
+                }
+                
+                case "Hall" -> {
+                    Hall hall = hallDAO.getHallById(id);
+                    request.setAttribute("hall", hall);
+                    request.getRequestDispatcher("/adminView/viewHall.jsp").forward(request, response);
+                }
+                
+                case "Showtime" -> {
+                    Showtime showtime = showtimeDAO.getShowtimeById(id);
+                    
+                    Hall hall = hallDAO.getHallById(showtime.getHallId());
+                    showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                    
+                    Movie movie = movieDAO.getMovieById(showtime.getMovieId());
+                    showtime.setMovieTitle(movie.getTitle());
+                    
+                    request.setAttribute("showtime", showtime);
+                    request.getRequestDispatcher("/adminView/viewShowtime.jsp").forward(request, response);
+                }
+                
+                case "FoodItem" -> {
+                    Food foodItem = foodDAO.getFoodItemById(id);
+                    request.setAttribute("foodItem", foodItem);
+                    request.getRequestDispatcher("/adminView/viewFoodItem.jsp").forward(request, response);
                 }
                 
                 case "Inquiry" -> {

@@ -15,6 +15,10 @@ public class Food {
         ItemType(String dbValue) {
             this.dbValue = dbValue;
         }
+        
+        public String getDbValue() {
+            return dbValue;
+        }
 
         @Override
         public String toString() {
@@ -23,7 +27,7 @@ public class Food {
 
         public static ItemType fromString(String dbValue) {
             for (ItemType type : ItemType.values()) {
-                if (type.dbValue.equalsIgnoreCase(dbValue)) {
+                if (type.dbValue.equalsIgnoreCase(dbValue) || type.name().equalsIgnoreCase(dbValue)) {
                     return type;
                 }
             }
@@ -36,17 +40,27 @@ public class Food {
     private ItemType itemType;
     private double price;
     private int stock;
+    private String itemUrl;
     private Date createdAt;
     private Date updatedAt;
     
     // Constructors
     public Food() {}
     
-    public Food(String itemName, ItemType itemType, double price, int stock, Date createdAt, Date updatedAt) {
+    public Food(String itemName, ItemType itemType, double price, int stock, String itemUrl) {
         this.itemName = itemName;
         this.itemType = itemType;
         this.price = price;
         this.stock = stock;
+        this.itemUrl = itemUrl;
+    }
+    
+    public Food(String itemName, ItemType itemType, double price, int stock, String itemUrl, Date createdAt, Date updatedAt) {
+        this.itemName = itemName;
+        this.itemType = itemType;
+        this.price = price;
+        this.stock = stock;
+        this.itemUrl = itemUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -66,6 +80,9 @@ public class Food {
     
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
+    
+    public String getItemUrl() { return itemUrl; }
+    public void setItemUrl(String itemUrl) { this.itemUrl = itemUrl; }
     
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
