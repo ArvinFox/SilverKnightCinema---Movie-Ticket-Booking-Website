@@ -1,10 +1,10 @@
 
 //--------------------(footer optimized)-----------------
-const body = document.body;
-if(body.style.overflow !== "hidden") {
-    const footer = document.querySelector("footer");
-    footer.style.position = "fixed";
-}
+//const body = document.body;
+//if(body.style.overflow !== "hidden") {
+//    const footer = document.querySelector("footer");
+//    footer.style.position = "fixed";
+//}
 
 //For FAQ Popup Answers
 
@@ -313,6 +313,45 @@ function loadContent(page) {
         .catch(error => console.error('Error loading page:', error));
 }
 
+let OtpResult;
+
+async function sendAndVerifyOTP(action){
+    const newContact = document.getElementById("newContactNumber").value.trim();
+    const enteredOtp = document.getElementById("enteredOtp").value.trim();
+    
+    try{
+        let response; 
+        
+        if(action === "send")
+        {
+            response = await fetch("otp?action=" + action + "&contact=" +newContact);
+        }
+        else
+        {
+            response = await fetch("otp?action=" + action + "&enteredOtp=" +enteredOtp);
+        }
+        
+        const result = await response.json();
+        OtpResult = await result.success;
+        if(result.success)
+        {
+            console.log("otp verified");
+        }
+        else{
+            console.log("Invalid OTP");
+        }
+    }
+    catch(error)
+    {
+        console.error(error);
+    }
+}
+
+function getOtpResult(result)
+{
+    return result;
+}
+
 function initializeEventListeners() {
     const editContactButton = document.getElementById("changeContact");
     const sendOtpButton = document.getElementById("changeContactSendOTP");
@@ -346,6 +385,7 @@ function initializeEventListeners() {
             otpVerificationDiv.classList.remove("hidden");
 
             resendOtpButton.disabled = true;
+            sendAndVerifyOTP("send");
             startCountdown();
         });
     }
@@ -353,23 +393,30 @@ function initializeEventListeners() {
     if (resendOtpButton) {
         resendOtpButton.addEventListener("click", () => {
             resendOtpButton.disabled = true;
+            sendAndVerifyOTP("send");
             startCountdown();
         });
     }
 
     if (saveContactButton) {
-        saveContactButton.addEventListener("click", () => {
+        saveContactButton.addEventListener("click",async () => {
             const newContact = contactInput.value;
 
             if (newContact.length !== 10 || isNaN(newContact)) {
                 alert("Please enter a valid 10-digit contact number.");
                 return;
             }
-
-            contactLabel.textContent = newContact;
-            otpVerificationDiv.classList.add("hidden");
-
-            alert("Contact number updated successfully!");
+            
+            await sendAndVerifyOTP("verify");
+            if(getOtpResult(OtpResult))
+            {
+                contactLabel.textContent = newContact;
+                otpVerificationDiv.classList.add("hidden");
+                alert("Contact number updated successfully!");
+            }
+            else{
+                alert("Invalid OTP");
+            }
         });
     }
 
@@ -497,32 +544,39 @@ function updateIncrementDecrementStates() {
     childDecrementBtn.disabled = childCount === 0;
 }
 
-adultIncrementBtn.addEventListener('click', () => {
-    adultCount++;
-    childCount--;
-    updateTicketCount();
-    updateIncrementDecrementStates();
-});
+if (adultIncrementBtn){
+    adultIncrementBtn.addEventListener('click', () => {
+        adultCount++;
+        childCount--;
+        updateTicketCount();
+        updateIncrementDecrementStates();
+    });
+}
 
-adultDecrementBtn.addEventListener('click', () => {
-    adultCount--;
-    childCount++;
-    updateTicketCount();
-    updateIncrementDecrementStates();
-});
+if (adultDecrementBtn){
+    adultDecrementBtn.addEventListener('click', () => {
+        adultCount--;
+        childCount++;
+        updateTicketCount();
+        updateIncrementDecrementStates();
+    });
+}
 
-childIncrementBtn.addEventListener('click', () => {
-    childCount++;
-    adultCount--;
-    updateTicketCount();
-    updateIncrementDecrementStates();
-});
+if (childIncrementBtn){
+    childIncrementBtn.addEventListener('click', () => {
+        childCount++;
+        adultCount--;
+        updateTicketCount();
+        updateIncrementDecrementStates();
+    });
+}
 
-childDecrementBtn.addEventListener('click', () => {
-    childCount--;
-    adultCount++;
-    updateTicketCount();
-    updateIncrementDecrementStates();
-});
-
+if (childDecrementBtn){
+    childDecrementBtn.addEventListener('click', () => {
+        childCount--;
+        adultCount++;
+        updateTicketCount();
+        updateIncrementDecrementStates();
+    });
+}
 

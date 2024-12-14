@@ -40,7 +40,6 @@
         
         <script src="assets/scripts/main.js"></script>
         <jsp:include page="footer.jsp"/>
-        
         <script>
             const accDetails = document.querySelector(".account-details");
             const bookingDetails = document.querySelector(".booking-history");
@@ -62,8 +61,6 @@
             });
                 
         </script>
-        
-        
     </body>
 </html>
 

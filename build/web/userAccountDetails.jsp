@@ -4,6 +4,7 @@
     Author     : arvin
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,21 +22,18 @@
     <div class="user-details-container">
         <h1>Personal Information</h1>
         <div class="user-details-sub-container">
-            <div class="form-row">
-                <label class="user-detail-names" for="firstName">First Name</label>
-                <span class="colon">:</span>
-                <label class="user-db-details" id="dbFirstName">Hettige Arvin</label>
-            </div>
-            <div class="form-row">
-                <label class="user-detail-names" for="lastName">Last Name</label>
-                <span class="colon">:</span>
-                <label class="user-db-details" id="dbLastName">Premathilake</label>
-            </div>
-            <div class="form-row">
-                <label class="user-detail-names" for="gender">Gender</label>
-                <span class="colon">:</span>
-                <label class="user-db-details" id="dbGender">Male</label>
-            </div>
+            <c:if test="${user != null}">
+                <div class="form-row">
+                    <label class="user-detail-names" for="firstName">First Name</label>
+                    <span class="colon">:</span>
+                    <label class="user-db-details" id="dbFirstName">${user.firstName}</label>
+                </div>
+                <div class="form-row">
+                    <label class="user-detail-names" for="lastName">Last Name</label>
+                    <span class="colon">:</span>
+                    <label class="user-db-details" id="dbLastName">${user.lastName}</label>
+                </div>
+            </c:if>
             <hr>
         </div>
         <h1>Password</h1>
@@ -52,36 +50,36 @@
             <div class="form-row">
                 <label class="user-detail-names" for="email">Email</label>
                 <span class="colon">:</span>
-                <label class="user-db-details" id="dbEmail">arvinpremathilake@gmail.com</label>
+                <label class="user-db-details" id="dbEmail">${user.email}</label>
             </div>
             <div class="form-row">
                 <label class="user-detail-names" for="contact">Contact Number</label>
                 <span class="colon">:</span>
-                <label class="user-db-details" id="dbContact">0715247414</label>
+                <label class="user-db-details" id="dbContact">${user.contactNumber}</label>
             </div>
-            <form method="#" action="#">
-            <div class="form-row">
-                    <input type="button" id="changeContact" value="Edit Contact">
-            </div>
-            <div class="form-row hidden">
-                <label class="user-detail-names" for="newContact">Enter your new contact</label>
-                <span class="colon">:</span>
-                <input type="number" id="newContactNumber">
-                <input type="button" id="changeContactSendOTP" value="Send OTP">
-            </div>
-            <div class="form-row hidden">
-                <label class="user-detail-names" for="newContact">Enter OTP Code</label>
-                <span class="colon">:</span>
-                <input type="number" id="newContactNumber">
-                <input type="button" id="changeContactResendOTP" value="Resend OTP">
-                <br>
-                <label class="user-detail-names" for="OTP countdown"><!-- for the countdown --></label>
-                <input type="submit" id="saveNewContact" value="Save Changes">
-            </div>
+            <form id="otpForm">
+                <div class="form-row">
+                        <input type="button" id="changeContact" value="Edit Contact">
+                </div>
+                <div class="form-row hidden">
+                    <label class="user-detail-names" for="newContact">Enter your new contact</label>
+                    <span class="colon">:</span>
+                    <input type="number" id="newContactNumber" name="newContactNumber">
+                    <input type="button" id="changeContactSendOTP" value="Send OTP">
+                </div>
+                <div class="form-row hidden">
+                    <label class="user-detail-names" for="newContact">Enter OTP Code</label>
+                    <span class="colon">:</span>
+                    <input type="number" id="enteredOtp">
+                    <input type="button" id="changeContactResendOTP" value="Resend OTP">
+                    <br>
+                    <label class="user-detail-names" for="OTP countdown"><!-- for the countdown --></label>
+                    <input type="button" id="saveNewContact" value="Save Changes">
+                </div>
             </form>
         </div>
         <hr>
     </div>
-    <script src="assets/scripts/main.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>

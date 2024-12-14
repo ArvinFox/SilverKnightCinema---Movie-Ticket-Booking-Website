@@ -1138,6 +1138,47 @@ footer{
     cursor: not-allowed;
 }
 
+.user-booking-history-container{
+    margin: 25px auto;
+    width: 1300px;
+    overflow-x: auto;
+}
+
+.booking-table{
+    border: 2px solid black;
+    width: 1300px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.booking-table thead td{
+    font-weight: 700;
+}
+
+.booking-table thead, .booking-table tr, .booking-table td{
+    border: 2px solid black;
+    padding: 1px 6px;
+}
+
+.paid {
+    color: green;
+    font-weight: bold;
+}
+.not-paid {
+    color: red;
+    font-weight: bold;
+}
+
+@media(max-width:1030px){
+    .user-booking-history-container{
+        margin: 25px 25px;
+        width: auto;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+}
+
+
 @media (max-width: 480px) {
     .user-details-container {
         padding: 15px;
@@ -1342,11 +1383,15 @@ footer{
 }
 
 .movie-locations h5, .movie-locations i{
-    font-size: 12px; 
+    font-size: 15px; 
 }
 
 .movie-locations h5{
     font-weight: 300;
+}
+
+.show-time{
+    padding-top: 10px;
 }
 
 .show-time h5{
@@ -1360,11 +1405,25 @@ footer{
     background: #000000;
     border-radius: 15px;
     width: 60px;
+    cursor: default;
     text-align: center;
     color: #fff700;
     font-size: 13px;
     height: fit-content;
     margin-left: auto;
+}
+
+.booking-details-top .dbshowtime{
+    padding: 10px;
+    background: #000000;
+    border-radius: 15px;
+    cursor: default;
+    width: fit-content;
+    text-align: center;
+    color: #fff700;
+    font-size: 13px;
+    height: fit-content;
+    margin-right: auto;
 }
 
 .booking-details-top h1{

@@ -4,6 +4,15 @@
     Author     : arvin
 --%>
 
+<%@page import="dao_classes.ShowtimeDAO"%>
+<%@page import="dao_classes.MovieDAO"%>
+<%@page import="dao_classes.HallDAO"%>
+<%@page import="model_classes.Booking"%>
+<%@page import="model_classes.Showtime"%>
+<%@page import="model_classes.Movie"%>
+<%@page import="model_classes.Hall"%>
+<%@page import="java.util.List"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,20 +24,63 @@
         <title>Booking History</title>
     </head>
     <body>
-        <div class="user-details">
-            <table class="user-table">
-                <thead>
-                  <tr>
-                    <th>Movie Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Location</th>
-                    <th>Ticket Download</th>
-                    <th>Change Booking Time</th>
-                  </tr>
-                </thead>
-            </table>
+        <%
+            ShowtimeDAO showtimeDao = new ShowtimeDAO();
+            MovieDAO movieDao = new MovieDAO();
+            HallDAO hallDao = new HallDAO();
+        %>
+        <div class="user-booking-history-container">
+            <%
+                HttpSession sessionBooking = request.getSession();
+                List<Booking> bookings = (List<Booking>) sessionBooking.getAttribute("bookings");
+            %>
+            <% if (bookings != null && !bookings.isEmpty()) { %>
+                <table class="booking-table">
+                    <thead>
+                        <tr>
+                            <td>Booking ID</td>
+                            <td>Movie</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td>Location</td>
+                            <td>Payment Status</td>
+                            <td>Change Time Slot</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            for (Booking booking : bookings) { 
+                            Showtime showtime = showtimeDao.getShowtimeById(booking.getShowtimeId());
+                            Movie movie = movieDao.getMovieById(showtime.getMovieId());
+                            Hall hall = hallDao.getHallById(showtime.getHallId());
+                        %>
+                            <tr>
+                                <td><%= booking.getBookingId() %></td>
+                                <td><%= movie.getTitle() %></td>
+                                <td><%= booking.getBookingDate() %></td>
+                                <td><%= showtime.getShowTime() %></td>
+                                <td><%= hall.getLocation() %></td>
+                                <td>
+                                    <span class="<%= booking.getIsPaid() ? "paid" : "not-paid" %>">
+                                        <%= booking.getIsPaid() ? "Paid" : "Not Paid" %>
+                                    </span>
+                                </td>
+                                <td><input type="submit" value="Change"/></td>
+                            </tr>
+                        <% 
+                            } 
+                        %>
+                    </tbody>
+                </table>
+            <% 
+                } 
+                else 
+                { 
+            %>
+                <p style="text-align: center; font-size: 20px;">No data available.</p>
+            <% 
+                } 
+            %>
         </div>
-        
     </body>
 </html>

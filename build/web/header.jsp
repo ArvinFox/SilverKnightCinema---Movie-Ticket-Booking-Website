@@ -56,7 +56,7 @@
                         <li> <button onclick="loginfunction()" disabled> Hi, ${user.firstName}! </button> </li>
                         <div class="tooltip-content">
                             <ul id="tooltip-list">
-                                <li class="tooltip-navLink"><a class="tooltip-link" href="userProfile.jsp">User Profile</a></li>
+                                <li class="tooltip-navLink"><a class="tooltip-link" href="profile">User Profile</a></li>
                                 <li class="tooltip-navLink"><a class="tooltip-link" href="LogoutServlet">Logout</a></li>
                             </ul>
                         </div>                   

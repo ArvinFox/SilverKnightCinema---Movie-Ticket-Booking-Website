@@ -4,6 +4,8 @@
     Author     : arvin
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,19 +23,20 @@
     <jsp:include page="header.jsp"/>
     <div class="booking-details-top">
         <div class="booking-details-sub-top movie-title">
-            <h1>Jurassic World:Dominion</h1>
+            <h1>${movie.title}</h1>
             <div class="timer" id="timer">05:00</div>
         </div>
         <div class="booking-details-sub-top movie-locations">
-            <h5><i class='fas fa-map-marker-alt'>&nbsp;</i>SilverKnight Cinemas - Colombo City Centre</h5>
+            <h5><i class='fas fa-map-marker-alt'>&nbsp;&nbsp;</i>${hall.name} - ${hall.location}</h5>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;Date : ${showtime.showDate}</h5>
         </div>
         <div class="booking-details-sub-top show-time">
-            <h5>Show Time :</h5>
+            <h5>Show Time :&nbsp;&nbsp; </h5> <div class="dbshowtime"><fmt:formatDate value="${showtime.showTime}" pattern="hh:mm a" /></div>
         </div>
     </div>
     <div class="seat-container-width">
         <div class="screen">Screen</div>
-        <h2>Standard</h2>
+        <h2>Select Preferred Seats</h2>
         <hr>
         <div class="seat-booking-container">
             <div class="seat-container">
