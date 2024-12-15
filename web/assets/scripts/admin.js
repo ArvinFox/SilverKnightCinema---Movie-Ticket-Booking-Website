@@ -182,6 +182,10 @@ function confirmGuestDelete(guestName, guestEmail, guestId) {
   return confirm(`Are you sure you want to delete the guest "${guestName}" (Email: ${guestEmail}) [ID: ${guestId}]? \nThis action cannot be undone.`);
 }
 
+function confirmBookingDelete(bookingId) {
+  return confirm(`Are you sure you want to delete this booking [ID: ${bookingId}]? \nThis action cannot be undone.`);
+}
+
 function confirmShowtimeDelete(movieTitle, hallName, showtimeId, showDate, showTime) {
   return confirm(
       `Are you sure you want to delete the showtime for the movie "${movieTitle}" [ID: ${showtimeId}]? \n` +

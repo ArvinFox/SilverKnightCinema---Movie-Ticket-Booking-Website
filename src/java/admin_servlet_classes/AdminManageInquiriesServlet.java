@@ -52,6 +52,7 @@ public class AdminManageInquiriesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         

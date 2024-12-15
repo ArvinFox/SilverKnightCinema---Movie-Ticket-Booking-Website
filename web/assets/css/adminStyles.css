@@ -290,6 +290,22 @@ body {
     background-color: #ffffff;
 }
 
+.search-input {
+    width: 60%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -304,6 +320,18 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: scale(1.1);
+}
+
+.stat-box.highlight {
+    border: 1px solid #ffc107;
+    transform: scale(1.06);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    background-color: #fffbea;
 }
 
 .stat-box h3 {
@@ -336,6 +364,10 @@ body {
 
 .quick-action-links .action-btn:hover {
     background-color: #0056b3;
+}
+
+.quick-action-links .action-btn:active {
+    transform: scale(0.98);
 }
 
 /* Common Styles for Pages */
@@ -381,6 +413,13 @@ body {
 
 .filter-header.collapsed .toggle-icon {
     transform: rotate(-90deg);
+}
+
+.flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    align-items: center;
 }
 
 .search-container {
@@ -526,6 +565,26 @@ th {
     margin: 0px;
     margin-top: 10px;
     margin-bottom: 4px;
+}
+
+.entity-details table {
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.entity-details th, .entity-details td {
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.entity-details th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.entity-details td {
+    color: #555;
 }
 
 .entity-details strong {
@@ -753,26 +812,6 @@ textarea {
     background-color: #f8d7da; 
     color: #721c24;
     cursor: not-allowed;
-}
-
-.movie-details table {
-    margin-top: 10px;
-    margin-bottom: 16px;
-}
-
-.movie-details th, .movie-details td {
-    border: none;
-    border-bottom: 1px solid #ddd;
-}
-
-.movie-details th {
-    background-color: #f4f4f4;
-    color: #333;
-    font-weight: bold;
-}
-
-.movie-details td {
-    color: #555;
 }
 
 .movie-details a {

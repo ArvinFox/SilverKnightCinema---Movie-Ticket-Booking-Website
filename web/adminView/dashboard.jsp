@@ -31,62 +31,68 @@
         <%@ include file="../adminTemplates/sidebar.jsp" %>
 
         <div class="main-content dashboard-content" id="mainContent">
-
-
             <h1>Welcome, Admin! (${username})</h1>
-
             <h2>Dashboard Statistics</h2>
 
+            <div class="search-container-1">
+                <input 
+                    type="text" 
+                    id="statSearch" 
+                    placeholder="Search statistics..." 
+                    onkeyup="filterStats()" 
+                    class="search-input">
+            </div>
+
             <div class="dashboard-stats">
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Users">
                     <p>Total Users:</p>
                     <h3>${totalUsers}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Active Users">
                     <p>Active Users:</p>
                     <h3>${totalActiveUsers}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Guests">
                     <p>Total Guests:</p>
                     <h3>${totalGuests}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Bookings">
                     <p>Total Bookings:</p>
                     <h3>${totalBookings}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Promotions">
                     <p>Total Promotions:</p>
                     <h3>${totalPromotions}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Active Promotions">
                     <p>Active Promotions:</p>
                     <h3>${totalActivePromotions}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Genres">
                     <p>Total Genres:</p>
                     <h3>${totalGenres}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Languages">
                     <p>Total Languages:</p>
                     <h3>${totalLanguages}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Movies">
                     <p>Total Movies:</p>
                     <h3>${totalMovies}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Halls">
                     <p>Total Halls:</p>
                     <h3>${totalHalls}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Food Items">
                     <p>Total Food Items:</p>
                     <h3>${totalFoodItems}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Inquiries">
                     <p>Total Inquiries:</p>
                     <h3>${totalInquiries}</h3>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box" data-stat="Total Admins">
                     <p>Total Admins:</p>
                     <h3>${totalAdmins}</h3>
                 </div>
@@ -121,7 +127,31 @@
                     const url = "../adminView/add" + type + ".jsp";
                     openModal(url, null, type);
                 })
-            })
+            });
+
+            function filterStats() {
+                const searchInput = document.getElementById('statSearch').value.toLowerCase();
+                const statBoxes = document.querySelectorAll('.stat-box');
+
+                if (searchInput.trim() === "") {
+                    // Reset all styles if the input is empty
+                    statBoxes.forEach(box => {
+                        box.classList.remove('highlight');
+                    });
+                    return;
+                }
+
+                statBoxes.forEach(box => {
+                    const statText = box.getAttribute('data-stat').toLowerCase();
+                    if (statText.includes(searchInput)) {
+                        // Highlight matching stat-box
+                        box.classList.add('highlight');
+                    } else {
+                        // Reset styles for non-matching stat-box
+                        box.classList.remove('highlight');
+                    }
+                });
+            }
         </script>
         <script src="../assets/scripts/admin.js"></script>
     </body>

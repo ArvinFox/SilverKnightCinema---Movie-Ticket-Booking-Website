@@ -4,13 +4,6 @@
     Author     : Umindu Haputhanthri
 --%>
 
-<%@page import="model_classes.Movie"%>
-<%@page import="model_classes.Movie"%>
-<%@page import="dao_classes.MovieDAO"%>
-<%@page import="model_classes.Hall"%>
-<%@page import="dao_classes.HallDAO"%>
-<%@page import="dao_classes.ShowtimeDAO"%>
-<%@page import="model_classes.Showtime"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

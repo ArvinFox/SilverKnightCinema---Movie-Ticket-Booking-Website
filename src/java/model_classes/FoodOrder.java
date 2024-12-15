@@ -11,6 +11,8 @@ public class FoodOrder {
     private double totalPrice;
     private Date createdAt;
     
+    private String itemName;
+    
     // Constructors
     public FoodOrder() {}
     
@@ -44,4 +46,7 @@ public class FoodOrder {
     
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
 }

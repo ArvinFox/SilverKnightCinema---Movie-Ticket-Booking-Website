@@ -8,8 +8,7 @@ public class Hall {
         IMAX("IMAX"),
         _2D("2D"),
         _3D("3D"),
-        VIP("VIP"),
-        STANDARD("Standard");
+        VIP("VIP");
 
         private final String dbValue;
 

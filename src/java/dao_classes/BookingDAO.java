@@ -47,6 +47,76 @@ public class BookingDAO {
         }
     }
     
+    // Method to get searched bookings
+    public List<Booking> getSearchedBookings(Integer movieId, Integer hallId, String type, String userInfo, String bookingDateFrom, String bookingDateTo) {
+        List<Booking> bookings = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT b.* FROM bookings b ");
+        
+        query.append("JOIN showtimes s ON b.showtimeId = s.showtimeId ");
+        query.append("WHERE 1=1 ");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (movieId != null) {
+            query.append("AND s.movieId = ? ");
+            parameters.add(movieId);
+        }
+        
+        if (hallId != null) {
+            query.append("AND s.hallId = ? ");
+            parameters.add(hallId);
+        }
+        
+        if ("Registered Users".equals(type)) {
+            query.append("AND b.userId IS NOT NULL ");
+        } else if ("Guests".equals(type)) {
+            query.append("AND b.guestId IS NOT NULL ");
+        }
+        
+        if (userInfo != null && !userInfo.trim().isEmpty()) {
+            query.append("AND (b.userId IN (SELECT u.userId FROM users u WHERE u.firstName LIKE ? OR u.lastName LIKE ? OR CONCAT(u.firstName, ' ', u.lastName) LIKE ? OR u.email LIKE ?) ");
+            query.append("OR b.guestId IN (SELECT g.guestId from guests g WHERE g.name LIKE ? OR g.email LIKE ?)) ");
+            String searchPattern = "%" + userInfo.trim() + "%";
+            parameters.add(searchPattern);
+            parameters.add(searchPattern);
+            parameters.add(searchPattern);
+            parameters.add(searchPattern);
+            parameters.add(searchPattern);
+            parameters.add(searchPattern);
+        }
+        
+        if (bookingDateFrom != null && !bookingDateFrom.trim().isEmpty()) {
+            query.append("AND b.bookingDate >= ? ");
+            parameters.add(bookingDateFrom.trim());
+        }
+        
+        if (bookingDateTo != null && !bookingDateTo.trim().isEmpty()) {
+            query.append("AND b.bookingDate <= ? ");
+            parameters.add(bookingDateTo.trim());
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Booking booking = populateBooking(rs);
+                    bookings.add(booking);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching searched bookings: " + e.getMessage());
+        }
+        
+        return bookings;
+    }
+    
     // Method to get booking by its id
     public Booking getBookingById(int bookingId) {
         Booking booking = null;

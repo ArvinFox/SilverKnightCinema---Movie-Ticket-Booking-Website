@@ -13,11 +13,16 @@ import dao_classes.UserDAO;
 import model_classes.Promotion;
 import dao_classes.PromotionDAO;
 import model_classes.Food;
+import model_classes.FoodOrder;
 import dao_classes.FoodDAO;
 import model_classes.Hall;
 import dao_classes.HallDAO;
 import model_classes.Showtime;
 import dao_classes.ShowtimeDAO;
+import model_classes.Booking;
+import dao_classes.BookingDAO;
+import model_classes.Seat;
+import dao_classes.SeatDAO;
 import model_classes.Inquiry;
 import dao_classes.InquiryDAO;
 
@@ -43,6 +48,8 @@ public class FetchDataServlet extends HttpServlet {
     private FoodDAO foodDAO;
     private HallDAO hallDAO;
     private ShowtimeDAO showtimeDAO;
+    private BookingDAO bookingDAO;
+    private SeatDAO seatDAO;
     private InquiryDAO inquiryDAO;
     
     @Override
@@ -55,6 +62,8 @@ public class FetchDataServlet extends HttpServlet {
         foodDAO = new FoodDAO();
         hallDAO = new HallDAO();
         showtimeDAO = new ShowtimeDAO();
+        bookingDAO = new BookingDAO();
+        seatDAO = new SeatDAO();
         inquiryDAO = new InquiryDAO();
     }
     
@@ -225,6 +234,39 @@ public class FetchDataServlet extends HttpServlet {
                     
                     request.setAttribute("showtime", showtime);
                     request.getRequestDispatcher("/adminView/viewShowtime.jsp").forward(request, response);
+                }
+                
+                case "Booking" -> {
+                    Booking booking = bookingDAO.getBookingById(id);
+                    
+                    String[] bookedSeats = booking.getBookedSeats();
+                    String bookedSeatsAsString = "";
+                    for (int i = 0; i < bookedSeats.length; i++) {
+                        Seat seat = seatDAO.getSeatById(Integer.parseInt(bookedSeats[i]));
+                        bookedSeatsAsString += seat.getSeatNumber();
+                        if (i < bookedSeats.length - 1) {
+                            bookedSeatsAsString += ", ";
+                        }
+                    }
+                    booking.setBookedSeatsAsString(bookedSeatsAsString);
+                    booking.setIsUser(booking.getUserId() != 0);
+                    
+                    Showtime showtime = showtimeDAO.getShowtimeById(booking.getShowtimeId());
+                    Hall hall = hallDAO.getHallById(showtime.getHallId());
+                    showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                    showtime.setMovieTitle(movieDAO.getMovieById(showtime.getMovieId()).getTitle());
+                    showtime.setFormattedTime(showtime.getShowTime());
+                    
+                    List<FoodOrder> orders = foodDAO.getOrdersByBooking(booking.getBookingId());
+                    for (FoodOrder order : orders) {
+                        Food item = foodDAO.getFoodItemById(order.getItemId());
+                        order.setItemName(item.getItemName());
+                    }
+                    
+                    request.setAttribute("booking", booking);
+                    request.setAttribute("showtime", showtime);
+                    request.setAttribute("orders", orders);
+                    request.getRequestDispatcher("/adminView/viewBooking.jsp").forward(request, response);
                 }
                 
                 case "FoodItem" -> {

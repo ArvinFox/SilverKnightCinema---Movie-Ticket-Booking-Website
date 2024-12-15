@@ -14,6 +14,9 @@ public class Booking {
     private Date expiryDate;
     private double totalPrice;
     private boolean isPaid;
+    
+    private String bookedSeatsAsString;
+    private boolean isUser;
 
     // Constructors
     public Booking() {}
@@ -71,4 +74,10 @@ public class Booking {
 
     public boolean getIsPaid() { return isPaid; }
     public void setIsPaid(boolean isPaid) { this.isPaid = isPaid; }
+    
+    public String getBookedSeatsAsString() { return bookedSeatsAsString; }
+    public void setBookedSeatsAsString(String bookedSeatsAsString) { this.bookedSeatsAsString = bookedSeatsAsString; }
+    
+    public boolean getIsUser() { return isUser; }
+    public void setIsUser(boolean isUser) { this.isUser = isUser; }
 }

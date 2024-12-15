@@ -11,7 +11,6 @@
     </div>
     <div class="header-links">
         <a href="dashboard" class="dashboard-link">Dashboard</a>
-        <a href="profile.jsp">Profile</a>
         <a href="logout">Logout</a>
     </div>
 </header>
