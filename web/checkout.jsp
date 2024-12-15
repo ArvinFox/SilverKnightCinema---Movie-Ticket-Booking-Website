@@ -68,13 +68,13 @@
                         <label for="terms">I confirmed that I have read and agreed to the <a href="termsAndConditions.jsp">Terms & Conditions</a> of this purchase.</label>
                     </div>                 
 
-                    <button type="submit" class="pay-now">Pay Now</button>
+                    <button type="button" class="pay-now" onclick="checkOutfunction()">Pay Now</button>
                 </form>
             </div>
             
             <div class="card-box">
                 <div class="card-header">
-                    <a href="foodsAndBeverages.jsp"><i class="fas fa-plus"></i> </a>Add Snacks & Beverages
+                    <a href="cart?bookingId=${bookingId}"><i class="fas fa-plus"></i> </a>Add Snacks & Beverages
                 </div>
             <table class="card-table">
                 <thead>
@@ -101,6 +101,15 @@
  
     
      <jsp:include page="footer.jsp" />
+     
+     <script>
+         function checkOutfunction(){
+                const urlParameters = new URLSearchParams(window.location.search);
+                const bookingId = urlParameters.get("bookingId");
+                
+                location.replace("eticket?bookingId=" +bookingId);
+            }
+     </script>
      <script src="assets/scripts/main.js"></script>
      
     </body>

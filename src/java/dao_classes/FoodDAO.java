@@ -139,15 +139,31 @@ public class FoodDAO {
     
     // Method to update stock of food item
     public void updateStock(int quantity, int itemId) {
+        String stockQuery = "SELECT stock FROM foods WHERE itemId = ?";
         String query = "UPDATE foods SET stock = stock + ? WHERE itemId = ?";
         
         try (Connection conn = DBConnection.getConnection();
+             PreparedStatement psStock = conn.prepareStatement(stockQuery);
              PreparedStatement ps = conn.prepareStatement(query)) {
             
-            ps.setInt(1, quantity);
-            ps.setInt(2, itemId);
-            ps.executeUpdate();
-            
+            psStock.setInt(1, itemId);
+            try(ResultSet rs = psStock.executeQuery())
+            {
+                if(rs.next())
+                {
+                    int stock = rs.getInt("stock");
+                    
+                    if(!(stock + quantity < 0 ))
+                    {
+                        ps.setInt(1, quantity);
+                        ps.setInt(2, itemId);
+                        ps.executeUpdate();
+                    }
+                    else{
+                        System.out.println("Insufficient stock");
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in updating stock of food item: " + e.getMessage());

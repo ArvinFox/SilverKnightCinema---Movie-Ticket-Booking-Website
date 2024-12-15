@@ -4,6 +4,10 @@
     Author     : arvin
 --%>
 
+<%@page import="java.util.Base64"%>
+<%@page import="java.security.SecureRandom"%>
+<%@page import="dao_classes.UserDAO"%>
+<%@page import="model_classes.User"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,7 +43,16 @@
         <h1>Password</h1>
         <div class="user-details-sub-container">
             <div class="form-row">
-                <form method="POST" action="resetPassword.jsp">
+                    <%
+                        User user = (User) session.getAttribute("user");
+                        String token = generateToken();
+                        long expiryTime = System.currentTimeMillis() + (5 * 60 * 1000);
+
+                        // Store token and expiry in the database
+                        UserDAO userDao = new UserDAO();
+                        userDao.storeResetToken(user.getUserId(), token, expiryTime);
+                    %>
+                <form method="POST" action="resetPassword.jsp?token=<%= token %>">
                     <input type="submit" id="changePassword" value="Change Current Password">
                 </form>
             </div>
@@ -80,6 +93,15 @@
         </div>
         <hr>
     </div>
+            
+    <%!
+        private String generateToken() {
+            SecureRandom secureRandom = new SecureRandom();
+            byte[] randomBytes = new byte[24];
+            secureRandom.nextBytes(randomBytes);
+            return Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
+        }
+    %>
     <script src="scripts.js"></script>
 </body>
 </html>

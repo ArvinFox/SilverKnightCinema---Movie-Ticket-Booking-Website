@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,234 +28,262 @@
         <section class="food-section">
             <div class="container-food">
                 <div class="food-tabs">
-                  <h3 class="active">Beverages</h3>
-                  <h3>Pop Corns</h3>
+                  <h3 class="active">Beverage</h3>
+                  <h3>PopCorn</h3>
                   <h3>Juice</h3>
-                  <h3>Snacks</h3>
+                  <h3>Snack</h3>
                 </div>
                 <div class="tab-content active">
-                    <div class="item">
-                        <img src="assets/images/baverage_1.png" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Sprite - 600ml </h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <br>
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/beverage_2.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> CocaCola - 600 ml</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label > QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <br>
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/beverage_3.jpg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Necto - 600ml</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <br>
-                            <button class="add-to-cart" id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/beverage_4.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Orange Crush 600 ml</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <br>
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
+                    <c:if test="${not empty foodList}">
+                        <c:forEach var="food" items="${foodList}">
+                            <c:if test="${food.stock != 0}">
+                                <div class="item">
+                                    <input type="hidden" value="${food.itemId}" name="itemId">
+                                    <img src="${food.itemUrl}" alt="Sprite"/>
+                                    <div class="item-info">
+                                        <h4 class="item-title">${food.itemName}</h4>
+                                        <p class="price">${food.price}</p>
+                                        <label> QTY </label>
+                                        <input type="number"  min="1" value="1" data-stock="${food.stock}" name="qty">
+                                        <br>
+                                        <span class="error-message" style="color: red;display: none;">Current Stock: ${food.stock}</span> <!-- Display stock info is qty is grater than stock-->
+                                        <br>
+                                        <button class="add-to-cart"  id="butCart"> Add to Cart </button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+                    
+                    <c:if test="${empty foodList}">
+                        <h3 style="text-align: center; color: red; font-size: 20px;">No Foods Available</h3>
+                    </c:if>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- PopCorn Content -->
+                </div>
+                <div class="tab-content">
+                  <!-- Juice Content -->
+                </div>
+                <div class="tab-content">
+                  <!-- Snack Content -->
                 </div>
                 
                 <div class="cart-box">
                     <div class="cart-header">Cart</div>
+                    
                     <table class="cart-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Qty</th>
                                 <th>Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Rows -->
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
                         </tbody>
                     </table>
                     <div class="cart-summary">
                         <p class="total">Total Amount <span>Rs.000.00</span></p>
                     </div>
-		    <button id="payNow"> Pay Now </button>
-                </div>
-                    
-                    
-                <div class="tab-content">
-                    <div class="item">
-                        <img src="assets/images/popcorn_1.jpg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> PopCorn </h4>
-                            <p class="price"> LRK. 300.00</p>
-                            <label > QTY </label>
-                            <input type="number" min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/popcorn_2.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Butter PopCorn</h4>
-                            <p class="price"> LRK. 300.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/popcorn_3.webp" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> PopCorn </h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                </div>
-                    
-                <div class="tab-content">
-                    <div class="item">
-                        <img src="assets/images/juice_1.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Orange Juice </h4>
-                            <p class="price"> LRK. 300.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/juice_2.jpg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Orange Juice</h4>
-                            <p class="price"> LRK. 500.00</p>
-                            <label> QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/juice_3.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Kivi Juice</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label > QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/juice_4.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Apple Juice</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                </div>
-                    
-                <div class="tab-content">
-                    <div class="item">
-                        <img src="assets/images/snack_1.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Chile Limon </h4>
-                            <p class="price"> LRK. 300.00</p>
-                            <label> QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart" id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/snack_2.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Limon</h4>
-                            <p class="price"> LRK. 300.00</p>
-                            <label > QTY </label>
-                            <input type="number"  min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/snack_3.jpeg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Barbecue</h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/snack_4.jpg" alt="Sprite"/>
-                        <div class="item-info">
-                            <h4 class="item-title"> Pringles - Hot & Spicy </h4>
-                            <p class="price"> LRK. 700.00</p>
-                            <label> QTY </label>
-                            <input type="number" min="1" value="1">
-                            <button class="add-to-cart"  id="butCart"> Add to Cart </button>
-                        </div>
-                    </div>
+                    <button id="payNow" onclick="sendCartToServlet()"> Checkout </button>
                 </div>
             </div>
         </section>
         
         <jsp:include page="footer.jsp" /> 
         <script>
+            let cart = [];
+
             let tabs = document.querySelectorAll(".food-tabs h3");
             let tabContents = document.querySelectorAll(".tab-content");
 
             tabs.forEach((tab, index) => {
-              tab.addEventListener("click", () => {
-                tabContents.forEach((content) => {
-                  content.classList.remove("active");
+                tab.addEventListener("click", () => {
+                    tabs.forEach((tab) => tab.classList.remove("active"));
+                    tabContents.forEach((content) => content.classList.remove("active"));
+
+                    tab.classList.add("active");
+                    tabContents[index]?.classList.add("active");
+
+                    fetchFoods(tab.textContent.toUpperCase());
                 });
-                tabs.forEach((tab) => {
-                  tab.classList.remove("active");
+            });
+            
+            async function fetchFoods(itemType) {
+                try {
+                    const response = await fetch("cart?itemType=" + itemType);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    updateFoodItems(data);
+                } catch (error) {
+                    console.error("Error fetching food items:", error);
+                }
+            }
+
+            function updateFoodItems(items) {
+                const tabContent = document.querySelector(".tab-content.active");
+                if (tabContent) {
+                    tabContent.innerHTML = "";
+                    let html = '';
+                    if(items.length === 0)
+                    {
+                        tabContent.innerHTML = '<h3 style="text-align: center; color: red; font-size: 20px;">No Foods Available</h3>' ;
+                        return;
+                        
+                    }
+                    items.forEach(function(item) {
+                        if(item.stock !== 0)
+                        {
+                            html += '<div class="item">' +
+                                    '<input type="hidden" value="' + item.itemId + '" name="itemId">' +
+                                    '<img src="' + item.itemUrl + '" alt="' + item.itemName + '" />' +
+                                    '<div class="item-info">' +
+                                        '<h4 class="item-title">' + item.itemName + '</h4>' +
+                                        '<p class="price">Rs. ' + item.price + '</p>' +
+                                        '<label>QTY</label>' +
+                                        '<input type="number" min="1" value="1" data-stock="' + item.stock + '" name="qty">' +
+                                        '<br>' +
+                                        '<span class="error-message" style="color: red; display: none;">Current Stock: ' + item.stock + '</span>' +
+                                        '<br>' +
+                                        '<button class="add-to-cart" id="butCart">Add to Cart</button>' +
+                                    '</div>' +
+                                '</div>';
+                        }  
+                    });
+                    tabContent.innerHTML = html;
+                      
+                    checkStock();
+                }
+            }
+            
+            function checkStock() {
+                let addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        let item = this.closest('.item');
+                        const itemId = item.querySelector('input[name="itemId"]').value;
+                        const cartItem = cart.find(item => item.itemId === itemId);
+                        let qtyInput = item.querySelector('input[name="qty"]');
+                        let availableStock = parseInt(qtyInput.getAttribute('data-stock'));  
+                        let enteredQty = parseInt(qtyInput.value); // to get the entered quantity
+
+                        let outOfStock = enteredQty > availableStock;
+
+                        if(cartItem)
+                        {
+                          outOfStock = (enteredQty + cartItem.qty) > availableStock;
+                        }
+
+                        let error = item.querySelector('.error-message');
+
+                        if (outOfStock) {
+                            error.style.display = 'inline';
+                            qtyInput.value = availableStock;  // Reset to available stock
+                            qtyInput.focus();
+                            return;
+                        }
+                        else{
+                            error.style.display = 'none';
+                        }
+
+                        addToCart(item, enteredQty);
+
+                        updateCart();
+                    });
                 });
-                tabContents[index].classList.add("active");
-                tabs[index].classList.add("active");
-              });
-            }); 
+            }
+
+            function addToCart(item, qty) {
+                let itemId = item.querySelector('input[name="itemId"]').value;
+                let itemName = item.querySelector('.item-title').textContent;
+                let itemPrice = parseFloat(item.querySelector('.price').textContent.replace('Rs. ', ''));
+
+                let existingItem = cart.find(cartItem => cartItem.itemId === itemId);
+
+                if (existingItem) {
+                    existingItem.qty += qty;
+                } else {
+                    cart.push({
+                        itemId: itemId,
+                        itemName: itemName,
+                        price: itemPrice,
+                        qty: qty
+                    });
+                }
+            }
+
+            function updateCart() {
+                let cartTable = document.querySelector('.cart-table tbody');
+                let cartSummaryTotal = document.querySelector('.cart-summary .total span');
+                let totalAmount = 0;
+
+                cartTable.innerHTML = "";
+
+                cart.forEach(item => {
+                    let row = '<tr>' +
+                                '<td>' + item.itemName + '</td>' +
+                                '<td>' + item.qty + '</td>' +
+                                '<td>' + (item.price * item.qty) + '</td>' +
+                                '<td><button class="remove-from-cart" data-item-id="' + item.itemId + '"><i class="fa-solid fa-trash"></i></button></td>' +
+                              '</tr>';
+                    cartTable.innerHTML += row;
+                    totalAmount += item.price * item.qty;
+                });
+
+                cartSummaryTotal.textContent = 'Rs. ' + totalAmount.toFixed(2);
+
+                let removeButtons = document.querySelectorAll('.remove-from-cart');
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        let itemId = button.getAttribute('data-item-id');
+                        removeFromCart(itemId);
+                        updateCart();
+                    });
+                });
+            }
+
+            function removeFromCart(itemId) {
+                cart = cart.filter(item =>  item.itemId !== itemId);
+            }
+            
+            document.addEventListener("DOMContentLoaded", (event) => {
+                checkStock();
+            });
+
+            async function sendCartToServlet() {
+                let cartData = cart.map(item => ({
+                    itemId: item.itemId,
+                    itemName: item.itemName,
+                    qty: item.qty,
+                    price: item.price
+                }));
+
+                const urlParameters = new URLSearchParams(window.location.search);
+                const bookingId = urlParameters.get("bookingId");
+                
+                const response = await fetch("cart?bookingId=" +bookingId, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(cartData)
+                });
+
+                if(response.ok)
+                {
+                    window.location.href = "checkout.jsp?bookingId=" +bookingId;
+                }
+                else{
+                    console.error("failed");
+                }
+            }
         </script>
-        <script src="assets/scripts/main.js"></script>
-        
-    </body>
+    </body>
 </html>

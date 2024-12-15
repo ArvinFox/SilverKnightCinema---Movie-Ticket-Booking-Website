@@ -6,11 +6,9 @@ import model_classes.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -42,71 +40,40 @@ public class ResetPasswordServlet extends HttpServlet
     {
         request.removeAttribute("errorMessage");
         
-        UserDAO user_dao = new UserDAO();
-        String email = request.getParameter("email");
+        String token = request.getParameter("token");
         String newPwd = request.getParameter("new_password");
-        String confirmPwd = request.getParameter("verify_password");
         
         try{
-            User user = userDao.getUserByEmail(email);
+            User user = userDao.getUserByResetToken(token);
+            System.out.println("Token: " + token);
+            System.out.println("User: " + user);
             
             if(user != null)
             {
-                String hashedPassword = BCrypt.hashpw(newPwd, BCrypt.gensalt());
-                user.setPassword(hashedPassword);
-
-                user_dao.resetPassword(email, hashedPassword);
-                
-                HttpSession session = request.getSession();
-                Boolean isLinkUsed = (Boolean) session.getAttribute("isLinkUsed");
-
-                if(isLinkUsed != null && isLinkUsed)
-                {
-                    request.setAttribute("errorMessage", "This link has been already used. Request a new email again");
-                    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-                }
-                session.setAttribute("isLinkUsed", true);
-                
-                long expireTime = System.currentTimeMillis() + (5*60*1000);
-                Cookie linkExpireCookie = new Cookie("linkExpire", String.valueOf(expireTime));
-                linkExpireCookie.setMaxAge(5*60);
-                response.addCookie(linkExpireCookie);
-                
-                Cookie[] cookie = request.getCookies();
                 long currentTime = System.currentTimeMillis();
-                boolean linkExpired = true;
-                
-                if(cookie != null)
-                {
-                    for(Cookie cookies : cookie)
-                    {
-                        if(cookies.getName().equals("linkExpire"))
-                        {
-                            long expirationTime = Long.parseLong(cookies.getValue());
-                            
-                            if(currentTime < expirationTime)
-                            {
-                                linkExpired = false;
-                            }
-                            break;
-                        }
-                    }
-                }
-                
-                if(linkExpired)
-                {
-                    request.setAttribute("errorMessage", "This link has been expired. Request a new email again");
+                if (userDao.isTokenExpired(token, currentTime)) {
+                    request.setAttribute("errorMessage", "This link has expired. Please request a new password reset link.");
                     request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+                    return;
                 }
-                else
-                {
-                    response.sendRedirect("login.jsp");
-                }
+                
+                // Mark token as used and reset password
+                userDao.invalidateResetToken(token);
+                String hashedPassword = BCrypt.hashpw(newPwd, BCrypt.gensalt());
+                userDao.resetPassword(user.getEmail(), hashedPassword);
+                response.sendRedirect("profile");
+            }
+            else
+            {
+                request.setAttribute("errorMessage", "Invalid or expired link.");
+                request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
             }
         }
         catch(Exception ex)
         {
             ex.printStackTrace();
+            request.setAttribute("errorMessage", "An error occurred. Please try again.");
+            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
         }
     }
 }

@@ -23,7 +23,7 @@
             <p class="password-para"> Enter your new password below. </p> 
             <div class="form">
                 <form name="loginForm" method="POST" action="ResetPasswordServlet" onsubmit="return checkPassword()">
-                    <input type="hidden" name="email" value="<%=request.getParameter("email")%>"> 
+                    <input type="hidden" name="token" value="<%=request.getParameter("token")%>"> 
                     <label for="text"> Password </label>
                     <br>
                     <input type="password" name="new_password" placeholder="Password" maxlength="12" id="newPassword" class="input-field" required oninput="clearErrorMessage()"/>

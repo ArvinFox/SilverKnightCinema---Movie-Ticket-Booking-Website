@@ -1723,6 +1723,11 @@ input[type='number']{
     text-align: center;
 }
 
+.remove-from-cart{
+    background-color: transparent;
+    border: none;
+}
+
 .cart-summary {
     font-size: 18px;
     font-weight: bold;
@@ -1746,6 +1751,198 @@ input[type='number']{
     cursor: pointer;
 }
 
+/*----------Css for E-ticket-----------*/
+.notification{
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-container{
+    background-color: #2d3748;
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket-section{
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.5);
+    padding: 1rem;
+    width: 40%;
+    margin-right: 1.5rem;
+}
+
+.ticket-header{
+    background-color: blue;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.movie-img{
+    width: 200px;
+    height: 250px;
+    border-radius: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.title-movie{
+    font-weight:bold;
+    font-size: 18px;
+    text-align:center;
+}
+
+.ticket-info{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse:collapse;
+    font-size:12px;
+    line-height: 1.5rem;
+    padding: 5px;
+}
+
+.ticket-info td{
+    padding: 5px;
+}
+
+.ticket-info td:first-child{
+    font-weight: bold;
+}
+
+.barcode{
+    width:300px;
+    height:50px;
+    margin-top: 1rem;
+    border: 1px solid red;
+}
+
+.confirmation-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    width: 60%;
+    top: 50px;
+}
+
+.confirmation-message{
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    margin-right: 30px;
+    text-align: center;
+}
+
+.download-message{
+    text-align: center;
+    margin-right: 30px;
+}
+
+.download-button{
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin: 40px;
+    width: 30%;
+    height: 10%;
+    margin-right: 60px;
+}
+
+.download-button i{
+    width: 20px;
+    height: 20px;
+    margin: 20px;
+}
+
+/*-------- Mobile Responsive --------*/
+@media (max-width: 768px) {
+    .notification-container {
+        flex-direction: column; 
+        padding: 1rem; 
+    }
+
+    .ticket-section, .confirmation-section {
+        width: 100%; 
+        margin-right: 0; 
+    }
+
+    .ticket-header {
+        font-size: 18px; 
+        padding: 0.8rem; 
+    }
+
+    .movie-img {
+        width: 150px; 
+        height: 225px; 
+    }
+
+    .title-movie {
+        font-size: 16px; 
+    }
+
+    .ticket-info {
+        font-size: 14px; 
+    }
+
+    .confirmation-message {
+        font-size: 18px; 
+    }
+
+    .download-button {
+        padding: 10px; 
+        font-size: 14px; 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .ticket-header {
+        font-size: 16px; 
+        padding: 0.6rem; 
+    }
+
+    .movie-img {
+        width: 120px; /* Reduce image size for very small screens */
+        height: 180px; /* Adjust height */
+    }
+
+    .title-movie {
+        font-size: 14px; /* Smaller title for small screens */
+    }
+
+    .ticket-info {
+        font-size: 12px; /* Reduce font size for small screens */
+    }
+
+    .confirmation-message {
+        font-size: 16px; 
+    }
+
+    .download-button {
+        padding: 8px; 
+        font-size: 12px; 
+        width: 50%;
+    }
+}
 
 @media (max-width: 480px){
     .food-section{

@@ -247,6 +247,85 @@ public class UserDAO {
         }
     }
     
+    // Method to store reset token of user
+    public void storeResetToken(int userId, String token, long expiryTime) {
+        String query = "INSERT INTO passwordResetTokens (userId, token, expiryTime) VALUES (?, ?, ?)";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, userId);
+            ps.setString(2, token);
+            ps.setLong(3, expiryTime);
+            ps.executeUpdate();
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in storing user's reset token: " + e.getMessage());
+        }
+    }
+    
+    // Method to get user by reset token
+    public User getUserByResetToken(String token) {
+        User user = null;
+        String query = "SELECT u.* FROM users u INNER JOIN passwordResetTokens t ON u.userId = t.userId WHERE t.token = ? AND t.isUsed = 0";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, token);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = populateUser(rs);
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching user by reset token: " + e.getMessage());
+        }
+        
+        return user;
+    }
+    
+    // Method to check if reset token is expired
+    public boolean isTokenExpired(String token, long currentTime) {
+        boolean isExpired = true;
+        String query = "SELECT expiryTime FROM passwordResetTokens WHERE token = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, token);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    long expiryTime = rs.getLong("expiryTime");
+                    isExpired = currentTime > expiryTime;
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in checking if reset token is expired: " + e.getMessage());
+        }
+        
+        return isExpired;
+    }
+    
+    // Method to invalidate reset token
+    public void invalidateResetToken(String token) {
+        String query = "UPDATE passwordResetTokens SET isUsed = 1 WHERE token = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, token);
+            ps.executeUpdate();
+            
+        } catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in invalidating reset token: " + e.getMessage());
+        }
+    }
+    
     // Method to update details of user
     public void updateUser(User user) {
         String query = "UPDATE users SET firstName = ?, lastName = ?, email = ?, password = ?, contactNumber = ?, accountStatus = ? WHERE userId = ?";

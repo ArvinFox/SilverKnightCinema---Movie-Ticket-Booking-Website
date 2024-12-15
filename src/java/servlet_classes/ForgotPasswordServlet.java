@@ -9,7 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Random;
+import java.security.SecureRandom;
+import java.util.Base64;
 import utility_classes.EmailUtil;
 
 /**
@@ -52,11 +53,16 @@ public class ForgotPasswordServlet extends HttpServlet
                if(!isAccountSuspended)
                {
                     //send email
-                    String randomToken = generateOTP();
-                    String resetLink = "http://localhost:8080/SilverKnightCinema/resetPassword.jsp?email="  +email + "&=" +randomToken;
+                    String token = generateToken();
+                    long expiryTime = System.currentTimeMillis() + (5 * 60 * 1000);
+                    
+                    // Store token and expiry in the database
+                    userDao.storeResetToken(user.getUserId(), token, expiryTime);
+                    
+                    String resetLink = "http://localhost:8080/SilverKnightCinema/resetPassword.jsp?token=" + token;
                     String subject = "Password reset link - SilverKnight Cinema";
                     String message = "Hi " +user.getFirstName()+ "\n\n To reset your password, please follow the link below "
-                            + "and enter a new password : \n " +resetLink+ "\n\n Please Note : This link will be valid for only 05 minutes."
+                            + "and enter a new password : \n " +resetLink+ "\n\n Please Note : This link will be valid for only 5 minutes."
                             + "\n If you didn't request this password reset, please ignore this email."
                             + "\n Best regards \n Silver Knight Cinema";
                     EmailUtil.sendEmail(email, subject, message);
@@ -79,13 +85,15 @@ public class ForgotPasswordServlet extends HttpServlet
         catch (Exception ex)
         {
             ex.printStackTrace();
+            request.setAttribute("errorMessage", "An error occurred. Please try again.");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         }
     }
     
-    private String generateOTP() 
-    {
-       Random rand = new Random();
-       int token = 100000 + rand.nextInt(900000);
-       return String.valueOf(token);
+    private String generateToken() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
     }
 }

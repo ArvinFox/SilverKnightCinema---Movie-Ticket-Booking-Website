@@ -82,15 +82,11 @@
                     menuList.style.maxHeight = "0px";
                 }
             }
-        </script>
-        
-        <script>
+            
             function loginfunction(){
                 location.replace("login");
             }
-        </script>
-        
-        <script>
+            
             let lastScrollY = 0;
             const nav = document.querySelector('nav');
 
