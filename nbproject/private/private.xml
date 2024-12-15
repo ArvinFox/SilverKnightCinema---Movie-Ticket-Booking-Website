@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/CartServlet.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/InquiryDAO.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/style.css</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/utility_classes/DBConnection.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/FoodOrder.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/InquiryServlet.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/HallDAO.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/web/foodsAndBeverages.jsp</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Inquiry.java</file>
+            <file>file:/C:/Users/sanuj/OneDrive/Desktop/New%20folder%20(2)/SilverKnightCinema---Movie-Ticket-Booking-Website/web/contactUs.jsp</file>
+        </group>
     </open-files>
 </project-private>

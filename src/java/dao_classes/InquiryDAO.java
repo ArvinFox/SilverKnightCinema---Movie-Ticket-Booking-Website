@@ -12,25 +12,27 @@ import java.util.List;
 
 public class InquiryDAO {
     
-    // Method to add an inquiry
-    public void addInquiry(Inquiry inquiry) {
-        String query = "INSERT INTO inquiries (name, email, subject, message) VALUES (?, ?, ?, ?)";
-        
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+    public boolean addInquiry(Inquiry inquiry) {
+    String query = "INSERT INTO inquiries (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    boolean isSuccess = false;
+    
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setString(1, inquiry.getName());
-            ps.setString(2, inquiry.getEmail());
-            ps.setString(3, inquiry.getSubject());
-            ps.setString(4, inquiry.getMessage());
-            ps.executeUpdate();
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error in adding inquiry: " + e.getMessage());
-        }
+        ps.setString(1, inquiry.getName());
+        ps.setString(2, inquiry.getEmail());
+        ps.setString(3, inquiry.getSubject());
+        ps.setString(4, inquiry.getMessage());
+        ps.executeUpdate();
+        isSuccess = true;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.err.println("Error in adding inquiry: " + e.getMessage());
     }
     
+    return isSuccess;
+}
     // Method to get searched inquiries
     public List<Inquiry> getSearchedInquiries(String email, String subject, String startDate, String endDate) {
         List<Inquiry> inquiries = new ArrayList<>();

@@ -835,6 +835,7 @@ footer{
     justify-content: center;
     max-width: 1050px;
     margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 #map {
@@ -842,56 +843,7 @@ footer{
     height: 400px;
     margin-top: 70px; 
     border: 1px solid #ccc;
-}
-
-/*css for newsletter*/
-.subscribe {
-    background-color: #F7CA18;
-    padding: 20px;
-    max-width: 1050px;
-    border-radius: 5px;
-    position: relative;
-    margin: 0 auto; 
-    margin-top: 60px;
-}
-
-.subscribe-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.subscribe-container h2 {
-    color: black;
-    margin: 0;
-    margin-right: 20px;
-}
-
-.newsletter-right {
-    display: inline-flex;
-    align-items: center;
-}
-
-.subscribe-container input {
-    padding: 10px;
-    width: 250px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    height: 40px;
-}
-
-.subscribe-btn {
-    background-color: #005b96;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    position: absolute;
-    right: 0;
-    height: 40px;
-    width: 100px;
-    cursor: pointer;
-    margin-right: 30px;
+    margin-bottom: 50px;
 }
 
 /*------------FAQ Page-------------*/

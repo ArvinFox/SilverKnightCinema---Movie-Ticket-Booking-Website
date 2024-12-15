@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,49 +59,65 @@
         </section>
 
         <section class="contact-form">
-            <form action="#">
+            <form action="InquiryServlet" method="POST">
                 <div class="form-row">
                     <div class="input-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Name">
+                        <input type="text" id="name" name="name" value="${name}" placeholder="Name" onkeypress="restrictAlphabeticalInput(event)">
                     </div>
 
                     <div class="input-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Email">
+                        <input type="email" name="email" value="${email}" placeholder="Email">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" placeholder="Subject">
+                    <input type="text" name="subject" value="${subject}" placeholder="Subject">
                 </div>
 
                 <div class="form-row">
                     <label for="message">Message</label>
-                    <textarea id="message" placeholder="Message"></textarea>
+                    <textarea name="message" placeholder="Message">${message}</textarea>
                 </div>
+
+                <!-- Success Message -->
+                <c:if test="${not empty successMessage}">
+                    <div style="color: green; text-align: center; font-size: 14px;">
+                        <p>${successMessage}</p>
+                    </div>
+                </c:if>
+
+                <!-- Error message -->
+                <c:if test="${not empty errorMessage}">
+                    <div style="color: red; text-align: center; font-size: 14px;">
+                        <p>${errorMessage}</p>
+                    </div>
+                </c:if>
 
                 <button type="submit" class="send-btn">Send Message</button>
             </form>
         </section>
-
+        
         <section class="contact-map">
             <div id="map"><iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d63374.60956104252!2d79.85488229999997!3d6.90099600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x3ae25961265f9517%3A0x70b4d5a5cf6c452e!2sBambalapitiya!3m2!1d6.900996!2d79.8548823!5e0!3m2!1sen!2slk!4v1731659333954!5m2!1sen!2slk" width="1050" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </section>
    
-        <section class="subscribe">
-            <div class="subscribe-container">
-                <h2>Subscribe Our Newsletter</h2>
-                <div class="newsletter-right">
-                    <input type="email" placeholder="Enter Your Email">
-                    <button class="subscribe-btn">Subscribe</button>
-                </div>
-            </div>
-        </section>
+               
+               <script type="text/javascript">
+                // Alphabetical characters for the name field
+                function restrictAlphabeticalInput(event) {
+                    var keyCode = event.which || event.keyCode;
+                    var char = String.fromCharCode(keyCode);
+                    if (!/[a-zA-Z]/.test(char)) {
+                        event.preventDefault();  // Prevent non-alphabet characters
+                    }
+                }
+            </script>            
+
         
         <jsp:include page="footer.jsp" />
-        <script src="assets/scripts/main.js"></script>
-        
+
     </body>
 </html>
