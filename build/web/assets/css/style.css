@@ -425,10 +425,6 @@ footer{
 }
 
 /*--------Deals And Offers Page---------*/
- .deals-h2, .deal h3, .deal p {
-    margin: 0;
-    padding: 20px;
-}
 
 .banner-deals-and-offers {
     background: url('../images/deals-and-offers-banner.jpeg')no-repeat;
@@ -453,7 +449,6 @@ footer{
     min-height: 380px;
     background: rgba(0,0,0,0.5);
     z-index: 0;
- 
 }
 
 .banner-title-deals-and-offers{
@@ -480,14 +475,65 @@ footer{
   color: red;
 }
 
+.deals-container{
+    padding: 30px;
+    background: #f0f0f0;
+    margin: 25px 200px;
+    border-radius: 25px;
+    border: 2px solid grey;
+}
+
+/* Outer Container */
+.deals-sub-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Title and Description Div */
+.deals-content {
+    margin: auto;
+    flex: 1;
+    padding: 20px;
+}
+
+.deals-content h2{
+    font-size: 1.7rem;
+    margin-bottom: 25px;
+}
+
+.deals-content p{
+    font-size: 1.2rem;
+}
+
+/* Image Div */
+.deals-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deals-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
 .deals-and-offers {
     padding: 20px;
+    margin: 0 25px 0 25px;
     text-align: center;
 }
 
 .deals-h2 {
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 25px;
+    font-weight: 400;
 }
 
 .deals-span{
@@ -497,41 +543,73 @@ footer{
     font-size:32px;
 }
 
-.deal {
-    border: 10px solid #ccc; 
-    border-radius: 50px;
-    background-color: #ddd;
-    padding: 20px;
-    margin: 60px ;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 24px;
-}
-
-.deal h3 {
-    font-style: italic;
-    font-size: 30px;
-    color:#000080;
-}
-
-.deal p{
-    color: black;
-    font-size: 20px;
-}
-
 .highlight {
     color: red;
     font-weight: bold;
     font-size:20px;
 }
 
-.deal img {
-    border-radius: 30px;
-    width: 80%;
-    height: 300px;
+/* Responsive Behavior */
+@media (max-width: 1650px) {
+    .deals-container{
+        margin: 25px 100px;
+    }
+}
+@media (max-width: 1100px) {
+    .deals-container {
+        flex-direction: column;
+        margin: 25px;
+        padding-top: 25px;
+    }
+    .deals-content{
+        min-width: none;
+        padding: 0px;
+    }
+    .deals-content h2{
+        font-size: 1.5rem;
+    }
+    .deals-content p{
+        font-size: 1rem;
+    }
+    .deals-container{
+        padding: 30px;
+    }
+}
+@media (max-width: 768px) {
+    .deals-container {
+        flex-direction: column;
+        margin: 25px;
+        padding-top: 25px;
+    }
+    .deals-content{
+        min-width: none;
+        padding: 0px;
+    }
+    .deals-content h2{
+        font-size: 1.2rem;
+    }
+    .deals-content p{
+        font-size: 0.7rem;
+    }
+    .deals-container{
+        padding: 30px 10px 30px 10px;
+    }
 }
 
+@media (max-width:768px) {
+    .deals-and-offers {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+    .deals-and-offers h2 {
+        font-size: 18px;
+    }
+
+    .deals-and-offers span{
+        font-size:23px;
+    }
+}
 
 /*--------About Us Page---------*/
 
@@ -2477,7 +2555,6 @@ input[type='number']{
     }
 
     .content, .deals-h2 {
-        width: 100%;
         padding: 0 10px;
         margin-bottom: 40px; /* Space between sections */
     }
