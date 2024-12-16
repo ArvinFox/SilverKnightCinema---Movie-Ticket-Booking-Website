@@ -244,6 +244,30 @@ public class MovieDAO {
         return movies;
     }
     
+    // Method to get all coming soon movies
+    public List<Movie> getComingSoonMovies() {
+        List<Movie> movies = new ArrayList<>();
+        String query = "SELECT * FROM movies WHERE status = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, Status.COMING_SOON.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Movie movie = populateMovie(rs);
+                    movies.add(movie);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching coming-soon movies: " + e.getMessage());
+        }
+        
+        return movies;
+    }
+    
     // Method to get all movies by language
     public List<Movie> getMoviesByLanguage(int languageId) {
         List<Movie> movies = new ArrayList<>();

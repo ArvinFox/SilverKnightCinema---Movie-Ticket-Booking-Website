@@ -1,0 +1,435 @@
+/*----------Css for Navigation-----------*/
+nav{
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: black;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    height: 70px;
+    width: 100%;
+    transition: 1s ease-in-out;
+}
+
+nav.hidden{
+    transform: translateY(-100%);
+    transition: 1s ease-in-out;
+}
+
+.logo a img{
+  height: 80px;
+  margin-top: 10px;
+}
+
+nav .navUl{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    text-align: center;
+    margin-right: 20px;
+}
+
+nav .navUl .navLink{
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+nav .navUl .navLink a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 17px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.navLink::after, .tooltip-navLink::after{
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: red;
+  display: block;
+  margin: auto;
+  transition: 0.5s;
+}
+
+.navLink:hover::after , .tooltip-navLink:hover::after{
+  width: 100%;
+}
+
+nav .navUl .navLink a.active, nav .navUl .navLink a:hover
+{
+  color: red;
+}
+
+nav ul li button{
+  color: black;
+  font-size: 17px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  border-radius: 10px;
+  border-style: none;
+  background: #F7CA18;
+  cursor: pointer;
+}
+
+.menu-icon{
+    display: none;
+}
+
+.menu-icon i{
+    color: #ffffff;
+    font-size: 30px;
+}
+
+/*-----------Css for tooltip------------*/
+.tooltip-container {
+    position: relative;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    cursor: pointer;
+    border-radius: 20px;
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+}
+
+.tooltip-container button {
+    display: block; 
+}
+
+.tooltip-content {
+    position: absolute;
+    left: 50%;
+    font-size: 20px;
+    top: 100%; 
+    transform: translateX(-50%);
+    color: black;
+    background: black;
+    white-space: nowrap;
+    padding: 10px 15px;
+    border-radius: 7px;
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s; 
+    display: none;
+    border: 1px solid yellow;
+    width: fit-content;
+}
+
+.tooltip-content::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -10px; 
+    transform: translateX(-50%);
+    border: 10px solid transparent;
+    border-bottom-color: black; 
+}
+
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    display: flex;
+    transition: opacity 0.3s ease, visibility 0s; 
+}
+
+.tooltip-content .tooltip-link{
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.tooltip-content .tooltip-link:hover{
+    color: red;
+}
+
+.tooltip-content #tooltip-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tooltip-navLink{
+    display: block;
+    padding-bottom:10px;
+}
+
+/*-----------Css for Footer------------*/
+footer{
+    background: black;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 0px; /*(20px) */
+    position:relative;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+footer .container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer-col{
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.footer-col h3{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.footer-col p{
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+.footer-col ul li{
+    list-style-type: none;
+    margin: 5px 0;
+}
+
+.footer-col ul li a{
+    font-size: 0.9rem;
+    margin: 5px 0;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-col ul li a:hover{
+    color: #FF0000;
+}
+
+.movieUpdate-box {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.footer-col form{
+    display: flex;
+}
+
+#footer-emil{
+    padding: 8px;
+    width: 70%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+#footer-emil::placeholder{
+    font-size: 12px;
+}
+
+#butSubscribe{
+    padding: 8px 16px;
+    border: none;
+    background-color: #FF0000;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#butSubscribe:hover{
+    background-color: #971114;
+}
+
+.social-media{
+    display: flex;
+    gap: 90px;
+    margin-top: 15px;
+    font-size: 1.5em;
+}
+
+.social-media i{
+    display: flex;
+    gap: 90px;
+    margin-top: 15px;
+    font-size: 1em;
+}
+
+.footer-p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #ffffff;
+}
+
+/*------ Hide the navigation column on mobile ------- */
+@media screen and (max-width: 768px) {
+    .navigations {
+        display: none; 
+    }
+    
+    .footer-p{
+        margin: 20px;
+    }
+    
+    .locations-header p{
+        text-align: center;
+    }
+    
+    .location-card {
+        width: 100%; 
+        height: 620px;
+        margin-bottom: 40px;
+    }
+    
+    .location-card p{
+        text-align: justify;
+    }
+    
+    .location-card a{
+        text-align: center;
+    }
+}
+
+@media (max-width: 1025px)
+{
+    img{
+
+        height: 80px;
+    }
+
+    nav .navUl .navLi{
+        margin-right: 20px;
+    }
+
+    nav .navLink{
+        font-size: 20px;
+    }
+}
+
+/* ---------------------------- */
+
+@media (max-width: 945px){
+    nav .navUl{
+        position: absolute;
+        top: 69px;
+        left: 0;
+        right:0;
+        flex-direction: column;
+        text-align: center;
+        background: black;
+        gap: 0;
+        overflow: hidden;
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        padding-bottom: 10px; 
+    }
+    
+    nav .navUl .navLi{
+        padding: 20px;
+        padding-top: 0;
+        padding-left: 10px;
+    }
+    
+    nav .navLink{
+        font-size: 20px;
+    }
+    
+    .navLink.active, .navLink:hover{
+        border: none;
+        color: red;
+    }
+    
+    .menu-icon{
+        display: block;
+    }
+    
+    #menuList{
+        transition: all 0.5s;
+    }
+    
+    .tooltip-container button {
+        display: block;  
+        margin: 0 auto;  
+    }
+
+    .tooltip-content {
+        display: block; 
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .tooltip-content #tooltip-list {
+        padding-left: 0; 
+    }
+
+    .tooltip-navLink {
+        padding-bottom: 5px; 
+    }
+    
+    .banner-title{
+        font-size: 40px;
+    }
+    
+    .banner-contact-us,.banner-locations,.banner-terms, .banner-about-us, .banner-deals-and-offers{
+        min-height: 300px;
+    }
+    
+    .banner-about-us::before , .banner-contact-us::before , .banner-deals-and-offers::before{
+        min-height: 300px;
+    }
+
+    .banner-contact-us .banner-title-contact, .banner-about-us .banner-title-aboutUs, .banner-title-deals-and-offers{
+        text-align: center;
+        font-size: 40px;
+    }
+    
+    .banner-contact-us.home-link , .banner-about-us.home-link  , .home-link-deals-and-offers{
+        text-align: center;
+    }
+    
+    .home-link{
+        text-align: left;
+    }
+    .list {
+        padding: 10px 10px 0 10px;
+    }
+
+    #list-para{
+        line-height: 1.5;
+        margin-bottom: 10px;
+        text-align: justify;
+    }
+
+    #list-heading{
+        font-size: 22px;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+    
+    .image img {
+        margin: 0 auto 20px; 
+        width: 100%; 
+        height: auto;
+    }
+    
+    .content p{
+        text-align: justify;
+    }
+}
