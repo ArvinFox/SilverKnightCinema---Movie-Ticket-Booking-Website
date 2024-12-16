@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,15 @@
         <title>Footer</title>
     </head>
     <body>
+        <c:if test="${unSubscribe}">
+            <%
+                request.removeAttribute("unSubscribe");
+            %>
+            <script>
+                alert("You have unsubscribed from Silver Knight Cinema ..");
+                window.location.href = "termsAndConditions.jsp";
+            </script>
+        </c:if>
         <footer>
             <div class="container">
                 <!-- contact us column-->
@@ -77,16 +87,10 @@
                 <div class="footer-col update-movies">
                     <h3>Stay Updated for New Movies</h3>
                     <div class="movieUpdate-box">
-                        <form name="movieUpdate" method="POST">
-                            <input type="email" name="email" placeholder="Enter your email here" id="footer-emil"/>
-                            <button id="butSubscribe"> Subscribe</button>
+                        <form name="movieUpdate" id="movieUpdate">
+                            <input type="email" name="email" placeholder="Enter your email here" id="footer-email" required />
+                            <button id="butSubscribe" type="button" onclick="sendEmailToServlet()"> Subscribe</button>
                         </form>
-                    </div>
-                            
-                    <div class="social-media">
-                        <i class="fa fa-facebook"></i>
-                        <i class="fa fa-twitter"></i>
-                        <i class="fa fa-instagram"></i>
                     </div>
                 </div>
             </div>
@@ -95,5 +99,26 @@
                 <p class="footer-p"> &copy; Silver Knight Cinema. All rights reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
             </div>
         </footer>
+        
+        
+        <script>
+            async function sendEmailToServlet() {
+                try{
+                    const email = document.getElementById("footer-email").value.trim();
+                    const response = await fetch("subscribe?email=" +email);
+                    
+                    if(response.ok)
+                    {
+                        alert("You have subscribed to Silver Knight Cinema..");
+                        document.getElementById("footer-email").value = "";
+                    }
+                }
+                catch(error)
+                {
+                    console.log("error: " +error);
+                }
+                
+            }
+        </script>
     </body>
 </html>

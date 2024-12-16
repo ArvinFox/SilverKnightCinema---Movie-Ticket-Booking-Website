@@ -59,39 +59,39 @@
         </section>
 
         <section class="contact-form">
-            <form action="InquiryServlet" method="POST">
+            <form action="inquiries" method="POST">
                 <div class="form-row">
                     <div class="input-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" value="${name}" placeholder="Name" onkeypress="restrictAlphabeticalInput(event)">
+                        <input type="text" id="name" name="name" value="${name}" placeholder="Name" onkeypress="restrictAlphabeticalInput(event)" oninput="clearErrorMessage()" required>
                     </div>
 
                     <div class="input-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" value="${email}" placeholder="Email">
+                        <input type="email" name="email" value="${email}" placeholder="Email" required oninput="clearErrorMessage()">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <label for="subject">Subject</label>
-                    <input type="text" name="subject" value="${subject}" placeholder="Subject">
+                    <input type="text" name="subject" value="${subject}" placeholder="Subject" required oninput="clearErrorMessage()">
                 </div>
 
                 <div class="form-row">
                     <label for="message">Message</label>
-                    <textarea name="message" placeholder="Message">${message}</textarea>
+                    <textarea name="message" placeholder="Message" oninput="clearErrorMessage()">${message}</textarea>
                 </div>
 
                 <!-- Success Message -->
                 <c:if test="${not empty successMessage}">
-                    <div style="color: green; text-align: center; font-size: 14px;">
+                    <div style="color: green; text-align: center; font-size: 14px;" id="success-message">
                         <p>${successMessage}</p>
                     </div>
                 </c:if>
 
                 <!-- Error message -->
                 <c:if test="${not empty errorMessage}">
-                    <div style="color: red; text-align: center; font-size: 14px;">
+                    <div style="color: red; text-align: center; font-size: 14px;" id="error-message">
                         <p>${errorMessage}</p>
                     </div>
                 </c:if>
@@ -105,16 +105,34 @@
         </section>
    
                
-               <script type="text/javascript">
-                // Alphabetical characters for the name field
-                function restrictAlphabeticalInput(event) {
-                    var keyCode = event.which || event.keyCode;
-                    var char = String.fromCharCode(keyCode);
-                    if (!/[a-zA-Z]/.test(char)) {
-                        event.preventDefault();  // Prevent non-alphabet characters
-                    }
+        <script type="text/javascript">
+            // Alphabetical characters for the name field
+            function restrictAlphabeticalInput(event) {
+                var keyCode = event.which || event.keyCode;
+                var char = String.fromCharCode(keyCode);
+                if (!/[a-zA-Z]/.test(char)) {
+                    event.preventDefault();  // Prevent non-alphabet characters
                 }
-            </script>            
+            }
+            
+            // To clear error message
+            function clearErrorMessage() {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = ''; 
+                }
+            }
+            
+            // JavaScript to hide success message after 10 seconds
+            window.onload = function() {
+                setTimeout(function() {
+                    var successMessageDiv = document.getElementById("success-message");
+                    if (successMessageDiv) {
+                        successMessageDiv.style.display = 'none';
+                    }
+                }, 10000); 
+             };
+        </script>            
 
         
         <jsp:include page="footer.jsp" />

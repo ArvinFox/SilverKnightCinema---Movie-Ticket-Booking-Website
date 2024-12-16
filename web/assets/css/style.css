@@ -242,7 +242,7 @@ footer{
     display: flex;
 }
 
-#footer-emil{
+#footer-email{
     padding: 8px;
     width: 70%;
     border: 1px solid #000000;
@@ -251,7 +251,7 @@ footer{
     font-size: 14px;
 }
 
-#footer-emil::placeholder{
+#footer-email::placeholder{
     font-size: 12px;
 }
 
@@ -1866,27 +1866,27 @@ input[type='number']{
     }
 }
 
-@media screen and (max-width: 480px) {
+@media (max-width: 480px) {
     .ticket-header {
         font-size: 16px; 
         padding: 0.6rem; 
     }
 
     .movie-img {
-        width: 120px; /* Reduce image size for very small screens */
-        height: 180px; /* Adjust height */
+        width: 120px; 
+        height: 180px; 
     }
 
     .title-movie {
-        font-size: 14px; /* Smaller title for small screens */
+        font-size: 14px; 
     }
 
     .ticket-info {
-        font-size: 12px; /* Reduce font size for small screens */
+        font-size: 12px; 
     }
 
     .confirmation-message {
-        font-size: 16px; 
+        font-size: 24px; 
     }
 
     .download-button {

@@ -24,7 +24,7 @@ import java.net.URI;
 
 /**
  *
- * @author Laptop Outlet
+ * @author Udani Indrachapa
  */
 @WebServlet(name = "EticketServlet", urlPatterns = {"/EticketServlet", "/eticket"})
 public class EticketServlet extends HttpServlet 

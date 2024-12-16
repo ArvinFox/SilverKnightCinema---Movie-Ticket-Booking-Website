@@ -33,7 +33,6 @@
                 </div>
                 <!-----General Information----->
                 <div class="faq-content" id="general">
-                    <h2>General Information FAQs</h2>
                     <!--Question-->
                         
                     <div class="faq-item">
@@ -82,7 +81,6 @@
                 
                 <!---Ticket Booking FAQs---->
                 <div class="faq-content hidden" id="ticket">
-                    <h2>Ticket Booking FAQs</h2>
                     <!--Question-->
                     <div class="faq-item">
                         <button class="faq-question">

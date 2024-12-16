@@ -1,4 +1,3 @@
-
 package servlet_classes;
 
 import java.io.IOException;
@@ -8,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 import model_classes.Inquiry;
 import dao_classes.InquiryDAO;
@@ -18,8 +16,9 @@ import jakarta.servlet.RequestDispatcher;
  * @author Sanuji
  */
 
-@WebServlet(name = "InquiryServlet", urlPatterns = {"/InquiryServlet"})
-public class InquiryServlet extends HttpServlet {
+@WebServlet(name = "InquiryServlet", urlPatterns = {"/InquiryServlet","/inquiries"})
+public class InquiryServlet extends HttpServlet 
+{
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,8 +39,9 @@ public class InquiryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException 
+    {
+        request.getRequestDispatcher("contactUs.jsp").forward(request, response);
     }
 
     @Override

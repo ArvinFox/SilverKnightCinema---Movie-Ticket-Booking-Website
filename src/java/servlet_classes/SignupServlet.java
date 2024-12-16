@@ -29,8 +29,8 @@ public class SignupServlet extends HttpServlet {
     
    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        UserDAO user_dao = new UserDAO();
+            throws ServletException, IOException 
+    {
         String firstname = request.getParameter("fname");
         String lastname = request.getParameter("lname");
         String contactNumber = request.getParameter("contact_no");
@@ -67,7 +67,7 @@ public class SignupServlet extends HttpServlet {
                 request.getRequestDispatcher("signup.jsp").forward(request, response);  
            }
            else {
-                user_dao.registerUser(user);
+                userDao.registerUser(user);
                 response.sendRedirect("login.jsp");
            }
            

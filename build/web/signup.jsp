@@ -67,8 +67,7 @@
     
     
         <script>
-            
-            <!-- Javascript for Allow only numbers in contact input field  -->
+            //Javascript for Allow only numbers in contact input field
             function onlyNumbers(e){
                 var contact = (e.which) ? e.which : e.keyCode;
                 if(contact > 31 && (contact < 48 || contact > 57)){
@@ -76,18 +75,17 @@
                 }
             }
             
-            <!-- to clear error message -->
+            //to clear error message 
             function clearErrorMessage() {
                 var errorMessage = document.getElementById('error-message');
                 if (errorMessage) {
                     errorMessage.innerHTML = ''; 
                 }
             }
-            
         </script>
         <script src="assets/scripts/main.js"></script>
         
-</body>
+    </body>
 </html>
 
 

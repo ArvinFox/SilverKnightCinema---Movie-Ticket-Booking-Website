@@ -59,14 +59,24 @@
         <jsp:include page="footer.jsp"/>
         
         
-        <!-- to clear error message -->
         <script>
+            // To clear error message
             function clearErrorMessage() {
                 var errorMessage = document.getElementById('error-message');
                 if (errorMessage) {
                     errorMessage.innerHTML = ''; 
                 }
             }
+            
+            // JavaScript to hide error message after 4 seconds
+            window.onload = function() {
+                setTimeout(function() {
+                    var errorMessageDiv = document.getElementById("error-message");
+                    if (errorMessageDiv) {
+                        errorMessageDiv.style.display = 'none';
+                    }
+                }, 4000); 
+             };
         </script>
         <script src="assets/scripts/main.js"></script>
         
