@@ -4,6 +4,7 @@
     Author     : arvin
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -58,9 +59,17 @@
 
                         <!--Answer-->
 
-                        <div class="faq-answer">
-                            <p>You can visit our <a href="signup.jsp">"Sign Up"</a> page and provide your credentials in order to create an account.</p>
-                        </div>
+                        <c:if test="${not isLoggedIn}">
+                            <div class="faq-answer">
+                                <p>You can visit our <a href="signup">"Sign Up"</a> page and provide your credentials in order to create an account.</p>
+                            </div>
+                        </c:if>
+
+                        <c:if test="${isLoggedIn}">
+                            <div class="faq-answer">
+                                <p>You can visit our <span style="color: yellow;">"Sign Up"</span> page and provide your credentials in order to create an account.</p>
+                            </div>
+                        </c:if>
                     </div>
 
                     <!--Question-->
@@ -72,10 +81,17 @@
                         </button>
 
                         <!--Answer-->
+                        <c:if test="${not isLoggedIn}">
+                            <div class="faq-answer">
+                                <p>Simply go to our login page and click on <a href="forgotPassword">"Forgot my password"</a> link. Then provide your email address to get the email for the password reset procedure.</p>
+                            </div>
+                        </c:if>
 
-                        <div class="faq-answer">
-                            <p>Simply go to our login page and click on <a href="forgotPassword.jsp">"Forgot my password"</a> link. Then provide your email address or mobile number to get the OTP code for the password reset procedure.</p>
-                        </div>
+                        <c:if test="${isLoggedIn}">
+                            <div class="faq-answer">
+                                <p>Simply go to our login page and click on <a href="profile">"Forgot my password"</a> link. Then provide your mobile number to get the OTP code for the password reset procedure.</p>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
                 

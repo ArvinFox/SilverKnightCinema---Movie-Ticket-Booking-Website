@@ -482,8 +482,9 @@ function updateTimer() {
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    timerElement.textContent = `${minutes}:${seconds}`;
-
+    if(timerElement){
+        timerElement.textContent = `${minutes}:${seconds}`;
+    }
     if (timerDuration <= 0) {
         clearInterval(timerInterval);
         location.reload();
@@ -492,34 +493,70 @@ function updateTimer() {
     }
 }
 
-
+let selectedSeatsArray = [];
 const seats = document.querySelectorAll('.seat');
 
 let selectedSeats = 0;
 let adultCount = 0;
 let childCount = 0;
+let total = 0;
 
 seats.forEach(seat => {
     seat.addEventListener('click', () => {
         if (seat.classList.contains('available')) {
+            const seatId = seat.getAttribute('data-seat-id');
+
             if (!seat.classList.contains('selected')) {
                 seat.classList.add('selected');
                 selectedSeats++;
                 adultCount++;
+                total += 1000;
+                selectedSeatsArray.push(seatId);
             } else {
                 seat.classList.remove('selected');
                 selectedSeats--;
+                total -= 1000;
                 if (adultCount > 0) {
                     adultCount--;
                 } else if (childCount > 0) {
                     childCount--;
                 }
+                selectedSeatsArray = selectedSeatsArray.filter(id => id !== seatId);
             }
             updateTicketCount();
             updateIncrementDecrementStates();
+            console.log("Selected Seats Array:", selectedSeatsArray);
         }
     });
 });
+
+async function submitSeats() {
+    try {
+        const response = await fetch('seatSelection', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ seats: selectedSeatsArray }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Response:", data);
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+const continueBtn = document.querySelector('.btn-continue-checkout');
+
+if(continueBtn){
+    continueBtn.addEventListener('click', submitSeats);
+}
 
 //----------Ticket selection for seats page-----------//
 const adultDecrementBtn = document.getElementById('adult-decrement');
@@ -528,10 +565,14 @@ const childDecrementBtn = document.getElementById('child-decrement');
 const childIncrementBtn = document.getElementById('child-increment');
 const adultCountDisplay = document.getElementById('adult-count');
 const childCountDisplay = document.getElementById('child-count');
+const totalPrice = document.getElementById('ticketPrice');
 
 function updateTicketCount() {
     adultCountDisplay.textContent = adultCount;
     childCountDisplay.textContent = childCount;
+    if(totalPrice){
+        totalPrice.textContent = total;
+    }
 }
 
 function updateIncrementDecrementStates() {
@@ -542,6 +583,15 @@ function updateIncrementDecrementStates() {
 
     adultDecrementBtn.disabled = adultCount === 0;
     childDecrementBtn.disabled = childCount === 0;
+    
+    if (totalTickets>0){
+        continueBtn.disabled = false;
+        continueBtn.classList.add('continue-active');
+    }
+    else{
+        continueBtn.disabled = true;
+        continueBtn.classList.remove('continue-active');
+    }
 }
 
 if (adultIncrementBtn){
@@ -579,4 +629,3 @@ if (childDecrementBtn){
         updateIncrementDecrementStates();
     });
 }
-

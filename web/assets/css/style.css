@@ -1406,6 +1406,70 @@ footer{
     overflow-x: auto;
 }
 
+.seat-colors{
+    display: flex;
+    padding-top: 30px;
+}
+
+.color-box-container{
+    display: flex;
+    margin: auto;
+    gap: 5px;
+}
+
+.ticket-total{
+    text-align: center;
+}
+
+.seat-colors-box{
+    height: 15px;
+    width: 15px;
+    margin: auto;
+}
+
+.selected-box{
+    background: blue;
+}
+
+.available-box{
+    border: 1px solid #b4b4b4;
+}
+
+.reserved-box{
+    background: red;
+}
+
+.movie-locations img{
+    height: 30px;
+    margin: -5px 0 0 0;
+}
+
+@media(max-width: 910px){
+    .movie-locations{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .movie-locations span{
+        display: none;
+    }
+    .movie-locations img{
+        margin-top: 5px;
+    }
+}
+
+@media(max-width: 660px){
+    .movie-locations{
+        grid-template-columns: repeat(1,1fr);
+    }
+    .movie-locations span{
+        display: none;
+    }
+    .movie-locations h5{
+        margin-bottom: 12px; 
+    }
+}
+
+
 .screen{
     background: linear-gradient(rgba(201, 201, 201),rgba(201, 201, 201, 0));
     text-align: center;
@@ -1507,11 +1571,16 @@ footer{
     width: 30px;
     height: 30px;
     background: #fff;
-    border-radius: 50px;
+    border-radius: 5px;
     margin: 25px 25px;
 }
 
-.btn-navigate{
+.ticket-total{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-navigate-back{
     padding: 10px 20px;
     border: none;
     background-color: #B8B8B8;
@@ -1521,12 +1590,34 @@ footer{
     margin: 25px 100px 25px 100px;
 }
 
-.btn-navigate:hover{
+.btn-continue-checkout{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: default;
+    margin: 25px 100px 25px 100px;
+}
+
+.continue-active{
+    background-color: red;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.continue-active:hover{
+    background-color: #b80202;
+}
+
+.continue-active:active{
+    background-color: maroon;
+}
+
+.btn-navigate-back:hover{
     background-color: #949494;
 }
 
-.btn-navigate:active{
-    background-color: #860000;
+.btn-navigate-back:active{
+    background-color: #636262;
 }
 
 .btn-movie-container{
@@ -2372,36 +2463,6 @@ input[type='number']{
         height: 350px;
         width: calc(100% - 40px);
         margin: 20px;
-    }
-}
-
-/* Responsive layout for newsletter */
-@media (max-width: 1025px) {
-    .subscribe {
-        margin-left: 20px;
-        margin-right: 20px;
-        border-radius: 10px;
-    }
-    .subscribe-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .newsletter-right {
-        width: 100%;
-        text-align: center;
-    }
-
-    .subscribe-container input {
-        width: 100%;
-        max-width: 300px;
-        margin-top: 10px;
-    }
-
-    .subscribe-btn {
-        width: 100%;
-        max-width: 100px;
-        margin-top: 10px;
     }
 }
 

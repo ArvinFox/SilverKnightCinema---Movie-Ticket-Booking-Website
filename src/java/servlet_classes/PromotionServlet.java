@@ -15,7 +15,7 @@ import model_classes.Promotion;
  *
  * @Kavindya De Silva
  */
-@WebServlet(name = "PromotionServlet", urlPatterns = {"/PromotionServlet", "/dealsAndOffers"})
+@WebServlet(name = "PromotionServlet", urlPatterns = {"/PromotionServlet", "/DealsAndOffers"})
 public class PromotionServlet extends HttpServlet {
 
     private PromotionDAO promotionDao;

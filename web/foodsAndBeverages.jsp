@@ -46,7 +46,7 @@
                                         <label> QTY </label>
                                         <input type="number"  min="1" value="1" data-stock="${food.stock}" name="qty">
                                         <br>
-                                        <span class="error-message" style="color: red;display: none;">Current Stock: ${food.stock}</span> <!-- Display stock info is qty is grater than stock-->
+                                        <span class="error-message" style="color: red;display: none;">Current Stock: ${food.stock}</span> <!-- Display stock info if qty is grater than stock-->
                                         <br>
                                         <button class="add-to-cart"  id="butCart"> Add to Cart </button>
                                     </div>

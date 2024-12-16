@@ -44,7 +44,6 @@
                             <td>Time</td>
                             <td>Location</td>
                             <td>Payment Status</td>
-                            <td>Change Time Slot</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +64,6 @@
                                         <%= booking.getIsPaid() ? "Paid" : "Not Paid" %>
                                     </span>
                                 </td>
-                                <td><input type="submit" value="Change"/></td>
                             </tr>
                         <% 
                             } 

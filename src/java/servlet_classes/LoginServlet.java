@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet
         }
         
         if (isLoggedIn) {
-            response.sendRedirect("termsAndConditions.jsp");
+            response.sendRedirect("TermsAndConditions");
         } else {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet
                         c.setMaxAge(3*24*60*60);
                         response.addCookie(c);
                     }
-                    response.sendRedirect("termsAndConditions.jsp");
+                    response.sendRedirect("TermsAndConditions");
                 }
                 else
                 {

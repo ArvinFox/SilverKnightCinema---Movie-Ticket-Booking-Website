@@ -58,6 +58,31 @@ public class SeatDAO {
         return seat;
     }
     
+    // Method to get seatId by its name and showtimeId
+    public int getSeatIdByName(String seatName, int showtimeId) {
+        int seatId = -1; // Default value if not found
+        String query = "SELECT seatId FROM seats WHERE showtimeId = ? AND seatNumber = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, showtimeId);
+            ps.setString(2, seatName);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    seatId = rs.getInt("seatId"); // Fetch seatId directly from result set
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error fetching seatId by name and showtimeId: " + e.getMessage());
+        }
+
+        return seatId; // Return the seatId or -1 if not found
+    }
+    
     // Method to update seat details
     public void updateSeat(Seat seat) {
         String query = "UPDATE seats SET hallId = ?, showtimeId = ?, seatNumber = ?, seatType = ?, price = ?, isAvailable = ?, isReserved = ? WHERE seatId = ?";
@@ -248,6 +273,59 @@ public class SeatDAO {
         }
         
         return seats;
+    }
+    
+    // Method to get all reserved seats of a showtime
+    public List<String> getReservedSeatNumbersByShowtime(int showtimeId) {
+        List<String> seatNumbers = new ArrayList<>();
+        String query = "SELECT seatNumber FROM seats WHERE showtimeId = ? AND isReserved = TRUE";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, showtimeId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    seatNumbers.add(rs.getString("seatNumber"));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching reserved seat numbers: " + e.getMessage());
+        }
+
+        return seatNumbers;
+    }
+
+    public void releaseExpiredSeats() {
+        String query = "UPDATE seats SET isReserved = FALSE, reservationExpiry = NULL WHERE isReserved = TRUE AND reservationExpiry < NOW()";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error releasing expired seats: " + e.getMessage());
+        }
+    }
+    
+    //to release seats when expired
+    public void releaseSpecificSeats(String[] seatNumbers, int showtimeId) {
+        String query = "UPDATE seats SET isReserved = FALSE WHERE showtimeId = ? AND seatNumber = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            for (String seat : seatNumbers) {
+                ps.setInt(1, showtimeId);
+                ps.setString(2, seat);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     // Utility method to populate Seat object from ResultSet

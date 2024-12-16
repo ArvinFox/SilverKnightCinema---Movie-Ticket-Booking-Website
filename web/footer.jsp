@@ -55,7 +55,7 @@
                         <li>  
                             <p>
                                 <i class="fa-solid fa-envelope" id="contact"></i>
-                                   silverknight@gmail.com
+                                   silverknightcinemas@gmail.com
                             </p> 
                         </li>
                     </ul>
@@ -67,8 +67,8 @@
                     <ul>
                         <li> <a href="index.jsp">Home </a> </li>
                         <li> <a href="movies.jsp">Movies </a> </li>
-                        <li> <a href="locations.jsp">Locations </a> </li>
-                        <li> <a href="dealsAndOffers">Deals and Offers </a> </li>
+                        <li> <a href="Locations">Locations </a> </li>
+                        <li> <a href="DealsAndOffers">Deals and Offers </a> </li>
                     </ul>
                 </div>
 
@@ -76,10 +76,10 @@
                 <div class="footer-col quick-links">
                     <h3> Quick Links </h3>
                     <ul>
-                        <li> <a href="faq.jsp">FAQs </a> </li>
+                        <li> <a href="FAQ">FAQs </a> </li>
                         <li> <a href="aboutUs.jsp">About Us </a> </li>
-                        <li> <a href="contactUs.jsp">Contact Us</a> </li>
-                        <li> <a href="termsAndConditions.jsp">Terms & Conditions </a> </li>
+                        <li> <a href="Inquiries">Contact Us</a> </li>
+                        <li> <a href="TermsAndConditions">Terms & Conditions </a> </li>
                     </ul>
                 </div>
 
