@@ -21,7 +21,7 @@
     <div class="banner-deals-and-offers">
         <h1 class="banner-title-deals-and-offers"> Deals And Offers </h1>
         <div class="home-link-deals-and-offers">
-            <a href="index.jsp"> Home </a>
+            <a href="home"> Home </a>
             <span> /</span>
             <span>Deals And Offers </span>
         </div>

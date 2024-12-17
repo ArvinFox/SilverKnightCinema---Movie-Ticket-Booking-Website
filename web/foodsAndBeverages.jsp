@@ -19,7 +19,7 @@
         <div class="banner-foods">
             <h1 class="banner-title"> Food & Beverages </h1>
             <div class="home-link">
-                <a href="index.jsp"> Home </a>
+                <a href="checkout.jsp"> Checkout </a>
                 <span> /</span>
                 <span>Food & Beverages </span>
             </div>

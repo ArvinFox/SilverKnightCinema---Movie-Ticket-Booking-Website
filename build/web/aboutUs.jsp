@@ -19,7 +19,7 @@
         <div class="banner-about-us">
             <h1 class="banner-title-aboutUs"> About Us </h1>
             <div class="home-link-aboutUs">
-                <a href="index.jsp"> Home </a>
+                <a href="home"> Home </a>
                 <span> /</span>
                 <span>About Us </span>
             </div>

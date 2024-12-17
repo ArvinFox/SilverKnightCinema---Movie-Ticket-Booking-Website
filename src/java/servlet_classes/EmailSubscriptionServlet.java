@@ -47,7 +47,7 @@ private SubscribedEmailDAO subscribedEmailDao;
                 subscribedEmailDao.unsubscribeEmail(email);
                 System.out.println("true");
                 request.setAttribute("unSubscribe", true);
-                request.getRequestDispatcher("termsAndConditions.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         }
     }

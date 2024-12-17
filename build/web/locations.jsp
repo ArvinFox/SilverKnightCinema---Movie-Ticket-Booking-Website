@@ -21,7 +21,7 @@
         <div class="banner-locations">
             <h1 class="banner-title"> Locations </h1>
             <div class="home-link">
-                <a href="index.jsp"> Home </a>
+                <a href="home"> Home </a>
                 <span> /</span>
                 <span>Locations </span>
             </div>

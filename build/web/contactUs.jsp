@@ -21,7 +21,7 @@
         <div class="banner-contact-us">
             <h1 class="banner-title-contact"> Contact Us </h1>
             <div class="home-link-contact">
-                <a href="index.jsp"> Home </a>
+                <a href="home"> Home </a>
                 <span> /</span>
                 <span>Contact Us </span>
             </div>
@@ -59,7 +59,7 @@
         </section>
 
         <section class="contact-form">
-            <form action="inquiries" method="POST">
+            <form action="Inquiries" method="POST">
                 <div class="form-row">
                     <div class="input-group">
                         <label for="name">Name</label>

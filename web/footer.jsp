@@ -25,7 +25,7 @@
             %>
             <script>
                 alert("You have unsubscribed from Silver Knight Cinema ..");
-                window.location.href = "termsAndConditions.jsp";
+                window.location.href = "index.jsp";
             </script>
         </c:if>
         <footer>
@@ -65,7 +65,7 @@
                 <div class="footer-col navigations">
                     <h3> Navigation </h3>
                     <ul>
-                        <li> <a href="index.jsp">Home </a> </li>
+                        <li> <a href="home">Home </a> </li>
                         <li> <a href="movies.jsp">Movies </a> </li>
                         <li> <a href="Locations">Locations </a> </li>
                         <li> <a href="DealsAndOffers">Deals and Offers </a> </li>
@@ -77,7 +77,7 @@
                     <h3> Quick Links </h3>
                     <ul>
                         <li> <a href="FAQ">FAQs </a> </li>
-                        <li> <a href="aboutUs.jsp">About Us </a> </li>
+                        <li> <a href="AboutUs">About Us </a> </li>
                         <li> <a href="Inquiries">Contact Us</a> </li>
                         <li> <a href="TermsAndConditions">Terms & Conditions </a> </li>
                     </ul>

@@ -29,14 +29,14 @@
                         <!-- list item -->
                         <div class="list">
                             <div class="item">
-                                <img src="assets/images/home-images/img1.jpg">
+                                <img src="assets/images/home-images/aquaman-banner.jpg">
                                 <div class="content">
                                     <div class="author">MAHITH</div>
                                     <div class="title">DESIGN SLIDER</div>
                                     <div class="topic">MOVIE</div>
                                     <div class="des">
                                         <!-- lorem 50 -->
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+<!--                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
                                     </div>
                                     <div class="buttons">
                                         <button>SEE MORE</button>
@@ -45,13 +45,13 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img2.jpg">
+                                <img src="assets/images/home-images/spidernoway-banner.jpg">
                                 <div class="content">
                                     <div class="author">MAHITH</div>
                                     <div class="title">DESIGN SLIDER</div>
                                     <div class="topic">MOVIE</div>
                                     <div class="des">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+<!--                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
                                     </div>
                                     <div class="buttons">
                                         <button>SEE MORE</button>
@@ -60,13 +60,13 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img3.jpg">
+                                <img src="assets/images/home-images/drstrange-banner.jpg">
                                 <div class="content">
                                     <div class="author">MAHITH</div>
                                     <div class="title">DESIGN SLIDER</div>
                                     <div class="topic">MOVIE</div>
                                     <div class="des">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+<!--                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
                                     </div>
                                     <div class="buttons">
                                         <button>SEE MORE</button>
@@ -75,13 +75,13 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img4.jpg">
+                                <img src="assets/images/home-images/dispicableme-banner.jpg">
                                 <div class="content">
                                     <div class="author">MAHITH</div>
                                     <div class="title">DESIGN SLIDER</div>
                                     <div class="topic">MOVIE</div>
                                     <div class="des">
-                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+<!--                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
                                     </div>
                                     <div class="buttons">
                                         <button>SEE MORE</button>
@@ -97,7 +97,7 @@
                         <!-- list thumnail -->
                         <div class="thumbnail">
                             <div class="item">
-                                <img src="assets/images/home-images/img1.jpg">
+                                <img src="assets/images/home-images/aquaman-poster.jpg">
                                 <div class="content">
                                     <div class="title">
                                         Name Slider
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img2.jpg">
+                                <img src="assets/images/home-images/spidernoway.jpg">
                                 <div class="content">
                                     <div class="title">
                                         Name Slider
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img3.jpg">
+                                <img src="assets/images/home-images/drstrange.jpeg">
                                 <div class="content">
                                     <div class="title">
                                         Name Slider
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="assets/images/home-images/img4.jpg">
+                                <img src="assets/images/home-images/dispicableMe-3.jpg">
                                 <div class="content">
                                     <div class="title">
                                         Name Slider

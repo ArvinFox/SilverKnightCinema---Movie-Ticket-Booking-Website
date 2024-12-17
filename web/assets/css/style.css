@@ -76,7 +76,7 @@ nav .navUl .navLink a.active, nav .navUl .navLink a:hover
   color: red;
 }
 
-nav ul li button{
+nav .navUl li button{
   color: black;
   font-size: 17px;
   text-align: center;

@@ -19,7 +19,7 @@
         <section class="profile-banner-section">
             <h1 class="banner-title">User Profile</h1>
             <div class="home-link">
-                <a href="index.jsp"> Home </a>
+                <a href="home"> Home </a>
                 <span> /</span>
                 <span>Profile</span>
             </div>

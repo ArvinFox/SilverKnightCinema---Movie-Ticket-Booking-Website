@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,15 @@
         <title>Footer</title>
     </head>
     <body>
+        <c:if test="${unSubscribe}">
+            <%
+                request.removeAttribute("unSubscribe");
+            %>
+            <script>
+                alert("You have unsubscribed from Silver Knight Cinema ..");
+                window.location.href = "index.jsp";
+            </script>
+        </c:if>
         <footer>
             <div class="container">
                 <!-- contact us column-->
@@ -55,10 +65,10 @@
                 <div class="footer-col navigations">
                     <h3> Navigation </h3>
                     <ul>
-                        <li> <a href="index.jsp">Home </a> </li>
+                        <li> <a href="home">Home </a> </li>
                         <li> <a href="movies.jsp">Movies </a> </li>
-                        <li> <a href="locations.jsp">Locations </a> </li>
-                        <li> <a href="dealsAndOffers">Deals and Offers </a> </li>
+                        <li> <a href="Locations">Locations </a> </li>
+                        <li> <a href="DealsAndOffers">Deals and Offers </a> </li>
                     </ul>
                 </div>
 
@@ -66,10 +76,10 @@
                 <div class="footer-col quick-links">
                     <h3> Quick Links </h3>
                     <ul>
-                        <li> <a href="faq.jsp">FAQs </a> </li>
-                        <li> <a href="aboutUs.jsp">About Us </a> </li>
-                        <li> <a href="contactUs.jsp">Contact Us</a> </li>
-                        <li> <a href="termsAndConditions.jsp">Terms & Conditions </a> </li>
+                        <li> <a href="FAQ">FAQs </a> </li>
+                        <li> <a href="AboutUs">About Us </a> </li>
+                        <li> <a href="Inquiries">Contact Us</a> </li>
+                        <li> <a href="TermsAndConditions">Terms & Conditions </a> </li>
                     </ul>
                 </div>
 
@@ -78,8 +88,8 @@
                     <h3>Stay Updated for New Movies</h3>
                     <div class="movieUpdate-box">
                         <form name="movieUpdate" method="POST">
-                            <input type="email" name="email" placeholder="Enter your email here" id="footer-emil"/>
-                            <button id="butSubscribe"> Subscribe</button>
+                             <input type="email" name="email" placeholder="Enter your email here" id="footer-email" required />
+                            <button id="butSubscribe" type="button" onclick="sendEmailToServlet()"> Subscribe</button>
                         </form>
                     </div>
                             
@@ -95,5 +105,25 @@
                 <p class="footer-p"> &copy; Silver Knight Cinema. All rights reserved. Developed by Group AA (Batch 12 UOP - NSBM) </p>
             </div>
         </footer>
+            
+        <script>
+            async function sendEmailToServlet() {
+                try{
+                    const email = document.getElementById("footer-email").value.trim();
+                    const response = await fetch("subscribe?email=" +email);
+                    
+                    if(response.ok)
+                    {
+                        alert("You have subscribed to Silver Knight Cinema..");
+                        document.getElementById("footer-email").value = "";
+                    }
+                }
+                catch(error)
+                {
+                    console.log("error: " +error);
+                }
+                
+            }
+        </script>
     </body>
 </html>

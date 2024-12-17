@@ -17,7 +17,7 @@ body{
 
 .main-page-background {
   /* Live Background */
-  background-color:rgb(172, 255, 47);
+/*  background-color:rgb(172, 255, 47);*/
   
 }
 
@@ -27,7 +27,7 @@ body{
 
 /*================ CAROUSELl ====================*/
 .carousel-section {
-    background-color: grey;
+/*    background-color: grey;*/
     padding: 35px 35px 35px 35px;
     /* background-color: red; edit */
     /* padding: 120px 50px 50px 50px; */
@@ -531,7 +531,7 @@ body{
 
 /* ========================== NOW-SHOWING-SECTION ======================= */
   .main-now-showing-card-section {
-    background-color: rgb(30, 143, 255);
+/*    background-color: rgb(30, 143, 255);*/
     height: 100%;
     width: 100%;
     /* padding: 35px 35px 35px 35px; */
@@ -566,7 +566,7 @@ body{
 
 /* ========================== COMING-SOON-PART ========================== */
   .main-coming-soon-card-section {
-    background-color: violet;
+    /*background-color: violet;*/
     height: 100%;
     width: 100%;
     /* padding: 35px 35px 35px 35px; */
@@ -602,7 +602,7 @@ body{
 
 /* ========================= DEALS-&-OFFERS-PART ========================= */
   .deals-and-offers-main-card-section {
-    background-color: slateblue;
+/*    background-color: slateblue;*/
     height: 100%;
     width: 100%;
     /* padding: 35px 35px 35px 35px; */

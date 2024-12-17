@@ -230,7 +230,7 @@ footer .container{
     display: flex;
 }
 
-#footer-emil{
+#footer-email{
     padding: 8px;
     width: 70%;
     border: 1px solid #000000;
@@ -239,7 +239,7 @@ footer .container{
     font-size: 14px;
 }
 
-#footer-emil::placeholder{
+#footer-email::placeholder{
     font-size: 12px;
 }
 

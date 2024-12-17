@@ -43,7 +43,7 @@
                 <a href="#" > <img src="assets/images/logo.png" alt="Logo"/> </a>
             </div>
             <ul class="navUl" id="menuList">
-                <li class="navLink"> <a href="index.jsp"> Home </a></li> <!-- class="active" -->
+                <li class="navLink"> <a href="home"> Home </a></li> <!-- class="active" -->
                 <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
                 <li class="navLink"> <a href="Locations"> Locations </a></li>
                 <li class="navLink"> <a href="DealsAndOffers"> Deals & Offers </a></li>
