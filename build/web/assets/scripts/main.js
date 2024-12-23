@@ -1,296 +1,300 @@
 
-//--------------------(footer optimized)-----------------
-//const body = document.body;
-//if(body.style.overflow !== "hidden") {
-//    const footer = document.querySelector("footer");
-//    footer.style.position = "fixed";
-//}
+// ------------ Movies Section ------------------ //
+const ongoingMoviesLink = document.querySelector(".ongoing");
+const comingSoonMoviesLink = document.querySelector(".coming-soon");
 
-//For FAQ Popup Answers
+if (ongoingMoviesLink) {
+    ongoingMoviesLink.addEventListener('click', async () => {
+        ongoingMoviesLink.classList.add("selected");
+        comingSoonMoviesLink.classList.remove("selected");
 
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        const arrow = question.querySelector('.arrow');
+        const movies = await fetchMoviesByType('nowShowing');
+        updateMoviesSection(movies);
+    });
+}
 
-        // Check if the answer is currently expanded
-        if (answer.style.height && answer.style.height !== '0px') {
-            // Collapse the answer
-            answer.style.height = '0';
-            answer.style.paddingTop = '0';
-            answer.style.paddingBottom = '0';
-            arrow.innerHTML = '&#9660;'; // Down arrow
-        } else {
-            // Expand the answer
-            answer.style.height = `${answer.scrollHeight}px`;
-            answer.style.paddingTop = '0';
-            answer.style.paddingBottom = '0';
-            arrow.innerHTML = '&#9650;'; // Up arrow
+if (comingSoonMoviesLink) {
+    comingSoonMoviesLink.addEventListener('click', async () => {
+        ongoingMoviesLink.classList.remove("selected");
+        comingSoonMoviesLink.classList.add("selected");
+
+        const movies = await fetchMoviesByType('comingSoon');
+        updateMoviesSection(movies);
+    });
+}
+
+async function fetchMoviesByType(type) {
+    try {
+        const response = await fetch("movies?type=" + type);
+        if (!response.ok)
+            throw new Error("Error in fetching movies");
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error("Error in fetching movies: ", error);
+        return "No movies available";
+    }
+}
+
+function updateMoviesSection(data) {
+    const footer = document.querySelector("footer");
+    footer.style.position = "static";
+
+    if (data && data.length > 0) {
+        let html = "";
+        data.forEach(movie => {
+            html += `
+                <div class="movie">
+                    <a href="movies?movieId=${movie.movieId}">
+                        <img src="${movie.posterUrl}" alt="${movie.title}">
+                        <div class="movie-content">
+                            <h4>${movie.title}</h4>
+                            <p>${movie.status === "NOW_SHOWING" ? "NOW SCREENING" : movie.releaseDate}</p>
+                        </div>
+                        <div class="movie-overlay">
+                            <div class="overlay-content">
+                                <button class="movie-action trailer-btn" data-trailer="${movie.trailerUrl}">Watch Trailer</button>
+                                ${movie.status === "NOW_SHOWING"
+                    ? `<button class="movie-action buy-ticket-btn" data-movie-id="${movie.movieId}">Buy Ticket</button>`
+                    : ""}
+                                <button class="movie-action">More Info</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+        });
+        document.querySelector(".movie-list").innerHTML = html;
+        initializeTrailerAndTicketButtons();
+        playVideo();
+
+    } else {
+        document.querySelector(".movie-list").innerHTML = "<p>No movies available for the selected filters.</p>";
+        document.querySelector(".movie-list").style.display = "flex";
+        footer.style.position = "fixed";
+    }
+}
+
+async function fetchFilteredMovies() {
+    let languageId = document.getElementById('language-select').value;
+    let genreId = document.getElementById('genre-select').value;
+    const title = document.getElementById('search-bar').value;
+
+    if (languageId.trim() === "any") {
+        languageId = -1;
+    }
+
+    if (genreId.trim() === "any") {
+        genreId = -1;
+    }
+
+    let movieType;
+    const nowShowingLink = document.querySelector('.ongoing');
+    if (nowShowingLink.classList.contains("selected")) {
+        movieType = "Now Showing";
+    } else {
+        movieType = "Coming Soon";
+    }
+
+    try {
+        const response = await fetch(`movies?filter=true&languageId=${languageId}&genreId=${genreId}&title=${title}&status=${movieType}`);
+        if (!response.ok)
+            throw new Error("Error in fetching filtered movies");
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error("Error in fetching filtered movies:" + error);
+        return [];
+    }
+}
+
+function playVideo() {
+    const trailerPopup = document.getElementById("trailerPopup");
+    const trailerVideo = document.getElementById("trailerVideo");
+    const closePopup = document.getElementById("closePopup");
+
+    document.querySelectorAll(".trailer-btn[data-trailer]").forEach(button => {
+        button.addEventListener("click", function () {
+            const trailerUrl = button.getAttribute("data-trailer");
+
+            trailerVideo.src = trailerUrl;
+
+            trailerPopup.classList.add("visible");
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    const closeTrailerPopup = () => {
+        trailerPopup.classList.remove("visible");
+        trailerVideo.src = "";
+        document.body.style.overflow = '';
+    };
+
+    closePopup.addEventListener("click", closeTrailerPopup);
+
+    trailerPopup.addEventListener("click", function (e) {
+        if (e.target === trailerPopup) {
+            closeTrailerPopup();
         }
     });
-});
+}
+
+function initializeTrailerAndTicketButtons() {
+    const movieCards = document.querySelectorAll('.movie');
+    movieCards.forEach(card => {
+        card.addEventListener('click', (event) => {
+            const trailerBtn = event.target.closest('.trailer-btn');
+            const buyTicketBtn = event.target.closest('.buy-ticket-btn');
+
+            if (trailerBtn) {
+                event.preventDefault();
+
+
+            } else if (buyTicketBtn) {
+                event.preventDefault();
+
+                const movieId = buyTicketBtn.getAttribute("data-movie-id");
+                window.location.href = 'movies?movieId=' + movieId + '#ticket';
+            }
+        });
+    });
+}
+
+async function fetchShowtimes() {
+    let cinemaId = document.getElementById('cinema-filter').value;
+    const date = document.getElementById('date-filter').value;
+    const experience = document.getElementById('experience-filter').value;
+
+    if (cinemaId.trim() === "any") {
+        cinemaId = -1;
+    }
+
+    const urlParameters = new URLSearchParams(window.location.search);
+    const movieId = urlParameters.get("movieId");
+
+    try {
+        const response = await fetch(`movies?showtime=true&movieId=${movieId}&cinemaId=${cinemaId}&date=${date}&experience=${experience}`);
+        if (!response.ok) throw new Error("Error in fetching filtered showtimes");
+
+        const data = await response.json();
+        const { showtimes, cinemas, halls } = data;
+
+        updateShowtimes(showtimes, cinemas, halls);
+
+    } catch (error) {
+        console.error("Error in fetching filtered showtimes: " + error);
+    }
+}
+
+function updateShowtimes(showtimes, cinemas, halls) {
+    const showtimesContainer = document.querySelector(".showtimes-list");
+
+    if (Object.keys(showtimes).length === 0) {
+        showtimesContainer.innerHTML = `<p class="no-showtimes">No showtimes available for the selected filters.</p>`;
+        return;
+    }
+
+    let html = "";
+
+    const cinemaIds = Object.keys(showtimes);
+
+    cinemaIds.forEach((cinemaId, index) => {
+        const cinema = cinemas[cinemaId];
+        html += `<div class="cinema">
+                    <h2>${cinema.name} - ${cinema.location}</h2>`;
+
+        const cinemaHalls = showtimes[cinemaId];
+
+        for (const [hallId, hallExperiences] of Object.entries(cinemaHalls)) {
+            for (const [experience, showtimesList] of Object.entries(hallExperiences)) {
+                html += `<div class="cinema-type">
+                            <h3>${experience}</h3>`;
+                
+                let experienceImageElement = '';
+                switch (experience) {
+                    case "IMAX":
+                        experienceImageElement = '<img src="assets/images/hall_logos/imax.png">';
+                        break;
+                    case "2D":
+                        experienceImageElement = '<img src="assets/images/hall_logos/digital2d.png">';
+                        break;
+                    case "3D":
+                        experienceImageElement = '<img src="assets/images/hall_logos/digital2d.png">';
+                        break;
+                    case "VIP":
+                        experienceImageElement = '<img src="assets/images/hall_logos/vip.png">';
+                        break;
+                }
+                html += experienceImageElement;
+                html += `</div>`;
+
+                html += `<div class="showtime-buttons">`;
+                showtimesList.forEach(showtime => {
+                    html += `<button onclick="window.location.href = 'seatselection?showtimeId=${showtime.showtimeId}'">${showtime.formattedTime}</button>`;
+                });
+                html += `</div>`;
+            }
+        }
+        html += `</div>`;
+
+        if (index < cinemaIds.length - 1) {
+            html += `<div class="divider"></div>`;
+        }
+    });
+
+    showtimesContainer.innerHTML = html;
+}
+
+
+//For FAQ Popup Answers
+const faqQuestions = document.querySelectorAll('.faq-question');
+if (faqQuestions) {
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const arrow = question.querySelector('.arrow');
+
+            // Check if the answer is currently expanded
+            if (answer.style.height && answer.style.height !== '0px') {
+                // Collapse the answer
+                answer.style.height = '0';
+                answer.style.paddingTop = '0';
+                answer.style.paddingBottom = '0';
+                arrow.innerHTML = '&#9660;'; // Down arrow
+            } else {
+                // Expand the answer
+                answer.style.height = `${answer.scrollHeight}px`;
+                answer.style.paddingTop = '0';
+                answer.style.paddingBottom = '0';
+                arrow.innerHTML = '&#9650;'; // Up arrow
+            }
+        });
+    });
+}
 
 // Handle tab switching
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.faq-content');
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove('active'));
-        // Hide all FAQ contents
-        contents.forEach(content => content.classList.add('hidden'));
+if (tabs) {
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            // Hide all FAQ contents
+            contents.forEach(content => content.classList.add('hidden'));
 
-        // Add active class to clicked tab and show corresponding content
-        tab.classList.add('active');
-        const target = document.getElementById(tab.dataset.tab);
-        target.classList.remove('hidden');
+            // Add active class to clicked tab and show corresponding content
+            tab.classList.add('active');
+            const target = document.getElementById(tab.dataset.tab);
+            target.classList.remove('hidden');
+        });
     });
-});
-
-
-
-//Movie Section Handling
-let ongoing_movies_html = `
-<!--container 1-->
-            <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                <div class="box">
-                    <div class="box-img">
-                        <img src="assets/images/posters/m1.jpg" alt="">
-                    </div>
-                    <h3>Venom</h3>
-                    <span>Now Screening</span>
-                </div>
-            </a>
-    
-            <!--container 2-->
-            <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                <div class="box">
-                    <div class="box-img">
-                        <img src="assets/images/posters/m2.jpg" alt="">
-                    </div>
-                    <h3>Dunkrik</h3>
-                    <span>Now Screening</span>
-                </div>
-            </a>
-
-            <!--container 3-->
-            <a href=ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                <div class="box">
-                    <div class="box-img">
-                        <img src="assets/images/posters/m3.jpg" alt="">
-                    </div>
-                    <h3>Batman</h3>
-                    <span>Now Screening</span>
-                </div>
-            </a>
-
-            <!--container 4-->
-            <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                <div class="box">
-                    <div class="box-img">
-                        <img src="assets/images/posters/m4.jpg" alt="">
-                    </div>
-                    <h3>John Wick</h3>
-                    <span>Now Screening</span>
-                </div>
-            </a>
-
-            <!--container 5-->
-            <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                <div class="box">
-                    <div class="box-img">
-                        <img src="assets/images/posters/m5.jpg" alt="">
-                    </div>
-                    <h3>Aquaman</h3>
-                    <span>Now Screening</span>
-                </div>
-            </a>
-
-            <!--container 6-->
-                <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m1.jpg" alt="">
-                        </div>
-                        <h3>Venom</h3>
-                        <span>Now Screening</span>
-                    </div>
-                </a>
-    
-                <!--container 7-->
-                <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m2.jpg" alt="">
-                        </div>
-                        <h3>Dunkrik</h3>
-                        <span>Now Screening</span>
-                    </div>
-                </a>
-
-                <!--container 8-->
-                <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m3.jpg" alt="">
-                        </div>
-                        <h3>Batman</h3>
-                        <span>Now Screening</span>
-                    </div>
-                </a>
-
-                <!--container 9-->
-                <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m4.jpg" alt="">
-                        </div>
-                        <h3>John Wick</h3>
-                        <span>Now Screening</span>
-                    </div>
-                </a>
-
-                <!--container 10-->
-                <a href="ongoingMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m5.jpg" alt="">
-                        </div>
-                        <h3>Aquaman</h3>
-                        <span>Now Screening</span>
-                    </div>
-                </a>`;
-let coming_soon_html=`<!--container 1-->
-                    <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m1.jpg" alt="">
-                        </div>
-                        <h3>Venom</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-    
-                <!--container 2-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m2.jpg" alt="">
-                        </div>
-                        <h3>Dunkrik</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 3-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m3.jpg" alt="">
-                        </div>
-                        <h3>Batman</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 4-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m4.jpg" alt="">
-                        </div>
-                        <h3>John Wick</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 5-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m5.jpg" alt="">
-                        </div>
-                        <h3>Aquaman</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 6-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m1.jpg" alt="">
-                        </div>
-                        <h3>Venom</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-    
-                <!--container 7-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m2.jpg" alt="">
-                        </div>
-                        <h3>Dunkrik</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 8-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m3.jpg" alt="">
-                        </div>
-                        <h3>Batman</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 9-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m4.jpg" alt="">
-                        </div>
-                        <h3>John Wick</h3>
-                        <span>Date</span>
-                    </div>
-                </a>
-
-                <!--container 10-->
-                <a href="comingSoonMovieDetails.jsp" class="box"> <!-- Link to a movie page -->
-                    <div class="box">
-                        <div class="box-img">
-                            <img src="assets/images/posters/m5.jpg" alt="">
-                        </div>
-                        <h3>Aquaman</h3>
-                        <span>Date</span>
-                    </div>
-                </a>`;
-//document.querySelector('.ongoing').addEventListener('click',()=>{
-//document.querySelector('.movies-container').innerHTML = ongoing_movies_html;     
-//});
-// 
-//document.querySelector('.coming-soon').addEventListener('click',()=>{
-//    document.querySelector('.movies-container').innerHTML = coming_soon_html;     
-//    });
-//  
-//// Select all movie-type elements
-//const movieTypes = document.querySelectorAll('.movie-type');
-//
-//// Add a click event listener to each movie-type
-//movieTypes.forEach(movie => {
-//    movie.addEventListener('click', () => {
-//        // Remove the 'selected' class from all movie-types
-//        movieTypes.forEach(type => type.classList.remove('selected'));
-//        
-//        // Add the 'selected' class to the clicked element
-//        movie.classList.add('selected');
-//    });
-//});
+}
 
 
 //-------------------Profile Page JS---------------------//
@@ -315,40 +319,33 @@ function loadContent(page) {
 
 let OtpResult;
 
-async function sendAndVerifyOTP(action){
+async function sendAndVerifyOTP(action) {
     const newContact = document.getElementById("newContactNumber").value.trim();
     const enteredOtp = document.getElementById("enteredOtp").value.trim();
-    
-    try{
-        let response; 
-        
-        if(action === "send")
-        {
-            response = await fetch("otp?action=" + action + "&contact=" +newContact);
+
+    try {
+        let response;
+
+        if (action === "send") {
+            response = await fetch("otp?action=" + action + "&contact=" + newContact);
+        } else {
+            response = await fetch("otp?action=" + action + "&enteredOtp=" + enteredOtp);
         }
-        else
-        {
-            response = await fetch("otp?action=" + action + "&enteredOtp=" +enteredOtp);
-        }
-        
+
         const result = await response.json();
         OtpResult = await result.success;
-        if(result.success)
-        {
+        if (result.success) {
             console.log("otp verified");
-        }
-        else{
+        } else {
             console.log("Invalid OTP");
         }
     }
-    catch(error)
-    {
+    catch (error) {
         console.error(error);
     }
 }
 
-function getOtpResult(result)
-{
+function getOtpResult(result) {
     return result;
 }
 
@@ -399,22 +396,21 @@ function initializeEventListeners() {
     }
 
     if (saveContactButton) {
-        saveContactButton.addEventListener("click",async () => {
+        saveContactButton.addEventListener("click", async () => {
             const newContact = contactInput.value;
 
             if (newContact.length !== 10 || isNaN(newContact)) {
                 alert("Please enter a valid 10-digit contact number.");
                 return;
             }
-            
+
             await sendAndVerifyOTP("verify");
-            if(getOtpResult(OtpResult))
-            {
+            if (getOtpResult(OtpResult)) {
                 contactLabel.textContent = newContact;
                 otpVerificationDiv.classList.add("hidden");
                 alert("Contact number updated successfully!");
             }
-            else{
+            else {
                 alert("Invalid OTP");
             }
         });
@@ -439,7 +435,8 @@ function initializeEventListeners() {
     }
 }
 
-//For Location Popups
+
+// ------------- For Location Popups --------------//
 function showPopup(button, mapUrl) {
     // Get the parent card dimensions
     var card = button.parentElement;
@@ -468,9 +465,9 @@ function closePopup() {
     popup.style.display = "none";
     iframe.src = "";
 }
-   
-//----------Timer for seats page-----------//
 
+
+//----------Timer for seats page-----------//
 let timerDuration = 5 * 60;
 const timerElement = document.getElementById('timer');
 const timerInterval = setInterval(updateTimer, 1000);
@@ -482,7 +479,7 @@ function updateTimer() {
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    if(timerElement){
+    if (timerElement) {
         timerElement.textContent = `${minutes}:${seconds}`;
     }
     if (timerDuration <= 0) {
@@ -553,8 +550,7 @@ async function submitSeats() {
 }
 
 const continueBtn = document.querySelector('.btn-continue-checkout');
-
-if(continueBtn){
+if (continueBtn) {
     continueBtn.addEventListener('click', submitSeats);
 }
 
@@ -570,7 +566,7 @@ const totalPrice = document.getElementById('ticketPrice');
 function updateTicketCount() {
     adultCountDisplay.textContent = adultCount;
     childCountDisplay.textContent = childCount;
-    if(totalPrice){
+    if (totalPrice) {
         totalPrice.textContent = total;
     }
 }
@@ -583,18 +579,18 @@ function updateIncrementDecrementStates() {
 
     adultDecrementBtn.disabled = adultCount === 0;
     childDecrementBtn.disabled = childCount === 0;
-    
-    if (totalTickets>0){
+
+    if (totalTickets > 0) {
         continueBtn.disabled = false;
         continueBtn.classList.add('continue-active');
     }
-    else{
+    else {
         continueBtn.disabled = true;
         continueBtn.classList.remove('continue-active');
     }
 }
 
-if (adultIncrementBtn){
+if (adultIncrementBtn) {
     adultIncrementBtn.addEventListener('click', () => {
         adultCount++;
         childCount--;
@@ -603,7 +599,7 @@ if (adultIncrementBtn){
     });
 }
 
-if (adultDecrementBtn){
+if (adultDecrementBtn) {
     adultDecrementBtn.addEventListener('click', () => {
         adultCount--;
         childCount++;
@@ -612,7 +608,7 @@ if (adultDecrementBtn){
     });
 }
 
-if (childIncrementBtn){
+if (childIncrementBtn) {
     childIncrementBtn.addEventListener('click', () => {
         childCount++;
         adultCount--;
@@ -621,7 +617,7 @@ if (childIncrementBtn){
     });
 }
 
-if (childDecrementBtn){
+if (childDecrementBtn) {
     childDecrementBtn.addEventListener('click', () => {
         childCount--;
         adultCount++;

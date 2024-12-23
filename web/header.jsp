@@ -44,9 +44,9 @@
             </div>
             <ul class="navUl" id="menuList">
                 <li class="navLink"> <a href="home"> Home </a></li> <!-- class="active" -->
-                <li class="navLink"> <a href="movies.jsp"> Movies </a></li>
-                <li class="navLink"> <a href="Locations"> Locations </a></li>
-                <li class="navLink"> <a href="DealsAndOffers"> Deals & Offers </a></li>
+                <li class="navLink"> <a href="movies"> Movies </a></li>
+                <li class="navLink"> <a href="locations"> Locations </a></li>
+                <li class="navLink"> <a href="offers"> Deals & Offers </a></li>
                 <c:if test="${user == null}">
                     <li> <button onclick="loginfunction()"> Login </button> </li>
                 </c:if>

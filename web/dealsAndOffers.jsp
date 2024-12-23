@@ -12,18 +12,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Deals And Offers | SilverKnight Cinema</title>
+    <title>Deals & Offers | SilverKnight Cinema</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <jsp:include page="header.jsp"/>
         
     <div class="banner-deals-and-offers">
-        <h1 class="banner-title-deals-and-offers"> Deals And Offers </h1>
+        <h1 class="banner-title-deals-and-offers"> Deals & Offers </h1>
         <div class="home-link-deals-and-offers">
             <a href="home"> Home </a>
             <span> /</span>
-            <span>Deals And Offers </span>
+            <span>Deals & Offers </span>
         </div>
     </div>
     
@@ -32,8 +32,8 @@
             Dive into Exclusive Discounts, Early Bird Offers, and Curated Movie Selections. Your Ultimate Movie Adventure<br><span class="deals-span">STARTS NOW!</span>
         </h2>
       
-        <c:if test="${not empty activePromotion}">
-            <c:forEach var="promotion" items="${activePromotion}">
+        <c:if test="${not empty activePromotions}">
+            <c:forEach var="promotion" items="${activePromotions}">
                 <c:choose>
                     <c:when test="${promotion.promotionId % 2 == 0}">
                         <div class="deals-container">
@@ -69,7 +69,7 @@
                 </c:choose>
             </c:forEach>
         </c:if>
-        <c:if test="${empty activePromotion}">
+        <c:if test="${empty activePromotionss}">
                 <h3 style="text-align: center; color: red; font-size: 20px;">No Promotions Available</h3>
         </c:if>
     </section>

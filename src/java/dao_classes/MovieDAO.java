@@ -15,7 +15,7 @@ public class MovieDAO {
     
     // Method to add a movie
     public void addMovie(Movie movie) {
-        String query = "INSERT INTO movies (title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO movies (title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, detailedPosterUrl, trailerUrl, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -30,14 +30,64 @@ public class MovieDAO {
             ps.setString(8, movie.getCastAsJson());
             ps.setString(9, movie.getCrewAsJson());
             ps.setString(10, movie.getPosterUrl());
-            ps.setString(11, movie.getTrailerUrl());
-            ps.setString(12, movie.getStatus().toString());
+            ps.setString(11, movie.getDetailedPosterUrl());
+            ps.setString(12, movie.getTrailerUrl());
+            ps.setString(13, movie.getStatus().toString());
             ps.executeUpdate();
             
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in adding movie: " + e.getMessage());
         }
+    }
+    
+    // Method to get movies filtered by user
+    public List<Movie> getFilteredMovies(int languageId, int genreId, String title, String status) {
+        List<Movie> movies = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM movies WHERE 1=1");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (languageId != -1) {
+            query.append(" AND languageId = ?");
+            parameters.add(languageId);
+        }
+        
+        if (genreId != -1) {
+            query.append(" AND JSON_CONTAINS(genreIds, CAST(? AS JSON))");
+            parameters.add("[" + genreId + "]");
+        }
+        
+        if (title != null && !title.trim().isEmpty()) {
+            query.append(" AND title LIKE ?");
+            parameters.add("%" + title.trim() + "%");
+        }
+        
+        if (status != null && !status.trim().isEmpty()) {
+            query.append(" AND status = ?");
+            parameters.add(status);
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Movie movie = populateMovie(rs);
+                    movies.add(movie);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching filtered movies: " + e.getMessage());
+        }
+        
+        return movies;
     }
     
     // Method to get searched movies
@@ -124,7 +174,7 @@ public class MovieDAO {
     
     // Method to update movie details
     public void updateMovie(Movie movie) {
-        String query = "UPDATE movies SET title = ?, synopsis = ?, languageId = ?, genreIds = ?, duration = ?, rating = ?, releaseDate = ?, cast = ?, crew = ?, posterUrl = ?, trailerUrl = ?, status = ? WHERE movieId = ?";
+        String query = "UPDATE movies SET title = ?, synopsis = ?, languageId = ?, genreIds = ?, duration = ?, rating = ?, releaseDate = ?, cast = ?, crew = ?, posterUrl = ?, detailedPosterUrl = ?, trailerUrl = ?, status = ? WHERE movieId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -139,9 +189,10 @@ public class MovieDAO {
             ps.setString(8, movie.getCastAsJson());
             ps.setString(9, movie.getCrewAsJson());
             ps.setString(10, movie.getPosterUrl());
-            ps.setString(11, movie.getTrailerUrl());
-            ps.setString(12, movie.getStatus().toString());
-            ps.setInt(13, movie.getMovieId());
+            ps.setString(11, movie.getDetailedPosterUrl());
+            ps.setString(12, movie.getTrailerUrl());
+            ps.setString(13, movie.getStatus().toString());
+            ps.setInt(14, movie.getMovieId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -376,6 +427,7 @@ public class MovieDAO {
         }
         
         movie.setPosterUrl(rs.getString("posterUrl"));
+        movie.setDetailedPosterUrl(rs.getString("detailedPosterUrl"));
         movie.setTrailerUrl(rs.getString("trailerUrl"));
         movie.setStatus(Status.fromString(rs.getString("status")));
         movie.setCreatedAt(rs.getDate("createdAt"));

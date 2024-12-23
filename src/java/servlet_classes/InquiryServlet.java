@@ -1,7 +1,6 @@
 package servlet_classes;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import jakarta.servlet.RequestDispatcher;
  * @author Sanuji
  */
 
-@WebServlet(name = "InquiryServlet", urlPatterns = {"/InquiryServlet","/Inquiries"})
+@WebServlet(name = "InquiryServlet", urlPatterns = {"/InquiryServlet","/contact"})
 public class InquiryServlet extends HttpServlet 
 {
 
@@ -99,7 +98,6 @@ public class InquiryServlet extends HttpServlet
 
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Servlet that handles inquiries of the user.";
+    }
 }

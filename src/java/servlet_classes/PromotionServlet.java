@@ -15,7 +15,7 @@ import model_classes.Promotion;
  *
  * @Kavindya De Silva
  */
-@WebServlet(name = "PromotionServlet", urlPatterns = {"/PromotionServlet", "/DealsAndOffers"})
+@WebServlet(name = "PromotionServlet", urlPatterns = {"/PromotionServlet", "/offers"})
 public class PromotionServlet extends HttpServlet {
 
     private PromotionDAO promotionDao;
@@ -28,17 +28,13 @@ public class PromotionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Promotion> activePromotion =  promotionDao.getAllActivePromotions();
-        request.setAttribute("activePromotion", activePromotion);
+        List<Promotion> activePromotions =  promotionDao.getAllActivePromotions();
+        request.setAttribute("activePromotions", activePromotions);
         request.getRequestDispatcher("dealsAndOffers.jsp").forward(request,response);
     }
-
-    
-   
     
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet that redirects the user to the 'deals & offers' page.";
     }
-
 }

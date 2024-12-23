@@ -74,7 +74,7 @@
                             <th>Hall Name</th>
                             <th>Hall Type</th>
                             <th>Capacity</th>
-                            <th>Location</th>
+                            <th>Cinema</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -85,11 +85,11 @@
                                 <td>${hall.name}</td>
                                 <td>${hall.type.dbValue}</td>
                                 <td>${hall.capacity}</td>
-                                <td>${hall.location}</td>
+                                <td>${hall.cinema}</td>
                                 <td>
                                     <div style="display: flex;">
                                         <input type="submit" id="openModal" class="action-btn view-btn" data-id="${hall.hallId}" data-action="view" data-type="Hall" value="View" />
-                                        <form action="manageHalls" method="POST" onsubmit="return confirmHallDelete('${hall.name}', '${hall.hallId}')">
+                                        <form action="manageHalls" method="POST" onsubmit="return confirmHallDelete('${hall.name}', '${hall.cinema}', '${hall.hallId}')">
                                             <input type="submit" class="action-btn delete-btn" value="Delete" />
                                             <input type="hidden" name="action" value="delete" />
                                             <input type="hidden" name="hallId" value="${hall.hallId}"/>

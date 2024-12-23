@@ -15,7 +15,7 @@ public class HallDAO {
     
     // Method to add a hall
     public void addHall(Hall hall) {
-        String query = "INSERT INTO halls (name, type, capacity, location, hallUrl) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO halls (name, type, capacity, cinemaId, hallUrl) VALUES (?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -23,7 +23,7 @@ public class HallDAO {
             ps.setString(1, hall.getName());
             ps.setString(2, hall.getType().toString());
             ps.setInt(3, hall.getCapacity());
-            ps.setString(4, hall.getLocation());
+            ps.setInt(4, hall.getCinemaId());
             ps.setString(5, hall.getHallUrl());
             ps.executeUpdate();
             
@@ -112,7 +112,7 @@ public class HallDAO {
     
     // Method to update hall details
     public void updateHall(Hall hall) {
-        String query = "UPDATE halls SET name = ?, type = ?, capacity = ?, location = ?, hallUrl = ? WHERE hallId = ?";
+        String query = "UPDATE halls SET name = ?, type = ?, capacity = ?, cinemaId = ?, hallUrl = ? WHERE hallId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -120,7 +120,7 @@ public class HallDAO {
             ps.setString(1, hall.getName());
             ps.setString(2, hall.getType().toString());
             ps.setInt(3, hall.getCapacity());
-            ps.setString(4, hall.getLocation());
+            ps.setInt(4, hall.getCinemaId());
             ps.setString(5, hall.getHallUrl());
             ps.setInt(6, hall.getHallId());
             ps.executeUpdate();
@@ -145,6 +145,30 @@ public class HallDAO {
             e.printStackTrace();
             System.err.println("Error in deleting hall: " + e.getMessage());
         }
+    }
+    
+    // Method to get all halls of cinema
+    public List<Hall> getHallsByCinema(int cinemaId) {
+        List<Hall> halls = new ArrayList<>();
+        String query = "SELECT * FROM halls WHERE cinemaId = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, cinemaId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Hall hall = populateHall(rs);
+                    halls.add(hall);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching halls: " + e.getMessage());
+        }
+        
+        return halls;
     }
     
     // Method to get all halls
@@ -197,7 +221,7 @@ public class HallDAO {
         hall.setName(rs.getString("name"));
         hall.setType(Type.fromString(rs.getString("type")));
         hall.setCapacity(rs.getInt("capacity"));
-        hall.setLocation(rs.getString("location"));
+        hall.setCinemaId(rs.getInt("cinemaId"));
         hall.setHallUrl(rs.getString("hallUrl"));
         hall.setCreatedAt(rs.getDate("createdAt"));
         hall.setUpdatedAt(rs.getDate("updatedAt"));

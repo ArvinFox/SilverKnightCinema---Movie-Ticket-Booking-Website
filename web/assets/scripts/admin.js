@@ -175,7 +175,7 @@ if (filterHeader) {
 
 // JavaScript for confirming deletion
 function confirmUserDelete(userName, userEmail, userId) {
- return confirm(`Are you sure you want to delete the user "${userName}" (Email: ${userEmail}) [ID: ${userId}]? \nThis action cannot be undone.`);
+  return confirm(`Are you sure you want to delete the user "${userName}" (Email: ${userEmail}) [ID: ${userId}]? \nThis action cannot be undone.`);
 }
 
 function confirmGuestDelete(guestName, guestEmail, guestId) {
@@ -188,16 +188,16 @@ function confirmBookingDelete(bookingId) {
 
 function confirmShowtimeDelete(movieTitle, hallName, showtimeId, showDate, showTime) {
   return confirm(
-      `Are you sure you want to delete the showtime for the movie "${movieTitle}" [ID: ${showtimeId}]? \n` +
-      `  Hall: ${hallName} \n` +
-      `  Show Date: ${showDate} \n` +
-      `  Show Time: ${showTime} \n` +
-      `\nThis action cannot be undone.`
+    `Are you sure you want to delete the showtime for the movie "${movieTitle}" [ID: ${showtimeId}]? \n` +
+    `  Hall: ${hallName} \n` +
+    `  Show Date: ${showDate} \n` +
+    `  Show Time: ${showTime} \n` +
+    `\nThis action cannot be undone.`
   );
 }
 
-function confirmHallDelete(hallName, hallId) {
-  return confirm(`Are you sure you want to delete the hall "${hallName}" [ID: ${hallId}]? \nThis action cannot be undone.`);
+function confirmHallDelete(hallName, cinema, hallId) {
+  return confirm(`Are you sure you want to delete the hall "${hallName}" at "${cinema}" [ID: ${hallId}]? \nThis action cannot be undone.`);
 }
 
 function confirmPromotionDelete(promotionName, promotionId) {
@@ -267,7 +267,7 @@ async function confirmGenreDelete(genreName, genreId) {
       movieDetailsMessage += "\n";
     }
 
-    const confirmationMessage = 
+    const confirmationMessage =
       `Are you sure you want to delete the genre "${genreName}" [ID: ${genreId}]?` +
       movieDetailsMessage +
       "\nThis action cannot be undone.";
@@ -294,7 +294,7 @@ async function confirmLanguageDelete(languageName, languageId) {
       movieDetailsMessage += "\n";
     }
 
-    const confirmationMessage = 
+    const confirmationMessage =
       `Are you sure you want to delete the language "${languageName}" [ID: ${languageId}]?` +
       movieDetailsMessage +
       "\nThis action cannot be undone.";
@@ -330,30 +330,41 @@ function uploadPoster(type) {
   document.getElementById(`${type}Form`).addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent the default form submission
 
-    // File upload
-    const posterInput = document.getElementById('poster');
-    if (posterInput.files.length > 0) {
-      const file = posterInput.files[0];
-      const formData = new FormData();
-      formData.append('poster', file);
-      formData.append('type', type);
+    // Collect all file inputs
+    const fileInputs = document.querySelectorAll('input[type="file"][name="posterFile"]');
+    let uploadSuccess = true;
 
-      const uploadResponse = await fetch('../upload', {
-        method: 'POST',
-        body: formData
-      });
+    // Upload each file and update corresponding hidden input
+    for (const fileInput of fileInputs) {
+      const file = fileInput.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('poster', file);
+        formData.append('type', type);
 
-      if (!uploadResponse.ok) {
-        alert('File upload failed!');
-        return;
+        const uploadResponse = await fetch('../upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!uploadResponse.ok) {
+          alert('File upload failed for one or more files!');
+          uploadSuccess = false;
+          break;
+        }
+
+        const uploadedFilePath = await uploadResponse.text();
+        const correspondingHiddenInput = document.getElementById(fileInput.id.replace('poster', 'posterPath'));
+        if (correspondingHiddenInput) {
+          correspondingHiddenInput.value = uploadedFilePath;
+        }
       }
-
-      const uploadedFilePath = await uploadResponse.text();
-      document.getElementById('posterPath').value = uploadedFilePath;  // Update the value of the file path
     }
 
-    // Submit the rest of the form
-    this.submit();
+    if (uploadSuccess) {
+      // Submit the rest of the form
+      this.submit();
+    }
   });
 }
 //
@@ -558,7 +569,7 @@ async function toggleEditMode(editMode, type = null) {
     if (type === 'foodItem') {
       toggleFoodItemEdit(false);
     }
-   
+
     elements.forEach(el => el.disabled = true);
     editButton.classList.remove('hidden');
     actionButtons.classList.add('hidden');

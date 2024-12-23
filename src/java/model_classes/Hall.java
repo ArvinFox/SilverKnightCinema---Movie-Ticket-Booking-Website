@@ -36,6 +36,7 @@ public class Hall {
     }
     
     private int hallId;
+    private int cinemaId;
     private String name;
     private Type type;
     private int capacity;
@@ -44,22 +45,24 @@ public class Hall {
     private Date createdAt;
     private Date updatedAt;
     
+    private String cinema;
+    
     // Constructors
     public Hall() {}
     
-    public Hall(String name, Type type, int capacity, String location, String hallUrl) {
+    public Hall(String name, Type type, int capacity, int cinemaId, String hallUrl) {
         this.name = name;
         this.type = type;
         this.capacity = capacity;
-        this.location = location;
+        this.cinemaId = cinemaId;
         this.hallUrl = hallUrl;
     }
     
-    public Hall(String name, Type type, int capacity, String location, String hallUrl, Date createdAt, Date updatedAt) {
+    public Hall(String name, Type type, int capacity, int cinemaId, String hallUrl, Date createdAt, Date updatedAt) {
         this.name = name;
         this.type = type;
         this.capacity = capacity;
-        this.location = location;
+        this.cinemaId = cinemaId;
         this.hallUrl = hallUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -68,6 +71,9 @@ public class Hall {
     // Getters and Setters
     public int getHallId() { return hallId; }
     public void setHallId(int hallId) { this.hallId = hallId; }
+    
+    public int getCinemaId() { return cinemaId; }
+    public void setCinemaId(int cinemaId) { this.cinemaId = cinemaId; }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -89,4 +95,7 @@ public class Hall {
     
     public Date getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
+    
+    public String getCinema() { return cinema; }
+    public void  setCinema(String cinema) { this.cinema = cinema; }
 }

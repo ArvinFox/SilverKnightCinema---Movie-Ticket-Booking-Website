@@ -4,6 +4,7 @@
     Author     : Umindu Haputhanthri
 --%>
 
+<%@page import="dao_classes.CinemaDAO"%>
 <%@page import="model_classes.Hall"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,9 +52,18 @@
                     <input type="number" id="capacity" name="capacity" step="1" min="0" required>
                 </div>
 
+                <%
+                    CinemaDAO cinemaDAO = new CinemaDAO();
+                    request.setAttribute("cinemas", cinemaDAO.getAllCinemas());
+                %>
+                
                 <div class="form-group">
-                    <label for="location">Location</label>
-                    <input type="text" id="location" name="location" required>
+                    <label for="cinema">Cinema</label>
+                    <select id="cinema" name="cinema" required>
+                        <c:forEach var="cinema" items="${cinemas}">
+                            <option value="${cinema.cinemaId}">${cinema.name} - ${cinema.location}</option>
+                        </c:forEach>
+                    </select>
                 </div>
 
                 <div class="form-group">

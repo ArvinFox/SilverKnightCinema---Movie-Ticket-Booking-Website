@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Udani Indrachapa
  */
-@WebServlet(name = "FAQServlet", urlPatterns = {"/FAQServlet","/FAQ"})
+@WebServlet(name = "FAQServlet", urlPatterns = {"/FAQServlet","/faq"})
 public class FAQServlet extends HttpServlet 
 {
     @Override

@@ -31,6 +31,58 @@ public class ShowtimeDAO {
         }
     }
     
+    // Method to get filtered showtimes by user
+    public List<Showtime> getFilteredShowtimes(int movieId, int cinemaId, String date, String experience) {
+        List<Showtime> showtimes = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT s.* FROM showtimes s");
+        
+        query.append(" JOIN halls h ON s.hallId = h.hallId");
+        
+        List<Object> parameters = new ArrayList<>();
+        
+        if (cinemaId != -1) {
+            query.append(" JOIN cinemas c ON h.cinemaId = c.cinemaId");
+            query.append(" WHERE s.movieId = ?");
+            query.append(" AND c.cinemaId = ?");
+            parameters.add(movieId);
+            parameters.add(cinemaId);
+        } else {
+            query.append(" WHERE s.movieId = ?");
+            parameters.add(movieId);
+        }
+
+        if (date != null && !date.trim().isEmpty()) {
+            query.append(" AND s.showDate = ?");
+            parameters.add(date);
+        }
+
+        if (experience != null && !experience.equals("any")) {
+            query.append(" AND h.type = ?");
+            parameters.add(experience);
+        }
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query.toString())) {
+            
+            for (int i = 0; i < parameters.size(); i++) {
+                ps.setObject(i + 1, parameters.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Showtime showtime = populateShowtime(rs);
+                    showtimes.add(showtime);
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error in fetching filtered showtimes: " + e.getMessage());
+        }
+        
+        return showtimes;
+    }
+    
     // Method to get searched showtimes
     public List<Showtime> getSearchedShowtimes(Integer hallId, Integer movieId, String showDate, String showTime) {
         List<Showtime> showtimes = new ArrayList<>();
@@ -57,9 +109,7 @@ public class ShowtimeDAO {
             query.append(" AND showTime = ?");
             parameters.add(showTime + ":00");
         }
-        
-        
-        
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query.toString())) {
             

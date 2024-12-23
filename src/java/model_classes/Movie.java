@@ -48,14 +48,17 @@ public class Movie {
     private List<Map<String, String>> cast;
     private List<Map<String, String>> crew;
     private String posterUrl;
+    private String detailedPosterUrl;
     private String trailerUrl;
     private Status status;
     private Date createdAt;
+    
+    private String durationString;
 
     // Constructors
     public Movie() {}
     
-    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String trailerUrl, Status status) {
+    public Movie(String title, String synopsis, int languageId, int[] genreIds, int duration, double rating, Date releaseDate, List<Map<String, String>> cast, List<Map<String, String>> crew, String posterUrl, String detailedPosterUrl, String trailerUrl, Status status) {
         this.title = title;
         this.synopsis = synopsis;
         this.languageId = languageId;
@@ -66,6 +69,7 @@ public class Movie {
         this.cast = cast;
         this.crew = crew;
         this.posterUrl = posterUrl;
+        this.detailedPosterUrl = detailedPosterUrl;
         this.trailerUrl = trailerUrl;
         this.status = status;
     }
@@ -155,6 +159,9 @@ public class Movie {
 
     public String getPosterUrl() { return posterUrl; }
     public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
+    
+    public String getDetailedPosterUrl() { return detailedPosterUrl; }
+    public void setDetailedPosterUrl(String detailedPosterUrl) { this.detailedPosterUrl = detailedPosterUrl; }
 
     public String getTrailerUrl() { return trailerUrl; }
     public void setTrailerUrl(String trailerUrl) { this.trailerUrl = trailerUrl; }
@@ -164,4 +171,17 @@ public class Movie {
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    
+    public String getDurationString() { return durationString; }
+    public void setDurationString(int duration) { this.durationString = formatDuration(duration); }
+    
+    private String formatDuration(int duration) {
+        if (duration % 60 == 0) {
+            return (duration / 60) + "h";
+        } else if (duration >= 60) {
+            return (duration / 60) + "h " + (duration % 60) + "min";
+        } else {
+            return (duration % 60) + "min";
+        }
+    }
 }

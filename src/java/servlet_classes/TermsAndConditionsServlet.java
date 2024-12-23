@@ -1,7 +1,6 @@
 package servlet_classes;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Arvin
  */
-@WebServlet(name = "TermsAndConditionsServlet", urlPatterns = {"/TermsAndConditionsServlet","/TermsAndConditions"})
+@WebServlet(name = "TermsAndConditionsServlet", urlPatterns = {"/TermsAndConditionsServlet","/terms"})
 public class TermsAndConditionsServlet extends HttpServlet {
 
     @Override
@@ -24,12 +23,11 @@ public class TermsAndConditionsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet that redirects the user to the 'terms & conditions' page.";
     }
-
 }

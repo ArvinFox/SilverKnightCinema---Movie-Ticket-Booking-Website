@@ -111,10 +111,17 @@
                     <button type="button" class="add-crew-button" onclick="addCastCrewRow('crew')">Add Crew Member</button>
                 </div>
 
-                <div class="form-group">
-                    <label for="posterUrl">Poster</label>
-                    <input type="file" id="poster" accept="image/*" required>
-                    <input type="hidden" id="posterPath" name="posterUrl">
+                <div class="form-group" style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label for="poster">Poster</label>
+                        <input type="file" id="poster1" name="posterFile" accept="image/*" required>
+                        <input type="hidden" id="posterPath1" name="poster">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="detailedPoster">Detailed Poster (Optional)</label>
+                        <input type="file" id="poster2" name="posterFile" accept="image/*">
+                        <input type="hidden" id="posterPath2" name="detailedPoster">
+                    </div>
                 </div>
 
                 <div class="form-group">

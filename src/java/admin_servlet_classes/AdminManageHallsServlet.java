@@ -3,6 +3,8 @@ package admin_servlet_classes;
 import model_classes.Hall;
 import model_classes.Hall.Type;
 import dao_classes.HallDAO;
+import model_classes.Cinema;
+import dao_classes.CinemaDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -16,10 +18,12 @@ import java.util.List;
 @WebServlet(name = "AdminManageHallsServlet", urlPatterns = {"/AdminManageHallsServlet", "/admin/manageHalls"})
 public class AdminManageHallsServlet extends HttpServlet {
     private HallDAO hallDAO;
+    private CinemaDAO cinemaDAO;
     
     @Override
     public void init() {
         hallDAO = new HallDAO();
+        cinemaDAO = new CinemaDAO();
     }
 
     @Override
@@ -35,7 +39,7 @@ public class AdminManageHallsServlet extends HttpServlet {
         Integer minCapacity = minCapacityParam != null && !minCapacityParam.isEmpty() ? Integer.valueOf(minCapacityParam) : null;
         String maxCapacityParam = request.getParameter("maxCapacity");
         Integer maxCapacity = maxCapacityParam != null && !maxCapacityParam.isEmpty() ? Integer.valueOf(maxCapacityParam) : null;
-        String location = request.getParameter("location");
+        String location = request.getParameter("location"); // FIX THIS (use cinemaId)
         List<Hall> hallList;
         
         if (username != null) {
@@ -43,6 +47,11 @@ public class AdminManageHallsServlet extends HttpServlet {
                 hallList = hallDAO.getSearchedHalls(name, type, minCapacity, maxCapacity, location);
             } else {
                 hallList = hallDAO.getAllHalls();
+            }
+            
+            for (Hall hall : hallList) {
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                hall.setCinema(cinema.getName() + " - " + cinema.getLocation());
             }
             
             request.setAttribute("hallList", hallList);
@@ -101,10 +110,10 @@ public class AdminManageHallsServlet extends HttpServlet {
         String name = request.getParameter("name");
         String type = request.getParameter("hallType");
         int capacity = Integer.parseInt(request.getParameter("capacity"));
-        String location = request.getParameter("location");
+        int cinemaId = Integer.parseInt(request.getParameter("cinema"));
         String hallUrl = request.getParameter("posterUrl");
 
-        Hall hall = new Hall(name, Type.fromString(type), capacity, location, hallUrl);
+        Hall hall = new Hall(name, Type.fromString(type), capacity, cinemaId, hallUrl);
         return hall;
     }
 

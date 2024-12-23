@@ -66,9 +66,9 @@
                     <h3> Navigation </h3>
                     <ul>
                         <li> <a href="home">Home </a> </li>
-                        <li> <a href="movies.jsp">Movies </a> </li>
-                        <li> <a href="Locations">Locations </a> </li>
-                        <li> <a href="DealsAndOffers">Deals and Offers </a> </li>
+                        <li> <a href="movies">Movies </a> </li>
+                        <li> <a href="locations">Locations </a> </li>
+                        <li> <a href="offers">Deals & Offers </a> </li>
                     </ul>
                 </div>
 
@@ -76,10 +76,10 @@
                 <div class="footer-col quick-links">
                     <h3> Quick Links </h3>
                     <ul>
-                        <li> <a href="FAQ">FAQs </a> </li>
-                        <li> <a href="AboutUs">About Us </a> </li>
-                        <li> <a href="Inquiries">Contact Us</a> </li>
-                        <li> <a href="TermsAndConditions">Terms & Conditions </a> </li>
+                        <li> <a href="faq">FAQs </a> </li>
+                        <li> <a href="about">About Us </a> </li>
+                        <li> <a href="contact">Contact Us</a> </li>
+                        <li> <a href="terms">Terms & Conditions </a> </li>
                     </ul>
                 </div>
 
@@ -107,23 +107,37 @@
         </footer>
             
         <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const body = document.body;
+                const html = document.documentElement;
+                const footer = document.querySelector("footer");
+
+                const isScrollable = html.scrollHeight > html.clientHeight;
+
+                if (!isScrollable) {
+                    footer.style.position = "fixed";
+                    footer.style.bottom = "0";
+                    footer.style.width = "100%";
+                } else {
+                    footer.style.position = "static";
+                }
+            });
+            
             async function sendEmailToServlet() {
-                try{
+                try {
                     const email = document.getElementById("footer-email").value.trim();
                     const response = await fetch("subscribe?email=" +email);
                     
-                    if(response.ok)
-                    {
+                    if(response.ok) {
                         alert("You have subscribed to Silver Knight Cinema..");
                         document.getElementById("footer-email").value = "";
                     }
                 }
-                catch(error)
-                {
+
+                catch(error) {
                     console.log("error: " +error);
                 }
-                
-            }
+            }
         </script>
     </body>
 </html>

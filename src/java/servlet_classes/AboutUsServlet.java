@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AboutUsServlet", urlPatterns = {"/AboutUsServlet","/AboutUs"})
+@WebServlet(name = "AboutUsServlet", urlPatterns = {"/AboutUsServlet","/about"})
 public class AboutUsServlet extends HttpServlet 
 {
     @Override

@@ -173,11 +173,16 @@ public class AdminManageMoviesServlet extends HttpServlet {
             crew.add(crewMember);
         }
 
-        String posterUrl = request.getParameter("posterUrl");
+        String posterUrl = request.getParameter("poster");
+        String detailPosterUrl = request.getParameter("detailedPoster");
+        if (detailPosterUrl == null || detailPosterUrl.trim().isEmpty()) {
+            detailPosterUrl = posterUrl;
+        }
+        
         String trailerUrl = request.getParameter("trailerUrl");
         String status = request.getParameter("status");
 
-        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, trailerUrl, Status.fromString(status));
+        Movie movie = new Movie(title, synopsis, languageId, genreIds, duration, rating, releaseDate, cast, crew, posterUrl, detailPosterUrl, trailerUrl, Status.fromString(status));
         return movie;
     }
 
