@@ -8,6 +8,7 @@ import model_classes.User;
 import model_classes.Hall;
 import model_classes.Seat;
 import dao_classes.BookingDAO;
+import dao_classes.CinemaDAO;
 import dao_classes.HallDAO;
 import dao_classes.MovieDAO;
 import dao_classes.SeatDAO;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URI;
+import model_classes.Cinema;
 
 
 /**
@@ -34,6 +36,9 @@ public class EticketServlet extends HttpServlet
    private MovieDAO movieDao;
    private HallDAO hallDao;
    private SeatDAO seatDao;
+   private CinemaDAO cinemaDao;
+   
+   private int showtimeId;
 
    @Override
    public void init()
@@ -43,12 +48,15 @@ public class EticketServlet extends HttpServlet
        movieDao = new MovieDAO();
        hallDao = new HallDAO();
        seatDao = new SeatDAO();
+       cinemaDao = new CinemaDAO();
    }
 
    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        showtimeId = Integer.parseInt(request.getParameter("showtimeId"));
+        
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
@@ -60,14 +68,14 @@ public class EticketServlet extends HttpServlet
             {
                 try{
                     String id = BookingIdFromUrl(previousPageUrl);
-
+                    id = "1";   // test
                     if(id != null)
                     {
                         ticketDetails(request, response, id);
                     }
                     else
                     {
-                        response.sendRedirect("checkout.jsp");
+                        response.sendRedirect("checkout?showtimeId=" + showtimeId);
                     }
                 }
                 catch(Exception ex)
@@ -76,7 +84,7 @@ public class EticketServlet extends HttpServlet
                 }
             }
             else{
-                response.sendRedirect("checkout.jsp");
+                response.sendRedirect("checkout?showtimeId=" + showtimeId);
             }
         }
     }
@@ -112,20 +120,25 @@ public class EticketServlet extends HttpServlet
         try{  
             int bId = Integer.parseInt(id);
             System.out.println("id :" +id);
+            bId = 1;    // test
 
             Booking booking = bookingDao.getBookingById(bId);
 
             if(booking != null)
             {
                 System.out.println(booking);
-                int showtimeId = booking.getShowtimeId();
+                showtimeId = booking.getShowtimeId();
                 Showtime showtime = showtimeDao.getShowtimeById(showtimeId);
+                showtime.setFormattedTime(showtime.getShowTime());
+                showtime.setFormattedDate(showtime.getShowDate());
 
                 int movieId = showtime.getMovieId();
                 Movie movie = movieDao.getMovieById(movieId);
 
                 int hallId = showtime.getHallId();
                 Hall hall = hallDao.getHallById(hallId);
+                
+                Cinema cinema = cinemaDao.getCinemaById(hall.getCinemaId());
 
                 String[] bookedSeats = booking.getBookedSeats();
                 String seats = "";
@@ -145,11 +158,12 @@ public class EticketServlet extends HttpServlet
                 request.setAttribute("showtime", showtime);
                 request.setAttribute("booking", booking);
                 request.setAttribute("hall", hall);
+                request.setAttribute("cinema", cinema);
                 request.setAttribute("bookedSeats", seats);
                 request.getRequestDispatcher("eticketDownload.jsp").forward(request, response);
             }
             else{
-                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                request.getRequestDispatcher("checkout?showtimeId=" + showtimeId).forward(request, response);
                 System.out.println(2);
             }
         }

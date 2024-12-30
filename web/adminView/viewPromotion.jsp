@@ -68,7 +68,10 @@
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'promotion')">Cancel</button>
+                        <button type="button" class="action-btn cancel-button" onclick="
+                            resetChanges('promotion');
+                            toggleEditMode(false, 'promotion');
+                        ">Cancel</button>
                         <button type="button" class="action-btn reset-button" onclick="resetChanges('promotion')">Reset</button>
                     </div>
                     <div>

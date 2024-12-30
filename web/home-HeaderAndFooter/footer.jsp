@@ -106,35 +106,22 @@
             </div>
         </footer>
             
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const body = document.body;
-                const html = document.documentElement;
-                const footer = document.querySelector("footer");
-
-                const isScrollable = html.scrollHeight > html.clientHeight;
-
-                if (!isScrollable) {
-                    footer.style.position = "fixed";
-                    footer.style.bottom = "0";
-                    footer.style.width = "100%";
-                } else {
-                    footer.style.position = "static";
-                }
-            });
-            
+        <script>            
             async function sendEmailToServlet() {
                 try {
                     const email = document.getElementById("footer-email").value.trim();
-                    const response = await fetch("subscribe?email=" +email);
-                    
-                    if(response.ok) {
-                        alert("You have subscribed to Silver Knight Cinema..");
-                        document.getElementById("footer-email").value = "";
-                    }
-                }
+                    if (email) {
+                        const response = await fetch("subscribe?email=" +email);
 
-                catch(error) {
+                        if(response.ok) {
+                            alert("You have subscribed to Silver Knight Cinema..");
+                            document.getElementById("footer-email").value = "";
+                        }
+                    } else {
+                        alert("Please enter your email");
+                    }
+                    
+                } catch(error) {
                     console.log("error: " +error);
                 }
             }

@@ -68,8 +68,8 @@
 
                 <div class="form-group">
                     <label for="posterUrl">Hall Poster</label>
-                    <input type="file" id="poster" accept="image/*" required>
-                    <input type="hidden" id="posterPath" name="posterUrl">
+                    <input type="file" id="poster" name="posterFile" accept="image/*" required>
+                    <input type="hidden" id="posterPath" name="hallUrl">
                 </div>
 
                 <button type="submit" class="action-btn add-btn-link font-16" onclick="uploadPoster('hall')">Add Hall</button>

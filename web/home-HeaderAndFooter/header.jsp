@@ -24,39 +24,58 @@
         <%
             UserDAO userDao = new UserDAO();
             Cookie[] cookies = request.getCookies();
-            if(cookies != null)
-            {
-                for(Cookie c : cookies)
-                {
-                    if("email".equals(c.getName()))
-                    {
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+                    if ("email".equals(c.getName())) {
                         User user = userDao.getUserByEmail(c.getValue());
-                        request.setAttribute("user",user);
+                        request.setAttribute("user", user);
                         break;
                     }
                 }
             }
         %>
         
+        <%
+            String currentURI = request.getRequestURI();
+            String activePage = "";
+            if (currentURI.contains("home") || currentURI.contains("index")) {
+                activePage = "home";
+            } else if (currentURI.contains("movies")) {
+                activePage = "movies";
+            } else if (currentURI.contains("locations")) {
+                activePage = "locations";
+            } else if (currentURI.contains("offers") || currentURI.contains("Offers")) {
+                activePage = "offers";
+            }
+        %>
+
         <nav>
             <div class="logo">
                 <a href="#" > <img src="assets/images/logo.png" alt="Logo"/> </a>
             </div>
             <ul class="navUl" id="menuList">
-                <li class="navLink"> <a href="home"> Home </a></li> <!-- class="active" -->
-                <li class="navLink"> <a href="movies"> Movies </a></li>
-                <li class="navLink"> <a href="locations"> Locations </a></li>
-                <li class="navLink"> <a href="offers"> Deals & Offers </a></li>
+                <li class="navLink"> 
+                    <a href="home" class="<%= "home".equals(activePage) ? "active" : "" %>"> Home </a>
+                </li>
+                <li class="navLink"> 
+                    <a href="movies" class="<%= "movies".equals(activePage) ? "active" : "" %>"> Movies </a>
+                </li>
+                <li class="navLink"> 
+                    <a href="locations" class="<%= "locations".equals(activePage) ? "active" : "" %>"> Locations </a>
+                </li>
+                <li class="navLink"> 
+                    <a href="offers" class="<%= "offers".equals(activePage) ? "active" : "" %>"> Deals & Offers </a>
+                </li>
                 <c:if test="${user == null}">
-                    <li> <button onclick="loginfunction()"> Login </button> </li>
+                <li> <button onclick="loginfunction()"> Login </button> </li>
                 </c:if>
-                    
+
                 <c:if test="${user != null}">
                     <div class="tooltip-container">
                         <li> <button onclick="loginfunction()" disabled> Hi, ${user.firstName}! </button> </li>
                         <div class="tooltip-content">
                             <ul id="tooltip-list">
-                                <li class="tooltip-navLink"><a class="tooltip-link" href="userProfile.jsp">User Profile</a></li>
+                                <li class="tooltip-navLink"><a class="tooltip-link" href="profile">User Profile</a></li>
                                 <li class="tooltip-navLink"><a class="tooltip-link" href="LogoutServlet">Logout</a></li>
                             </ul>
                         </div>                   
@@ -67,38 +86,37 @@
                 <i class="fa-solid fa-bars"  onclick="toggleMenu()"></i>
             </div>
         </nav>
-        
+
         <script>
             let menuList = document.getElementById("menuList");
             menuList.style.maxHeight = "0px";
-            
-            function toggleMenu(){
-                if(menuList.style.maxHeight === "0px")
+
+            function toggleMenu() {
+                if (menuList.style.maxHeight === "0px")
                 {
                     menuList.style.maxHeight = "300px";
-                }
-                else
+                } else
                 {
                     menuList.style.maxHeight = "0px";
                 }
             }
-            
-            function loginfunction(){
+
+            function loginfunction() {
                 location.replace("login");
             }
-            
+
             let lastScrollY = 0;
             const nav = document.querySelector('nav');
 
             window.addEventListener('scroll', () => {
-              if (window.scrollY > lastScrollY) {
-                // User is scrolling down
-                nav.classList.add('hidden');
-              } else {
-                // User is scrolling up
-                nav.classList.remove('hidden');
-              }
-              lastScrollY = window.scrollY;
+                if (window.scrollY > lastScrollY) {
+                    // User is scrolling down
+                    nav.classList.add('hidden');
+                } else {
+                    // User is scrolling up
+                    nav.classList.remove('hidden');
+                }
+                lastScrollY = window.scrollY;
             });
         </script>
     </body>

@@ -5,7 +5,10 @@ import dao_classes.BookingDAO;
 import model_classes.Seat;
 import dao_classes.SeatDAO;
 import dao_classes.MovieDAO;
+import model_classes.Hall;
 import dao_classes.HallDAO;
+import model_classes.Cinema;
+import dao_classes.CinemaDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -22,6 +25,7 @@ public class AdminManageBookingsServlet extends HttpServlet {
     private SeatDAO seatDAO;
     private MovieDAO movieDAO;
     private HallDAO hallDAO;
+    private CinemaDAO cinemaDAO;
     
     @Override
     public void init() {
@@ -29,6 +33,7 @@ public class AdminManageBookingsServlet extends HttpServlet {
         seatDAO = new SeatDAO();
         movieDAO = new MovieDAO();
         hallDAO = new HallDAO();
+        cinemaDAO = new CinemaDAO();
     }
 
     @Override
@@ -71,8 +76,14 @@ public class AdminManageBookingsServlet extends HttpServlet {
                 booking.setIsUser(booking.getUserId() != 0);
             }
             
+            List<Hall> hallList = hallDAO.getAllHalls();
+            for (Hall hall : hallList) {
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                hall.setCinema(cinema.getName());
+            }
+            
             request.setAttribute("movieList", movieDAO.getAllMovies());
-            request.setAttribute("hallList", hallDAO.getAllHalls());
+            request.setAttribute("hallList", hallList);
             request.getRequestDispatcher("../adminView/manageBookings.jsp").forward(request, response);
             
         } else {

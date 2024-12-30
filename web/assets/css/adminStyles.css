@@ -244,6 +244,7 @@ body {
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
     font-size: 16px;
     background-color: #fafafa;
     transition: border-color 0.3s ease;
@@ -259,6 +260,7 @@ body {
     width: 100%;
     padding: 12px 15px;
     font-size: 16px;
+    box-sizing: border-box;
     font-weight: bold;
     color: #fff;
     background-color: #4caf50;
@@ -369,6 +371,7 @@ body {
 .quick-action-links .action-btn:active {
     transform: scale(0.98);
 }
+
 
 /* Common Styles for Pages */
 .sub-content {

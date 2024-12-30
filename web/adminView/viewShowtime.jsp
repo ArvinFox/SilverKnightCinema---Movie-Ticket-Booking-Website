@@ -58,7 +58,10 @@
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'showtime')">Cancel</button>
+                        <button type="button" class="action-btn cancel-button" onclick="
+                            resetChanges('showtime');
+                            toggleEditMode(false, 'showtime');
+                        ">Cancel</button>
                         <button type="button" class="action-btn reset-button" onclick="resetChanges('showtime')">Reset</button>
                     </div>
                     <div>

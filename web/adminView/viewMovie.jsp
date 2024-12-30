@@ -132,7 +132,10 @@
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'movie')">Cancel</button>
+                        <button type="button" class="action-btn cancel-button" onclick="
+                            resetChanges('movie');
+                            toggleEditMode(false, 'movie');
+                        ">Cancel</button>
                         <button type="button" class="action-btn reset-button" onclick="resetChanges('movie')">Reset</button>
                     </div>
                     <div>

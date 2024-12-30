@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
+import model_classes.CartItem;
 
 /**
  *
@@ -96,50 +97,22 @@ public class CartServlet extends HttpServlet
         Gson gson = new Gson();
         List<CartItem> cartItems = gson.fromJson(reader, new TypeToken<List<CartItem>>() {}.getType());
         
-        int bookingId = Integer.parseInt(request.getParameter("bookingId"));
+        HttpSession session = request.getSession();
+        session.setAttribute("cartItems", cartItems);
         
-        for (CartItem item : cartItems) {
-            FoodOrder foodOrder = new FoodOrder();
-            foodOrder.setBookingId(bookingId);
-            foodOrder.setItemId(Integer.parseInt(item.getItemId()));
-            foodOrder.setQuantity(item.getQty());
-            foodOrder.setPricePerItem(item.getPrice());
-            foodOrder.setTotalPrice(item.getPrice() * item.getQty());
-            foodDao.addOrder(foodOrder);
-            foodDao.updateStock(-item.getQty(), Integer.parseInt(item.getItemId()));
-        }
-    }
-}
-
-class CartItem {
-    private String itemId;
-    private String itemName;
-    private int qty;
-    private double price;
-
-    // Getters and setters
-    public String getItemId() {
-        return itemId;
-    }
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-    public String getItemName() {
-        return itemName;
-    }
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-    public int getQty() {
-        return qty;
-    }
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-    public double getPrice() {
-        return price;
-    }
-    public void setPrice(double price) {
-        this.price = price;
+        System.out.println("Cart: " + cartItems);
+        
+        int showtimeId = Integer.parseInt(request.getParameter("showtimeId"));
+        
+//        for (CartItem item : cartItems) {
+//            FoodOrder foodOrder = new FoodOrder();
+//            foodOrder.setBookingId(bookingId);
+//            foodOrder.setItemId(Integer.parseInt(item.getItemId()));
+//            foodOrder.setQuantity(item.getQty());
+//            foodOrder.setPricePerItem(item.getPrice());
+//            foodOrder.setTotalPrice(item.getPrice() * item.getQty());
+//            foodDao.addOrder(foodOrder);
+//            foodDao.updateStock(-item.getQty(), Integer.parseInt(item.getItemId()));
+//        }
     }
 }

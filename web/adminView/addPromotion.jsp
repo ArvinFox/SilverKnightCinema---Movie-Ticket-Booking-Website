@@ -58,7 +58,7 @@
                 
                 <div class="form-group">
                     <label for="posterUrl">Poster</label>
-                    <input type="file" id="poster" accept="image/*" required>
+                    <input type="file" id="poster" name="posterFile" accept="image/*" required>
                     <input type="hidden" id="posterPath" name="posterUrl">
                 </div>
                 

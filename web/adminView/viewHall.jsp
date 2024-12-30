@@ -36,7 +36,7 @@
                 
                 <div class="hall-details entity-details">
                     <img src="../${hall.hallUrl}" alt="${hall.name}" height="200px">
-                    <input type="hidden" name="posterUrl" value="${hall.hallUrl}">
+                    <input type="hidden" name="hallUrl" value="${hall.hallUrl}">
 
                     <p><strong>Hall ID:</strong></p>
                     <input type="text" class="form-control" value="${hall.hallId}" disabled>
@@ -52,13 +52,19 @@
 
                     <p><strong>Capacity:</strong></p>
                     <input type="number" class="form-control editable" name="capacity" value="${hall.capacity}" step="1" min="0" disabled>
-                   <p><strong>Location:</strong></p>
-                    <input type="text" class="form-control editable" name="location" value="${hall.location}" disabled>
+                    
+                    <p><strong>Cinema:</strong></p>
+                    <div id="cinema-container">
+                        <input type="text" class="form-control editable" value="${hall.cinema}" disabled>
+                    </div>
                 </div>
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'hall')">Cancel</button>
+                        <button type="button" class="action-btn cancel-button" onclick="
+                            resetChanges('hall');
+                            toggleEditMode(false, 'hall');
+                        ">Cancel</button>
                         <button type="button" class="action-btn reset-button" onclick="resetChanges('hall')">Reset</button>
                     </div>
                     <div>

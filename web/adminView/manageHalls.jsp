@@ -55,9 +55,13 @@
                                value="${param.maxCapacity != null ? param.maxCapacity : ''}">
                     </div>
                     
-                    <label for="location">Location:</label>
-                    <input type="text" name="location" id="location" placeholder="Search by hall location" 
-                           value="${param.location != null ? param.location : ''}">
+                    <label for="location">Cinema:</label>
+                    <select name="cinema" id="cinema">
+                        <option value="any">All Cinemas</option>
+                        <c:forEach var="cinema" items="${cinemaList}">
+                            <option value="${cinema.cinemaId}" ${cinema.cinemaId == param.cinema ? "selected" : ""}>${cinema.name} - ${cinema.location}</option>
+                        </c:forEach>
+                    </select>
 
                     <div class="buttons-container">
                         <button type="button" class="reset-btn" ${empty param.name && empty param.hallType && empty param.minCapacity && empty param.maxCapacity && empty param.location ? 'disabled' : ''} onclick="window.location.href = 'manageHalls'">Reset Filters</button>
@@ -122,14 +126,14 @@
                 const typeInput = document.getElementById('hallType');
                 const minCapacityInput = document.getElementById('minCapacity');
                 const maxCapacityInput = document.getElementById('maxCapacity');
-                const locationInput = document.getElementById('location');
+                const cinemaInput = document.getElementById('cinema');
 
-                if (!nameInput.value.trim() && typeInput.value.trim() === "any" && !minCapacityInput.value.trim() && !maxCapacityInput.value.trim() && !locationInput.value.trim()) {
+                if (!nameInput.value.trim() && typeInput.value.trim() === "any" && !minCapacityInput.value.trim() && !maxCapacityInput.value.trim() && cinemaInput.value.trim() === "any") {
                     nameInput.classList.add("input-error");
                     typeInput.classList.add("input-error");
                     minCapacityInput.classList.add("input-error");
                     maxCapacityInput.classList.add("input-error");
-                    locationInput.classList.add("input-error");
+                    cinemaInput.classList.add("input-error");
 
                     setTimeout(() => {
                         nameInput.classList.remove("input-error");
@@ -137,7 +141,7 @@
                         minCapacityInput.classList.add("input-error");
                         minCapacityInput.classList.remove("input-error");
                         maxCapacityInput.classList.remove("input-error");
-                        locationInput.classList.remove("input-error");
+                        cinemaInput.classList.remove("input-error");
                     }, 300);
 
                     return false;

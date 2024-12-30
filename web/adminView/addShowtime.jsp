@@ -7,6 +7,8 @@
 <%@page import="java.util.List"%>
 <%@page import="model_classes.Hall"%>
 <%@page import="dao_classes.HallDAO"%>
+<%@page import="model_classes.Cinema"%>
+<%@page import="dao_classes.CinemaDAO"%>
 <%@page import="model_classes.Movie"%>
 <%@page import="dao_classes.MovieDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -33,7 +35,12 @@
                 
                 <%
                     HallDAO hallDAO = new HallDAO();
+                    CinemaDAO cinemaDAO = new CinemaDAO();
                     List<Hall> hallList = hallDAO.getAllHalls();
+                    for (Hall hall : hallList) {
+                        Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                        hall.setCinema(cinema.getName());
+                    }
                     request.setAttribute("hallList", hallList);
                 %>
 
@@ -41,7 +48,7 @@
                     <label for="hall">Hall</label>
                     <select id="hall" name="hall" required>
                         <c:forEach var="hall" items="${hallList}">
-                            <option value="${hall.hallId}">${hall.name} - ${hall.location}</option>
+                            <option value="${hall.hallId}">${hall.name} (${hall.cinema})</option>
                         </c:forEach>
                     </select>
                 </div>

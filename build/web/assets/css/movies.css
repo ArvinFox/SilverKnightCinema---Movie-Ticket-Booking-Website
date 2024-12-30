@@ -4,56 +4,6 @@
     Author     : SASHEN
 */
 
-/* Banner section */
-/* .banner-movies {
-    background: url('../images/movie-banner.png')no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.banner-movies::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 300px;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 0;
-}
-
-.banner-title-movies {
-    color: white;
-    font-size: 50px;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: left;
-    transition: 1s;
-    z-index: 1;
-}
-
-.home-link-movies {
-    z-index: 1;
-}
-
-.home-link-movies a {
-    color: white;
-    text-decoration: none;
-}
-
-.home-link-movies a:hover {
-    text-decoration: none;
-    color: red;
-} */
 
 /*Movie type selection*/
 .movie-types {
@@ -575,10 +525,20 @@
     background-color: #34495eec;
 }
 
+.showtime-buttons .showtime-disabled {
+    background-color: #bdc3c7;
+    color: #626b6c;
+    cursor: not-allowed;
+}
+
+.showtime-buttons .showtime-disabled:hover {
+    background-color: #bdc3c7;
+}
+
 .no-showtimes {
     text-align: center;
     font-size: 1.2rem;
-    color: #999;
+    color: #4d4d4d;
     margin: 20px 0;
 }
 

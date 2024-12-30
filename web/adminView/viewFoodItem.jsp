@@ -36,7 +36,7 @@
                 
                 <div class="food-item-details entity-details">
                     <img src="../${foodItem.itemUrl}" alt="${foodItem.itemName}" width="200px">
-                    <input type="hidden" name="posterUrl" value="${foodItem.itemUrl}">
+                    <input type="hidden" name="itemUrl" value="${foodItem.itemUrl}">
 
                     <p><strong>Item ID:</strong></p>
                     <input type="text" class="form-control" value="${foodItem.itemId}" disabled>
@@ -59,7 +59,10 @@
             
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'foodItem')">Cancel</button>
+                        <button type="button" class="action-btn cancel-button" onclick="
+                            resetChanges('foodItem');
+                            toggleEditMode(false, 'foodItem');
+                        ">Cancel</button>
                         <button type="button" class="action-btn reset-button" onclick="resetChanges('foodItem')">Reset</button>
                     </div>
                     <div>

@@ -38,11 +38,15 @@
                             </tr>
                             <tr>
                                 <td> Location </td>
-                                <td> ${hall.name} - ${hall.location} </td>
+                                <td> ${hall.name} (${cinema.name} - ${cinema.location}) </td>
+                            </tr>
+                            <tr>
+                                <td> Show Date </td>
+                                <td> ${showtime.formattedDate} </td>
                             </tr>
                             <tr>
                                 <td> Show Time </td>
-                                <td> ${showtime.showTime} </td>
+                                <td> ${showtime.formattedTime} </td>
                             </tr>
                             <tr>
                                 <td> Seat No. </td>

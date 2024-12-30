@@ -69,7 +69,7 @@
                 </c:choose>
             </c:forEach>
         </c:if>
-        <c:if test="${empty activePromotionss}">
+        <c:if test="${empty activePromotions}">
                 <h3 style="text-align: center; color: red; font-size: 20px;">No Promotions Available</h3>
         </c:if>
     </section>

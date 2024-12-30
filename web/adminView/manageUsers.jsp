@@ -61,7 +61,7 @@
                     </select>
 
                     <div class="buttons-container">
-                        <button type="button" class="reset-btn" ${empty param.type && empty param.name && empty param.email && empty param.status ? 'disabled' : ''} onclick="window.location.href = 'manageUsers'">Reset Filters</button>
+                        <button type="button" class="reset-btn" ${empty param.type && empty param.name && empty param.email && empty param.contactNumber && empty param.status ? 'disabled' : ''} onclick="window.location.href = 'manageUsers'">Reset Filters</button>
                         <button type="button" onclick="validateSearchInput()">Search</button>
                     </div>
                 </form>

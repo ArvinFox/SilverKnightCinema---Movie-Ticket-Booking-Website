@@ -40,7 +40,7 @@
                     <select name="hall" id="hall">
                         <option value="any">All Halls</option>
                         <c:forEach var="hall" items="${hallList}">
-                            <option data-hall-id="${hall.hallId}" value="${hall.name}" ${hall.name == param.hall ? "selected" : ""}>${hall.name} - ${hall.location}</option>
+                            <option data-hall-id="${hall.hallId}" value="${hall.cinema}" ${hall.cinema == param.hall ? "selected" : ""}>${hall.name} (${hall.cinema})</option>
                         </c:forEach>
                     </select>
 

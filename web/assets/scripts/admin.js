@@ -429,6 +429,7 @@ let initialMovieStatus = '';
 let initialPromotionStatus = '';
 let initialFoodItemType = '';
 let initialHallType = '';
+let initialCinema = '';
 let initialShowtimeHall = '';
 let initialShowtimeMovie = '';
 
@@ -436,8 +437,25 @@ const allLanguages = [];
 const allGenres = [];
 const allFoodItemTypes = [];
 const allHallTypes = [];
+const allCinemas = [];
 const allShowtimeHalls = [];
 const allShowtimeMovies = [];
+
+async function fetchCinemas() {
+  try {
+    const response = await fetch('../fetch?cinemas=true');
+    if (!response.ok) throw new Error("Failed to fetch cinemas");
+
+    const data = await response.json();
+    const { cinemas } = data;
+
+    allCinemas.length = 0;
+    allCinemas.push(...cinemas);
+
+  } catch (error) {
+    console.error("Error in fetching cinemas: " + error);
+  }
+}
 
 async function fetchShowtimeHallsAndMovies() {
   try {
@@ -524,6 +542,7 @@ async function toggleEditMode(editMode, type = null) {
 
     if (type === 'hall') {
       await fetchHallTypes();
+      await fetchCinemas();
       toggleHallEdit(true);
     }
 
@@ -595,9 +614,9 @@ function toggleShowtimeEdit(editMode) {
     allShowtimeHalls.forEach(hall => {
       const option = document.createElement("option");
       option.value = hall.hallId;
-      option.textContent = hall.name + " - " + hall.location;
+      option.textContent = `${hall.name} (${hall.cinema})`;
 
-      if (hall.name + " - " + hall.location === initialShowtimeHall) {
+      if (option.textContent === initialShowtimeHall) {
         option.selected = true;
       }
 
@@ -639,16 +658,20 @@ function toggleShowtimeEdit(editMode) {
 
 function toggleHallEdit(editMode) {
   const hallTypeContainer = document.getElementById('hall-type-container');
+  const cinemaContainer = document.getElementById('cinema-container');
 
   if (editMode) {
     initialHallType = hallTypeContainer.querySelector("input").value;
+    initialCinema = cinemaContainer.querySelector("input").value;
 
     hallTypeContainer.innerHTML = "";
-    const select = document.createElement("select");
-    select.classList.add("form-control");
-    select.id = "hallType";
-    select.name = "hallType";
-    select.required = true;
+    cinemaContainer.innerHTML = "";
+
+    const hallTypeSelect = document.createElement("select");
+    hallTypeSelect.classList.add("form-control");
+    hallTypeSelect.id = "hallType";
+    hallTypeSelect.name = "hallType";
+    hallTypeSelect.required = true;
 
     allHallTypes.forEach(hallType => {
       const option = document.createElement("option");
@@ -659,14 +682,37 @@ function toggleHallEdit(editMode) {
         option.selected = true;
       }
 
-      select.appendChild(option);
+      hallTypeSelect.appendChild(option);
     });
 
-    hallTypeContainer.appendChild(select);
+    hallTypeContainer.appendChild(hallTypeSelect);
+
+    const cinemaSelect = document.createElement("select");
+    cinemaSelect.classList.add("form-control");
+    cinemaSelect.id = "cinema";
+    cinemaSelect.name = "cinema";
+    cinemaSelect.required = true;
+
+    allCinemas.forEach(cinema => {
+      const option = document.createElement("option");
+      option.value = cinema.cinemaId;
+      option.textContent = `${cinema.name} - ${cinema.location}`;
+
+      if (option.textContent === initialCinema) {
+        option.selected = true;
+      }
+
+      cinemaSelect.appendChild(option);
+    });
+
+    cinemaContainer.appendChild(cinemaSelect);
 
   } else {
     hallTypeContainer.innerHTML = `
       <input type="text" class="form-control editable" value="${initialHallType}" disabled>
+    `;
+    cinemaContainer.innerHTML = `
+      <input type="text" class="form-control editable" value="${initialCinema}" disabled>
     `;
   }
 }
@@ -1022,11 +1068,19 @@ function resetShowtime() {
 
 function resetHall() {
   const hallTypeContainer = document.getElementById('hall-type-container');
-  const selectElement = hallTypeContainer.querySelector("select");
+  const hallTypeSelectElement = hallTypeContainer.querySelector("select");
 
-  const initialHallTypeOption = Array.from(selectElement.options).find(option => option.textContent === initialHallType);
+  const initialHallTypeOption = Array.from(hallTypeSelectElement.options).find(option => option.textContent === initialHallType);
   if (initialHallTypeOption) {
     initialHallTypeOption.selected = true;
+  }
+
+  const cinemaContainer = document.getElementById('cinema-container');
+  const cinemaSelect = cinemaContainer.querySelector("select");
+
+  const initialCinemaOption = Array.from(cinemaSelect.options).find(option => option.textContent === initialCinema);
+  if (initialCinemaOption) {
+    initialCinemaOption.selected = true;
   }
 }
 

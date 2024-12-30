@@ -1,5 +1,6 @@
 package servlet_classes;
 
+import dao_classes.CinemaDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,20 +17,20 @@ import model_classes.Seat;
 import dao_classes.HallDAO;
 import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
+import model_classes.Cinema;
 import model_classes.Hall;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@WebServlet(name = "SeatSelectionServlet", urlPatterns = {"/SeatSelectionServlet", "/seatSelection"})
+@WebServlet(name = "SeatSelectionServlet", urlPatterns = {"/SeatSelectionServlet", "/seats"})
 public class SeatSelectionServlet extends HttpServlet {
 
     private ShowtimeDAO showtimeDao;
     private HallDAO hallDao;
     private MovieDAO movieDao;
     private SeatDAO seatDao;
+    private CinemaDAO cinemaDao;
     
     int showtimeId;
     
@@ -39,6 +40,7 @@ public class SeatSelectionServlet extends HttpServlet {
         movieDao = new MovieDAO();
         hallDao = new HallDAO();
         seatDao = new SeatDAO();
+        cinemaDao = new CinemaDAO();
     }
 
     @Override
@@ -52,6 +54,9 @@ public class SeatSelectionServlet extends HttpServlet {
         Showtime showtime = showtimeDao.getShowtimeById(showtimeId);
         Movie movie = movieDao.getMovieById(showtime.getMovieId());
         Hall hall = hallDao.getHallById(showtime.getHallId());
+        
+        Cinema cinema = cinemaDao.getCinemaById(hall.getCinemaId());
+        hall.setCinema(cinema.getName());
 
         // This already returns List<String>
         List<String> reservedSeatNumbers = seatDao.getReservedSeatNumbersByShowtime(showtimeId);
@@ -74,19 +79,17 @@ public class SeatSelectionServlet extends HttpServlet {
         while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
-        JSONObject json = new JSONObject(sb.toString());
         
+        JSONObject json = new JSONObject(sb.toString());      
         JSONArray seatArray = json.getJSONArray("seats");
-        System.out.println("Selected Seats: " + seatArray);
+        int total = json.getInt("total");
         
         HttpSession session = request.getSession();
-        
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        JSONObject responseJson = new JSONObject();
-        responseJson.put("message", "Seats booked successfully!");
-        responseJson.put("bookedSeats", seatArray);
+
         session.setAttribute("seatArray", seatArray);
+        session.setAttribute("seatCount", seatArray.length());
+        session.setAttribute("total", total);
+        
         for (Object item : seatArray) {
             String s = (String) item; // Cast to appropriate type
             Seat seat = new Seat();

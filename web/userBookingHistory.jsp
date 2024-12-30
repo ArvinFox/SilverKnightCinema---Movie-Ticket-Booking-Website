@@ -4,6 +4,8 @@
     Author     : arvin
 --%>
 
+<%@page import="model_classes.Cinema"%>
+<%@page import="dao_classes.CinemaDAO"%>
 <%@page import="dao_classes.ShowtimeDAO"%>
 <%@page import="dao_classes.MovieDAO"%>
 <%@page import="dao_classes.HallDAO"%>
@@ -28,6 +30,7 @@
             ShowtimeDAO showtimeDao = new ShowtimeDAO();
             MovieDAO movieDao = new MovieDAO();
             HallDAO hallDao = new HallDAO();
+            CinemaDAO cinemaDao = new CinemaDAO();
         %>
         <div class="user-booking-history-container">
             <%
@@ -52,13 +55,14 @@
                             Showtime showtime = showtimeDao.getShowtimeById(booking.getShowtimeId());
                             Movie movie = movieDao.getMovieById(showtime.getMovieId());
                             Hall hall = hallDao.getHallById(showtime.getHallId());
+                            Cinema cinema = cinemaDao.getCinemaById(hall.getCinemaId());
                         %>
                             <tr>
                                 <td><%= booking.getBookingId() %></td>
                                 <td><%= movie.getTitle() %></td>
                                 <td><%= booking.getBookingDate() %></td>
                                 <td><%= showtime.getShowTime() %></td>
-                                <td><%= hall.getLocation() %></td>
+                                <td><%= hall.getName() + " (" + cinema.getName() + " - " + cinema.getLocation() + ")" %></td>
                                 <td>
                                     <span class="<%= booking.getIsPaid() ? "paid" : "not-paid" %>">
                                         <%= booking.getIsPaid() ? "Paid" : "Not Paid" %>

@@ -5,8 +5,10 @@
 --%>
 
 <%@page import="model_classes.Hall"%>
+<%@ page import="java.time.LocalTime" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -130,7 +132,11 @@
 
                                         <div class="showtime-buttons">
                                             <c:forEach var="showtime" items="${organizedShowtimes[cinemaId][hallId][experience]}">
-                                                <button onclick="window.location.href = 'seatselection?showtimeId=${showtime.showtimeId}'">
+                                                <c:set var="isPast" value="${showtime.showTime < fn:substring(LocalTime.now().toString(), 0, 8)}" />
+                                                <button 
+                                                    class="${isPast ? 'showtime-disabled' : ''}"
+                                                    ${isPast ? 'disabled' : ''}
+                                                    onclick="window.location.href = 'seats?showtimeId=${showtime.showtimeId}&movieId=${movie.movieId}'">
                                                     ${showtime.formattedTime}
                                                 </button>
                                             </c:forEach>

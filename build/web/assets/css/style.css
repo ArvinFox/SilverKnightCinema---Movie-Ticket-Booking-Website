@@ -181,8 +181,6 @@ footer{
     color: #ffffff;
     padding: 20px 0;
     margin-top: 20px;
-    position:relative;
-    bottom: 0;
     right: 0;
     left: 0;
 }
@@ -1661,7 +1659,7 @@ footer{
 .btn-navigate-back{
     padding: 10px 20px;
     border: none;
-    background-color: #B8B8B8;
+    background-color: #737373;
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;

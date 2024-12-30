@@ -126,7 +126,7 @@
                     const type = button.getAttribute("data-type");
                     const url = "../adminView/add" + type + ".jsp";
                     openModal(url, null, type);
-                })
+                });
             });
 
             function filterStats() {

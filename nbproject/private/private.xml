@@ -3,38 +3,54 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/LocationsServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/dashboard.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/CheckoutServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewHall.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addPromotion.jsp</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageHalls.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/TermsAndConditionsServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addHall.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/checkOut.css</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Movie.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewPromotion.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewShowtime.jsp</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/HallDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Cinema.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/ShowtimeDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/PromotionServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageHallsServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/FAQServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewUser.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/LoginServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageFoodsServlet.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/dealsAndOffers.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/CinemaDAO.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/header.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/movies.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/MoviesServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/style.css</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/SeatSelectionServlet.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/home-HeaderAndFooter/footer.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/adminStyles.css</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/userProfile.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/movieSeatSelection.jsp</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Hall.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageMoviesServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewMovie.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/locations.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageBookingsServlet.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/footer.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addMovie.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/movieDetails.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/FetchDataServlet.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/scripts/main.js</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/MovieDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/movies.css</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/InquiryServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/EticketServlet.java</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/checkout.jsp</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/scripts/admin.js</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/AboutUsServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageShowtimes.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/userAccountDetails.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageUsers.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/manageBookings.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageShowtimesServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addHall.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/checkOut.css</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addShowtime.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/foodsAndBeverages.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageHallsServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/admin_servlet_classes/AdminManageUsersServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/CartServlet.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/eticket.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewMovie.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/userBookingHistory.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/addFoodItem.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/movieDetails.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/adminView/viewFoodItem.jsp</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/Showtime.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/model_classes/CartItem.java</file>
+            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/movies.css</file>
             <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/home-HeaderAndFooter/header.jsp</file>
         </group>
     </open-files>

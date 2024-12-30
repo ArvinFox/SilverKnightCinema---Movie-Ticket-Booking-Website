@@ -1,4 +1,24 @@
 
+// ------------------ Footer ---------------------//
+document.addEventListener("DOMContentLoaded", () => {
+    adjustFooter();
+});
+
+function adjustFooter() {
+    const body = document.body;
+    const html = document.documentElement;
+    const footer = document.querySelector("footer");
+
+    const isScrollable = html.scrollHeight > html.clientHeight;
+
+    if (!isScrollable) {
+        footer.style.position = "fixed";
+        footer.style.bottom = "0";
+    } else {
+        footer.style.position = "static";
+    }
+}
+
 // ------------ Movies Section ------------------ //
 const ongoingMoviesLink = document.querySelector(".ongoing");
 const comingSoonMoviesLink = document.querySelector(".coming-soon");
@@ -74,6 +94,7 @@ function updateMoviesSection(data) {
         document.querySelector(".movie-list").innerHTML = "<p>No movies available for the selected filters.</p>";
         document.querySelector(".movie-list").style.display = "flex";
         footer.style.position = "fixed";
+        footer.style.bottom = "0";
     }
 }
 
@@ -181,16 +202,16 @@ async function fetchShowtimes() {
         if (!response.ok) throw new Error("Error in fetching filtered showtimes");
 
         const data = await response.json();
-        const { showtimes, cinemas, halls } = data;
+        const { showtimes, cinemas } = data;
 
-        updateShowtimes(showtimes, cinemas, halls);
+        updateShowtimes(showtimes, cinemas);
 
     } catch (error) {
         console.error("Error in fetching filtered showtimes: " + error);
     }
 }
 
-function updateShowtimes(showtimes, cinemas, halls) {
+function updateShowtimes(showtimes, cinemas) {
     const showtimesContainer = document.querySelector(".showtimes-list");
 
     if (Object.keys(showtimes).length === 0) {
@@ -233,8 +254,33 @@ function updateShowtimes(showtimes, cinemas, halls) {
                 html += `</div>`;
 
                 html += `<div class="showtime-buttons">`;
+                const urlParameters = new URLSearchParams(window.location.search);
+                const movieId = urlParameters.get("movieId");
+
                 showtimesList.forEach(showtime => {
-                    html += `<button onclick="window.location.href = 'seatselection?showtimeId=${showtime.showtimeId}'">${showtime.formattedTime}</button>`;
+                    const currentTime = new Date();
+
+                    const dateParts = showtime.showDate.replace(',', '').split(' ');
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    const monthIndex = monthNames.indexOf(dateParts[0]);
+                    const formattedDate = `${dateParts[2]}-${(monthIndex + 1).toString().padStart(2, '0')}-${dateParts[1].padStart(2, '0')}`;
+
+                    const timeParts = showtime.showTime.split(' ');
+                    let [hours, minutes, seconds] = timeParts[0].split(':');
+                    const ampm = timeParts[1].toUpperCase();
+                    hours = (ampm === "AM" && hours === "12") ? "00" : (ampm === "PM" && hours !== "12") ? (parseInt(hours, 10) + 12).toString() : hours;
+                    const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+                    const showtimeDate = new Date(formattedDate + 'T' + formattedTime);
+
+                    const isPast = showtimeDate < currentTime;
+
+                    html += `<button 
+                                class="${isPast ? 'showtime-disabled' : ''}" 
+                                ${isPast ? 'disabled' : ''}
+                                onclick="window.location.href = 'seats?showtimeId=${showtime.showtimeId}&movieId=${movieId}'">
+                                ${showtime.formattedTime}
+                            </button>`;
                 });
                 html += `</div>`;
             }
@@ -300,21 +346,18 @@ if (tabs) {
 //-------------------Profile Page JS---------------------//
 
 //-----Loading contents to User Profile-----//
-function loadContent(page) {
-    // Use AJAX to load the content of the JSP into the user-content div tag
-    fetch(page)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('user-content').innerHTML = data;
-            // Reinitialize JavaScript for the new content
-            initializeEventListeners();
-        })
-        .catch(error => console.error('Error loading page:', error));
+async function loadContent(page) {
+    try {
+        const response = await fetch(page);
+        if (!response.ok) throw new Error("Failed to fetch user content");
+
+        const data = await response.text();
+        document.getElementById('user-content').innerHTML = data;
+        initializeEventListeners();
+
+    } catch (error) {
+        console.error("Error: " + error);
+    }
 }
 
 let OtpResult;
@@ -359,7 +402,11 @@ function initializeEventListeners() {
     const otpVerificationDiv = document.querySelector(".form-row.hidden:nth-child(3)");
     const contactInput = document.getElementById("newContactNumber");
     const contactLabel = document.getElementById("dbContact");
-    const otpCountdownLabel = otpVerificationDiv.querySelector("label[for='OTP countdown']");
+    let otpCountdownLabel;
+    
+    if (otpVerificationDiv) {
+        otpCountdownLabel = otpVerificationDiv.querySelector("label[for='OTP countdown']");
+    }
 
     let countdownTimer = null;
 
@@ -498,6 +545,9 @@ let adultCount = 0;
 let childCount = 0;
 let total = 0;
 
+const ADULT_TICKET_PRICE = 1500;
+const CHILD_TICKET_PRICE = 1000;
+
 seats.forEach(seat => {
     seat.addEventListener('click', () => {
         if (seat.classList.contains('available')) {
@@ -507,7 +557,7 @@ seats.forEach(seat => {
                 seat.classList.add('selected');
                 selectedSeats++;
                 adultCount++;
-                total += 1000;
+                total += ADULT_TICKET_PRICE;
                 selectedSeatsArray.push(seatId);
             } else {
                 seat.classList.remove('selected');
@@ -515,46 +565,71 @@ seats.forEach(seat => {
                 total -= 1000;
                 if (adultCount > 0) {
                     adultCount--;
+                    total -= ADULT_TICKET_PRICE;
                 } else if (childCount > 0) {
                     childCount--;
+                    total -= CHILD_TICKET_PRICE;
                 }
                 selectedSeatsArray = selectedSeatsArray.filter(id => id !== seatId);
             }
             updateTicketCount();
             updateIncrementDecrementStates();
-            console.log("Selected Seats Array:", selectedSeatsArray);
         }
     });
 });
 
 async function submitSeats() {
     try {
-        const response = await fetch('seatSelection', {
+        const response = await fetch('seats', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ seats: selectedSeatsArray }),
+            body: JSON.stringify({
+                seats: selectedSeatsArray,
+                total: total
+            }),
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
-        console.log("Response:", data);
-
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
+//----------Ticket selection for seats page-----------//
 const continueBtn = document.querySelector('.btn-continue-checkout');
 if (continueBtn) {
-    continueBtn.addEventListener('click', submitSeats);
+    continueBtn.addEventListener('click', async () => {
+        submitSeats();
+        await fetchUserStatus();
+    });
 }
 
-//----------Ticket selection for seats page-----------//
+async function fetchUserStatus() {
+    try {
+        const response = await fetch("login?checkIsLoggedIn=true");
+        if (!response.ok) throw new Error("Failed to fetch user status");
+
+        const result = await response.json();
+        if (result.success) {
+            const urlParameters = new URLSearchParams(window.location.search);
+            const showtimeId = urlParameters.get("showtimeId");
+
+            window.location.href = "checkout?showtimeId=" + showtimeId;
+        } else {
+            alert("You need to be logged in to book seats.");
+            return;
+        }
+
+    } catch (error) {
+        console.error("Error: " + error);
+    }
+}
+
 const adultDecrementBtn = document.getElementById('adult-decrement');
 const adultIncrementBtn = document.getElementById('adult-increment');
 const childDecrementBtn = document.getElementById('child-decrement');
@@ -566,6 +641,7 @@ const totalPrice = document.getElementById('ticketPrice');
 function updateTicketCount() {
     adultCountDisplay.textContent = adultCount;
     childCountDisplay.textContent = childCount;
+    total = (adultCount * ADULT_TICKET_PRICE) + (childCount * CHILD_TICKET_PRICE)
     if (totalPrice) {
         totalPrice.textContent = total;
     }

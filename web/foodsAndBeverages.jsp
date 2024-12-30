@@ -83,7 +83,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Rows -->
+                            <c:forEach var="item" items="${cartItems}">
+                                <tr>
+                                    <td>${item.itemName}</td>
+                                    <td>${item.qty}</td>
+                                    <td>${item.price}</td>
+                                    <td><button class="remove-from-cart" data-item-id="${item.itemId}"><i class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                     <div class="cart-summary">
@@ -98,12 +105,32 @@
         <script>
             let cart = [];
 
-            let tabs = document.querySelectorAll(".food-tabs h3");
+            const cartItemRows = document.querySelectorAll(".cart-table tbody tr");
+            
+            if (cartItemRows && cartItemRows.length > 0) {
+                cartItemRows.forEach(row => {
+                    const cells = row.querySelectorAll("td");
+
+                    const removeIcon = cells[3].querySelector("button");
+                    const itemId = removeIcon.getAttribute("data-item-id");
+
+                    cart.push({
+                        itemId: itemId,
+                        itemName: cells[0].textContent,
+                        price: parseFloat(cells[2].textContent),
+                        qty: parseInt(cells[1].textContent)
+                    });
+                });
+
+                updateCart();
+            }
+
+            let foodTabs = document.querySelectorAll(".food-tabs h3");
             let tabContents = document.querySelectorAll(".tab-content");
 
-            tabs.forEach((tab, index) => {
+            foodTabs.forEach((tab, index) => {
                 tab.addEventListener("click", () => {
-                    tabs.forEach((tab) => tab.classList.remove("active"));
+                    foodTabs.forEach((tab) => tab.classList.remove("active"));
                     tabContents.forEach((content) => content.classList.remove("active"));
 
                     tab.classList.add("active");
@@ -238,8 +265,11 @@
                 });
 
                 cartSummaryTotal.textContent = 'Rs. ' + totalAmount.toFixed(2);
+                initializeRemoveButtons();               
+            }
 
-                let removeButtons = document.querySelectorAll('.remove-from-cart');
+            function initializeRemoveButtons() {
+                const removeButtons = document.querySelectorAll('.remove-from-cart');
                 removeButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         let itemId = button.getAttribute('data-item-id');
@@ -266,9 +296,9 @@
                 }));
 
                 const urlParameters = new URLSearchParams(window.location.search);
-                const bookingId = urlParameters.get("bookingId");
+                const showtimeId = urlParameters.get("showtimeId");
                 
-                const response = await fetch("cart?bookingId=" +bookingId, {
+                const response = await fetch("cart?showtimeId=" +showtimeId, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -278,12 +308,13 @@
 
                 if(response.ok)
                 {
-                    window.location.href = "checkout.jsp?bookingId=" +bookingId;
+                    window.location.href = "checkout?showtimeId=" +showtimeId;
                 }
                 else{
                     console.error("failed");
                 }
-            }
+            }
         </script>
-    </body>
+        <script src="assets/scripts/main.js"></script>
+    </body>
 </html>

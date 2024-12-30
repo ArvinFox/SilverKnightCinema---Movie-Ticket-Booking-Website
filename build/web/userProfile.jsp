@@ -38,29 +38,37 @@
             <!-- When user clicks on the links the relevant pages will be displayed here -->
         </div>
         
-        <script src="assets/scripts/main.js"></script>
         <jsp:include page="footer.jsp"/>
+
+        <script src="assets/scripts/main.js"></script>
         <script>
             const accDetails = document.querySelector(".account-details");
             const bookingDetails = document.querySelector(".booking-history");
             // Loads the Account Details as the default loaded screen when the page is loaded for the first time
-            window.onload = ()=> {
-                loadContent('userAccountDetails.jsp');  // Loading the JSP inside the main page
+            document.addEventListener('DOMContentLoaded', async () => {
+                await loadContent("userAccountDetails.jsp");
                 accDetails.style.color = "black";
                 bookingDetails.style.color = "rgb(104, 104, 104)";
-            };
-            
-            accDetails.addEventListener("click", ()=>{
-                accDetails.style.color = "black";
-                bookingDetails.style.color = "rgb(104, 104, 104)";
+
+                adjustFooter();
             });
-            
-            bookingDetails.addEventListener("click", ()=>{
+
+            accDetails.addEventListener('click', async () => {
+                await loadContent("userAccountDetails.jsp");
+                accDetails.style.color = "black";
+                bookingDetails.style.color = "rgb(104, 104, 104)";
+
+                adjustFooter();
+            });
+
+            bookingDetails.addEventListener('click', async () => {
+                await loadContent("userBookingHistory.jsp");
                 bookingDetails.style.color = "black";
                 accDetails.style.color = "rgb(104, 104, 104)";
+
+                adjustFooter();
             });
-                
-        </script>
+        </script>   
     </body>
 </html>
 

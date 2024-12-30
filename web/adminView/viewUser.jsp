@@ -58,21 +58,21 @@
                     <p><strong>Registration Date:</strong></p>
                     <input type="date" class="form-control editable" name="registrationDate" value="${user.registrationDate}" disabled>
                 </div>
+            </form>
             
                 <!--
                 <div class="action-buttons hidden">
                     <div>
-                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false)">Cancel</button>
-                        <button type="button" class="action-btn reset-button" onclick="resetChanges()">Reset</button>
+                        <button type="button" class="action-btn cancel-button" onclick="toggleEditMode(false, 'user')">Cancel</button>
+                        <button type="button" class="action-btn reset-button" onclick="resetChanges('user')">Reset</button>
                     </div>
                     <div>
                         <button type="submit" class="action-btn save-changes-button">Save Changes</button>
                     </div>
                 </div>
-                -->
             </form>
-                
-            <!-- <button class="action-btn edit-btn" onclick="toggleEditMode(true)">Edit User</button> -->
+
+            <button class="action-btn edit-btn" onclick="toggleEditMode(true, 'user')">Edit User</button> -->
             <form action="manageUsers" method="POST" style="margin-top: 15px">
                 <input type="hidden" name="action" value="status">
                 <input type="hidden" name="userId" value="${user.userId}">

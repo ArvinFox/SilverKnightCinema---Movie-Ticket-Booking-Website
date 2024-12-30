@@ -34,7 +34,7 @@ public class HallDAO {
     }
     
     // Method to get searched halls
-    public List<Hall> getSearchedHalls(String hallName, String hallType, Integer minCapacity, Integer maxCapacity, String location) {
+    public List<Hall> getSearchedHalls(String hallName, String hallType, Integer minCapacity, Integer maxCapacity, String cinemaId) {
         List<Hall> halls = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM halls WHERE 1=1");
         
@@ -60,9 +60,9 @@ public class HallDAO {
             parameters.add(maxCapacity);
         }
         
-        if (location != null && !location.trim().isEmpty()) {
-            query.append(" AND location LIKE ?");
-            parameters.add("%" + location.trim() + "%");
+        if (cinemaId != null && !cinemaId.trim().isEmpty() && !cinemaId.equals("any")) {
+            query.append(" AND cinemaId = ?");
+            parameters.add(Integer.valueOf(cinemaId));
         }
         
         try (Connection conn = DBConnection.getConnection();

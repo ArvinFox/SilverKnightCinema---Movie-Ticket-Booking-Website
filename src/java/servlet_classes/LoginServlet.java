@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.json.JSONObject;
 
 /**
  * @author Udani Indrachapa
@@ -51,8 +52,24 @@ public class LoginServlet extends HttpServlet
             }
         }
         
+        String checkLoggedInStatus = request.getParameter("checkIsLoggedIn");
+        if (checkLoggedInStatus != null) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            JSONObject jsonResponse = new JSONObject();
+        
+            if (isLoggedIn) {
+                jsonResponse.put("success", true);
+            } else {
+                jsonResponse.put("success", false);
+            }
+            
+            response.getWriter().write(jsonResponse.toString());
+            return;
+        }
+        
         if (isLoggedIn) {
-            response.sendRedirect("TermsAndConditions");
+            response.sendRedirect("home");
         } else {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
@@ -88,7 +105,7 @@ public class LoginServlet extends HttpServlet
                         c.setMaxAge(3*24*60*60);
                         response.addCookie(c);
                     }
-                    response.sendRedirect("TermsAndConditions");
+                    response.sendRedirect("home");
                 }
                 else
                 {

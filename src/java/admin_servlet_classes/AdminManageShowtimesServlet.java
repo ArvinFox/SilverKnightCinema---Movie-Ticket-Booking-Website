@@ -6,6 +6,8 @@ import model_classes.Movie;
 import dao_classes.MovieDAO;
 import model_classes.Hall;
 import dao_classes.HallDAO;
+import model_classes.Cinema;
+import dao_classes.CinemaDAO;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -21,12 +23,14 @@ public class AdminManageShowtimesServlet extends HttpServlet {
     private ShowtimeDAO showtimeDAO;
     private MovieDAO movieDAO;
     private HallDAO hallDAO;
+    private CinemaDAO cinemaDAO;
     
     @Override
     public void init() {
         showtimeDAO = new ShowtimeDAO();
         movieDAO = new MovieDAO();
         hallDAO = new HallDAO();
+        cinemaDAO = new CinemaDAO();
     }
 
     @Override
@@ -53,10 +57,15 @@ public class AdminManageShowtimesServlet extends HttpServlet {
             
             List<Movie> nowShowingMovieList = movieDAO.getNowShowingMovies();
             List<Hall> hallList = hallDAO.getAllHalls();
+            for (Hall hall : hallList) {
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                hall.setCinema(cinema.getName());
+            }
             
             for (Showtime showtime : showtimeList) {
                 Hall hall = hallDAO.getHallById(showtime.getHallId());
-                showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                showtime.setHallName(hall.getName() + " (" + cinema.getName() + ")");
                 
                 Movie movie = movieDAO.getMovieById(showtime.getMovieId());
                 showtime.setMovieTitle(movie.getTitle());

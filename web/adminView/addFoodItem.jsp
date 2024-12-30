@@ -6,6 +6,7 @@
 
 <%@page import="model_classes.Food"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <c:if test="${sessionScope.username == null}">
@@ -58,8 +59,8 @@
 
                 <div class="form-group">
                     <label for="posterUrl">Item Image</label>
-                    <input type="file" id="poster" accept="image/*" required>
-                    <input type="hidden" id="posterPath" name="posterUrl">
+                    <input type="file" id="poster" name="posterFile" accept="image/*" required>
+                    <input type="hidden" id="posterPath" name="itemUrl">
                 </div>
 
                 <button type="submit" class="action-btn add-btn-link font-16" onclick="uploadPoster('foodItem')">Add Food Item</button>

@@ -77,8 +77,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             String action = request.getParameter("action");
             String actionResponse = "Failed to perform operation.";
             
-            if (null != action) switch (action) {
-                
+            if (null != action) switch (action) {             
                 case "status" -> {
                     int userId = Integer.parseInt(request.getParameter("userId"));
                     User user = userDAO.getUserById(userId);

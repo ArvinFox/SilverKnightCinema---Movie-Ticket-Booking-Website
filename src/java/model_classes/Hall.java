@@ -40,7 +40,6 @@ public class Hall {
     private String name;
     private Type type;
     private int capacity;
-    private String location;
     private String hallUrl;
     private Date createdAt;
     private Date updatedAt;
@@ -83,9 +82,6 @@ public class Hall {
     
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }
-    
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
     
     public String getHallUrl() { return hallUrl; }
     public void setHallUrl(String hallUrl) { this.hallUrl = hallUrl; }

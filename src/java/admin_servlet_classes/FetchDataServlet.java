@@ -15,6 +15,8 @@ import dao_classes.PromotionDAO;
 import model_classes.Food;
 import model_classes.FoodOrder;
 import dao_classes.FoodDAO;
+import model_classes.Cinema;
+import dao_classes.CinemaDAO;
 import model_classes.Hall;
 import dao_classes.HallDAO;
 import model_classes.Showtime;
@@ -46,6 +48,7 @@ public class FetchDataServlet extends HttpServlet {
     private UserDAO userDAO;
     private PromotionDAO promotionDAO;
     private FoodDAO foodDAO;
+    private CinemaDAO cinemaDAO;
     private HallDAO hallDAO;
     private ShowtimeDAO showtimeDAO;
     private BookingDAO bookingDAO;
@@ -60,6 +63,7 @@ public class FetchDataServlet extends HttpServlet {
         userDAO = new UserDAO();
         promotionDAO = new PromotionDAO();
         foodDAO = new FoodDAO();
+        cinemaDAO = new CinemaDAO();
         hallDAO = new HallDAO();
         showtimeDAO = new ShowtimeDAO();
         bookingDAO = new BookingDAO();
@@ -82,6 +86,7 @@ public class FetchDataServlet extends HttpServlet {
         String foodItemTypesParam = request.getParameter("foodItemTypes");
         
         String hallTypesParam = request.getParameter("hallTypes");
+        String cinemasParam = request.getParameter("cinemas");
         
         String showtimeHallsParam = request.getParameter("showtimeHalls");
         String showtimeMoviesParam = request.getParameter("showtimeMovies");
@@ -131,8 +136,17 @@ public class FetchDataServlet extends HttpServlet {
             result.put("hallTypes", hallTypes);
         }
         
+        if (cinemasParam != null) {
+            List<Cinema> cinemas = cinemaDAO.getAllCinemas();
+            result.put("cinemas", cinemas);
+        }
+        
         if (showtimeHallsParam != null) {
             List<Hall> showtimeHalls = hallDAO.getAllHalls();
+            for (Hall hall : showtimeHalls) {
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                hall.setCinema(cinema.getName());
+            }
             result.put("showtimeHalls", showtimeHalls);
         }
         
@@ -146,7 +160,8 @@ public class FetchDataServlet extends HttpServlet {
             List<Showtime> showtimes = showtimeDAO.getShowtimesByMovie(showtimeMovieId);
             for (Showtime showtime : showtimes) {
                 Hall hall = hallDAO.getHallById(showtime.getHallId());
-                showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                showtime.setHallName(hall.getName() + " (" + cinema.getLocation() + ")");
                 showtime.setFormattedTime(showtime.getShowTime());
             }
             result.put("showtimes", showtimes);
@@ -219,6 +234,10 @@ public class FetchDataServlet extends HttpServlet {
                 
                 case "Hall" -> {
                     Hall hall = hallDAO.getHallById(id);
+                    
+                    Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                    hall.setCinema(cinema.getName() + " - " + cinema.getLocation());
+                    
                     request.setAttribute("hall", hall);
                     request.getRequestDispatcher("/adminView/viewHall.jsp").forward(request, response);
                 }
@@ -227,7 +246,8 @@ public class FetchDataServlet extends HttpServlet {
                     Showtime showtime = showtimeDAO.getShowtimeById(id);
                     
                     Hall hall = hallDAO.getHallById(showtime.getHallId());
-                    showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                    Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                    showtime.setHallName(hall.getName() + " (" + cinema.getName() + ")");
                     
                     Movie movie = movieDAO.getMovieById(showtime.getMovieId());
                     showtime.setMovieTitle(movie.getTitle());
@@ -253,7 +273,8 @@ public class FetchDataServlet extends HttpServlet {
                     
                     Showtime showtime = showtimeDAO.getShowtimeById(booking.getShowtimeId());
                     Hall hall = hallDAO.getHallById(showtime.getHallId());
-                    showtime.setHallName(hall.getName() + " - " + hall.getLocation());
+                    Cinema cinema = cinemaDAO.getCinemaById(hall.getCinemaId());
+                    showtime.setHallName(hall.getName() + " (" + cinema.getLocation() + ")");
                     showtime.setMovieTitle(movieDAO.getMovieById(showtime.getMovieId()).getTitle());
                     showtime.setFormattedTime(showtime.getShowTime());
                     

@@ -14,6 +14,7 @@ public class Showtime {
     private String hallName;
     private String movieTitle;
     private String formattedTime;
+    private String formattedDate;
     
     // Constructors
     public Showtime() {}
@@ -50,9 +51,18 @@ public class Showtime {
     public String getFormattedTime() { return formattedTime; }
     public void setFormattedTime(Time time) { this.formattedTime = formatTimeTo12Hour(time); }
     
+    public String getFormattedDate() { return formattedDate; }
+    public void setFormattedDate(Date date) { this.formattedDate = formatDate(date); }
+    
     private String formatTimeTo12Hour(Time time) {
         if (time == null) return "";
         SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
         return formatter.format(time);
+    }
+    
+    private String formatDate(Date date) {
+        if (date == null) return "";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM. yyyy");
+        return formatter.format(date);
     }
 }

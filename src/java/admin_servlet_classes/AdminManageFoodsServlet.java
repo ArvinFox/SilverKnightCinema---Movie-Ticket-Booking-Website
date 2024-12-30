@@ -105,7 +105,7 @@ public class AdminManageFoodsServlet extends HttpServlet {
         String itemType = request.getParameter("itemType");
         double price = Double.parseDouble(request.getParameter("price"));
         int stock = Integer.parseInt(request.getParameter("stock"));
-        String itemUrl = request.getParameter("posterUrl");
+        String itemUrl = request.getParameter("itemUrl");
 
         Food foodItem = new Food(itemName, ItemType.fromString(itemType), price, stock, itemUrl);
         return foodItem;

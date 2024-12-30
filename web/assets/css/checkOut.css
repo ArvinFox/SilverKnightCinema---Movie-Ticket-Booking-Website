@@ -37,16 +37,24 @@ body {
     font-size: 30px;
 }
 
+/* Main Grid */
+.checkout-content {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    align-items: start;
+    column-gap: 30px;
+    padding-left: 4%;
+    padding-right: 8%;
+}
+
 /* Movie details box */
- .movie-details {
+.movie-details {
     position: relative;
-    width: 45%; /* Adjustable width */
-    background-color: #333; 
-    padding: 20px; /* Inner spacing */
-    border-radius: 10px; 
-    margin: 20px; /* Space around the box */
-    margin-left: 50px;
-    text-align: center; 
+    background-color: #333;
+    padding: 20px;
+    /* Inner spacing */
+    border-radius: 10px;
+    text-align: center;
     margin-bottom: 130px;
 }
 
@@ -54,34 +62,28 @@ body {
     color: white;
 }
 
- .movie-details img {
-    width: 100%; 
-    height: auto; 
+.movie-details img {
+    width: 100%;
+    height: 350px;
     border-radius: 10px;
     margin-bottom: 15px;
 }
 
-.content .movie-details .movie-info .movie-name {
-    font-size: 20px; 
+.checkout-content .movie-details .movie-info .movie-name {
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
-.content .movie-details .movie-info p {
-    font-size: 16px; 
+.checkout-content .movie-details .movie-info p {
+    font-size: 16px;
 }
 
 /* Checkout Box */
 .checkout-box {
-    width: 38%; /* Wider width */
-    margin: 210px 165px;
     padding: 20px;
     background-color: #333;
     border-radius: 10px;
-    gap: 20px;
-    position: absolute;
-    top: 20px; 
-    left: 20%; /* Placing it next to the movie details box */
 }
 
 .checkout-box p {
@@ -121,7 +123,8 @@ form label {
 }
 
 form input {
-    width: calc(100% - 40px); /* Ensure proper margins */
+    width: calc(100% - 40px);
+    /* Ensure proper margins */
     padding: 10px;
     margin-bottom: 15px;
     border: none;
@@ -138,19 +141,15 @@ form input {
 }
 
 .terms {
-  margin-right: 175px;
-  margin-top: 20px;  
-}
-
-.terms {
+    margin-right: 175px;
+    margin-top: 20px;
     display: flex;
-    align-items: center; 
-    gap: -10px; /* Spacing between checkbox and content */
+    align-items: center;
 }
 
 .terms a {
-    color: red; 
-    text-decoration: none; 
+    color: red;
+    text-decoration: none;
 }
 
 .pay-now {
@@ -172,15 +171,10 @@ form input {
 
 /* Snacks & Beverages Box */
 .card-box {
-    width: 22%;
-    margin: 250px -95px;
     padding: 20px;
-    background-color: #333; 
+    background-color: #333;
     color: #fff;
     border-radius: 8px;
-    position: absolute;
-    top: 20px; 
-    left: 80%; 
 }
 
 .card-header {
@@ -232,17 +226,17 @@ form input {
 }
 
 .card-summary p strong {
-    color: white; 
+    color: white;
 }
 
 .card-summary p span {
-    color: #ccc; 
+    color: #ccc;
 }
 
 .card-summary .total {
     font-size: 18px;
-    font-weight: bold; 
-    color: red; 
+    font-weight: bold;
+    color: red;
 }
 
 /* Media Queries */
@@ -251,21 +245,21 @@ form input {
     .movie-details,
     .checkout-box,
     .card-box {
-        margin: 20px auto; 
-        position: static; 
+        margin: 20px auto;
+        position: static;
         margin-bottom: 60px;
     }
-    
-    .movie-details{
+
+    .movie-details {
         width: 40%;
     }
-    
+
     .movie-details .movie-info p {
         text-align: center;
     }
-    
+
     .checkout-box,
-    .card-box{
+    .card-box {
         width: 80%;
     }
 
@@ -283,69 +277,69 @@ form input {
     .movie-details,
     .checkout-box,
     .card-box {
-        margin: 10px auto; 
+        margin: 10px auto;
         margin-bottom: 50px;
     }
-    
-    .movie-details{
+
+    .movie-details {
         width: 50%;
     }
-    
+
     .movie-details .movie-info p {
         text-align: center;
     }
-    
+
     .checkout-box,
-    .card-box{
+    .card-box {
         width: 80%;
     }
 
     .movie-details img {
         width: 100%;
     }
-    
+
     .payment-methods {
         display: flex;
         justify-content: space-around;
-        gap: 5px; 
-        flex-wrap: nowrap; 
+        gap: 5px;
+        flex-wrap: nowrap;
     }
 
     .payment-methods img {
-        max-width: 40px; 
+        max-width: 40px;
     }
 
     .pay-now {
-        width: auto; 
-        font-size: 14px; 
+        width: auto;
+        font-size: 14px;
     }
 }
 
 /* For the smallest screens (below 480px) */
 @media screen and (max-width: 480px) {
-   .movie-details,
+    .movie-details,
     .checkout-box,
     .card-box {
-        margin: 20px auto; 
-        position: static; 
+        margin: 20px auto;
+        position: static;
         margin-bottom: 60px;
     }
-    
-    .movie-details{
+
+    .movie-details {
         width: 60%;
     }
-    
+
     .movie-details .movie-info p {
         text-align: center;
     }
-    
+
     .checkout-box,
-    .card-box{
+    .card-box {
         width: 90%;
     }
 
     .pay-now {
-        width: 100%; 
-        margin: 15px auto; 
+        width: 100%;
+        margin: 15px auto;
     }
 }
