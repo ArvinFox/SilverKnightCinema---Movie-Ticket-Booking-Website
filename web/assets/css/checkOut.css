@@ -239,6 +239,40 @@ form input {
     color: red;
 }
 
+.payment-separator {
+    text-align: center;
+    margin: 25px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+}
+
+.payment-separator::before,
+.payment-separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+}
+
+.payment-separator::before {
+    left: 0;
+}
+
+.payment-separator::after {
+    right: 0;
+}
+
+.payment-separator span {
+    padding: 0 10px;
+    color: #777;
+}
+
+
 /* Media Queries */
 
 @media screen and (max-width: 1025px) {

@@ -23,18 +23,14 @@
     <body>
         <div class="ticket-section" id="ticket">
                 <div class="ticket-header"> Silver Knight Cinema </div>
-                <c:if test="${not empty booking}">
+                <c:if test="${not empty bookingId}">
                     <img src="${movie.posterUrl}" alt="${movie.title}" class="movie-img"/>
                     <h2 class="title-movie"> ${movie.title} </h2>
                     <table border="1" class="ticket-info">
                         <tbody>
                             <tr>
                                 <td> Booking Id </td>
-                                <td> ${booking.bookingId} </td>
-                            </tr>
-                            <tr>
-                                <td> Date </td>
-                                <td> ${showtime.showDate} </td>
+                                <td> ${bookingId} </td>
                             </tr>
                             <tr>
                                 <td> Location </td>

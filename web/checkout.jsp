@@ -39,17 +39,15 @@
 
             <!-- Checkout Box -->
             <div class="checkout-box">
-                <p>Select Payment Method<p>
+                <p>Pay via Debit/Credit Card<p>
                 <div class="payment-methods">
                     <img src="assets/images/checkout-img2.png" alt="Visa">
                     <img src="assets/images/checkout-img3.png" alt="MasterCard">
-                    <img src="assets/images/checkout-img4.png" alt="PayPal">
-                    <button class="add-method"><i class="fas fa-plus-circle"></i></button>
                 </div>
 
-                <form action="#" method="POST">
+                <form action="#" method="POST" onsubmit="return validateCardDetails()">
                     <label for="card-number">Card Number</label>
-                    <input type="text" id="card-number" name="cardNumber" placeholder="1234 1234 1234">
+                    <input type="text" id="card-number" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
 
                     <div class="cvc">
                         <div>
@@ -58,7 +56,7 @@
                         </div>
                         <div>
                             <label for="cvc">CVC</label>
-                            <input type="text" id="cvc" name="cvc" placeholder="123">
+                            <input type="text" id="cvc" name="cvc" placeholder="XXX">
                         </div>
                     </div>
 
@@ -67,11 +65,17 @@
 
                     <div class="terms">
                         <input type="checkbox" id="terms" name="terms">
-                        <label for="terms">I confirmed that I have read and agreed to the <a href="terms">Terms & Conditions</a> of this purchase.</label>
+                        <label for="terms">I confirmed that I have read and agreed to the <a href="terms" target="_blank">Terms & Conditions</a> of this purchase.</label>
                     </div>                 
 
-                    <button type="button" class="pay-now" onclick="checkOutfunction()">Pay Now</button>
+                    <button type="submit" class="pay-now">Pay Now</button>
                 </form>
+                
+                <div class="payment-separator">
+                    <span>OR</span>
+                </div>
+                
+                <div id="paypal-button-container"></div>
             </div>
 
             <div class="card-box">
@@ -110,45 +114,58 @@
 
         <jsp:include page="footer.jsp" />
 
-        <script>
-            function checkOutfunction() {
-                const urlParameters = new URLSearchParams(window.location.search);
-                const showtimeId = urlParameters.get("showtimeId");
-
-                location.replace("eticket?showtimeId=" + showtimeId);
-            }
-
-            const ticketPrice = document.querySelector('.ticket-price');
-            const ticketCount = document.querySelector('.ticket-count');
-            const snacksPrice = document.querySelector('.snacks-price');
-            const subtotal = document.querySelector('.subtotal');
-            const discounts = document.querySelector('.discount');
-            const totalAmount = document.querySelector('.total-amount');
-
-            const itemPrices = document.querySelectorAll('.item-price');
-            if (itemPrices) {
-                let totalPrice = 0;
-
-                itemPrices.forEach(itemPrice => {
-                    totalPrice += Number(itemPrice.innerHTML);
-                });
-
-                snacksPrice.innerHTML = 'Rs. ' + totalPrice + '.00';
-            }
-
-            const ticketPriceValue = extractNumber(ticketPrice.innerHTML);
-            const snacksPriceValue = extractNumber(snacksPrice.innerHTML);
-            const discountsValue = extractNumber(discounts.innerHTML);
-            const totalAmountValue = extractNumber(totalAmount.innerHTML);
-
-            const subtotalValue = ticketPriceValue + snacksPriceValue;
-            subtotal.innerHTML = 'Rs.' + subtotalValue + '.00';
-            totalAmount.innerHTML = 'Rs.' + (subtotalValue - discountsValue) + '.00';
-
-            function extractNumber(value) {
-                return parseFloat(value.replace(/Rs\.\s?/g, '')) || 0;
-            }
-        </script>
         <script src="assets/scripts/main.js"></script>
+        <script>
+            displayTotalSummary();
+            
+            document.getElementById('card-number').addEventListener('input', function (e) {
+                let input = e.target.value;
+
+                input = input.replace(/\D/g, '');
+
+                input = input.replace(/(\d{4})(?=\d)/g, '$1-');
+
+                e.target.value = input;
+            });
+
+            document.getElementById('card-number').addEventListener('keypress', function (e) {
+                if (!/\d/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+        </script>
+        
+        <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD&disable-funding=card,credit"></script>
+        
+        <script>
+            const urlParameters = new URLSearchParams(window.location.search);
+            const showtimeId = urlParameters.get("showtimeId");
+            
+            const totalAmount = document.querySelector('.total-amount').textContent.replace(/Rs\./g, '').trim();
+            
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: totalAmount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        window.location.href = 'eticket?showtimeId=' + showtimeId + '&total=' + totalAmount;
+                    });
+                },
+                onError: function (err) {
+                    console.error(err);
+                    alert('An error occurred during the payment process.');
+                },
+                onCancel: function (data) {
+                    alert('Payment was canceled.');
+                }
+            }).render('#paypal-button-container');
+        </script>
     </body>
 </html>

@@ -701,3 +701,61 @@ if (childDecrementBtn) {
         updateIncrementDecrementStates();
     });
 }
+
+
+// ------------------ Checkout Page ----------------- //
+function displayTotalSummary() {
+    const ticketPrice = document.querySelector('.ticket-price');
+    const snacksPrice = document.querySelector('.snacks-price');
+    const subtotal = document.querySelector('.subtotal');
+    const discounts = document.querySelector('.discount');
+    const totalAmount = document.querySelector('.total-amount');
+
+    const itemPrices = document.querySelectorAll('.item-price');
+    if (itemPrices) {
+        let totalPrice = 0;
+
+        itemPrices.forEach(itemPrice => {
+            totalPrice += Number(itemPrice.innerHTML);
+        });
+
+        snacksPrice.innerHTML = 'Rs. ' + totalPrice + '.00';
+    }
+
+    const ticketPriceValue = extractNumber(ticketPrice.innerHTML);
+    const snacksPriceValue = extractNumber(snacksPrice.innerHTML);
+    const discountsValue = extractNumber(discounts.innerHTML);
+
+    const subtotalValue = ticketPriceValue + snacksPriceValue;
+    subtotal.innerHTML = 'Rs.' + subtotalValue + '.00';
+    totalAmount.innerHTML = 'Rs.' + (subtotalValue - discountsValue) + '.00';
+    console.log(totalAmount.innerHTML);
+    console.log(extractNumber(totalAmount.innerHTML));
+}
+
+function extractNumber(value) {
+    return parseFloat(value.replace(/Rs\.\s?/g, '')) || 0;
+}
+
+function validateCardDetails() {
+    const cardNumber = document.getElementById('card-number').value.replace(/-/g, '');
+    const expiryDate = document.getElementById('expiry-date').value.trim();
+    const cvc = document.getElementById('cvc').value.trim();
+
+    if (!/^\d{16}$/.test(cardNumber)) {
+        alert('Invalid card number!');
+        return false;
+    }
+
+    if (!/^\d{2} \/ \d{2}$/.test(expiryDate)) {
+        alert('Invalid expiry date! Use MM / YY format.');
+        return false;
+    }
+
+    if (!/^\d{3,4}$/.test(cvc)) {
+        alert('Invalid CVC!');
+        return false;
+    }
+
+    return true;
+}

@@ -1,7 +1,6 @@
 package servlet_classes;
 
 import model_classes.Food;
-import model_classes.FoodOrder;
 import model_classes.User;
 import dao_classes.FoodDAO;
 import com.google.gson.Gson;
@@ -99,20 +98,5 @@ public class CartServlet extends HttpServlet
         
         HttpSession session = request.getSession();
         session.setAttribute("cartItems", cartItems);
-        
-        System.out.println("Cart: " + cartItems);
-        
-        int showtimeId = Integer.parseInt(request.getParameter("showtimeId"));
-        
-//        for (CartItem item : cartItems) {
-//            FoodOrder foodOrder = new FoodOrder();
-//            foodOrder.setBookingId(bookingId);
-//            foodOrder.setItemId(Integer.parseInt(item.getItemId()));
-//            foodOrder.setQuantity(item.getQty());
-//            foodOrder.setPricePerItem(item.getPrice());
-//            foodOrder.setTotalPrice(item.getPrice() * item.getQty());
-//            foodDao.addOrder(foodOrder);
-//            foodDao.updateStock(-item.getQty(), Integer.parseInt(item.getItemId()));
-//        }
     }
 }

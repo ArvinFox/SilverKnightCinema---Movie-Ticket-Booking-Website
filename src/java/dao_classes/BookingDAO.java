@@ -13,11 +13,12 @@ import java.util.List;
 public class BookingDAO {
     
     // Method to create a booking
-    public void createBooking(Booking booking) {
+    public int createBooking(Booking booking) {
+        int generatedBookingId = -1;
         String query = "INSERT INTO bookings (userId, guestId, showtimeId, promotionId, bookedSeats, expiryDate, totalPrice, isPaid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+             PreparedStatement ps = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             
             if (booking.getUserId() != null && booking.getUserId() != 0) {
                 ps.setInt(1, booking.getUserId());
@@ -41,10 +42,18 @@ public class BookingDAO {
             ps.setBoolean(8, booking.getIsPaid());
             ps.executeUpdate();
             
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    generatedBookingId = rs.getInt(1);
+                }
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error in creating booking: " + e.getMessage());
         }
+        
+        return generatedBookingId;
     }
     
     // Method to get searched bookings
