@@ -198,11 +198,24 @@ body{
     color: #000;
 }
 
+.buttons a{
+    background: white;
+    color: black;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: auto;
+    border-radius: 5px;
+}
+
 /*======== animation ========*/
 .carousel .list .item:nth-child(1){
     z-index: 1;
 }
 
+.movie-synopsis{
+    font-size: 15px;
+}
 /*=========== animation text in first item ==========*/
 .carousel .list .item:nth-child(1) .content .author,
 .carousel .list .item:nth-child(1) .content .title,
@@ -387,7 +400,7 @@ body{
 .film-card-set {
   display: grid;
   column-gap: 20px;
-  grid-template-columns: repeat(4, 348px);
+  grid-template-columns: repeat(4, 248px);
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -403,7 +416,7 @@ body{
 
 .film-card {
   
-  height: 515px;
+  height: 400px;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 1s ease-in-out, border-radius 0.2s, box-shadow 1s;
@@ -452,15 +465,15 @@ body{
 .film-card-title {
   /* position: absolute; */
   margin: 0;
-  font-size: 30px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 700;
   margin: 10px;
 
 }
 
 .film-card-watchTrailer {
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 12px;
   background-color: white;
   padding: 5px 20px 5px 20px;
   color: black;
@@ -474,7 +487,7 @@ body{
 
 .film-card-moreInfo {
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 12px;
   text-decoration: none;
   color: white;
   margin-top: 10px;

@@ -10,15 +10,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model_classes.Movie;
+import model_classes.Promotion;
+import dao_classes.PromotionDAO;
 
 
 @WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet","/home"})
 public class IndexServlet extends HttpServlet {
     private MovieDAO movieDAO;
+    private PromotionDAO promotionDao;
     
     @Override
     public void init() {
         movieDAO = new MovieDAO();
+        promotionDao = new PromotionDAO(); 
     }
     
     @Override
@@ -26,6 +30,8 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Movie> nowShowingMovies = movieDAO.getNowShowingMovies();
         List<Movie> comingSoonMovies = movieDAO.getComingSoonMovies();
+        List<Promotion> activePromotions =  promotionDao.getAllActivePromotions();
+        request.setAttribute("activePromotions", activePromotions);
         request.setAttribute("nowShowingMovies", nowShowingMovies);
         request.setAttribute("comingSoonMovies", comingSoonMovies);
         request.getRequestDispatcher("index.jsp").forward(request, response);

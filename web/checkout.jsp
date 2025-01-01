@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -136,7 +136,8 @@
             });
         </script>
         
-        <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD&disable-funding=card,credit"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=Afzpw4ywItPML6HXOaGdeIS1mGKw8MsQqG6Z8V0tZWR6hL4-CwrsTB6l_fgiz2MTQFxKFT_PlaSZKI79&currency=USD&disable-funding=card,credit">
+        </script>
         
         <script>
             const urlParameters = new URLSearchParams(window.location.search);
