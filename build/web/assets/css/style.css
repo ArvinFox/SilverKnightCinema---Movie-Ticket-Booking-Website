@@ -76,7 +76,7 @@ nav .navUl .navLink a.active, nav .navUl .navLink a:hover
   color: red;
 }
 
-nav .navUl li button{
+.butLogin{
   color: black;
   font-size: 17px;
   text-align: center;
@@ -1880,6 +1880,7 @@ input[type='number']{
 }
 
 .notification-container{
+    position: relative;
     background-color: #2d3748;
     padding: 1.5rem;
     border-radius: 10px;
@@ -1887,6 +1888,15 @@ input[type='number']{
     max-width: 1000px;
     display: flex;
     justify-content: space-between;
+}
+
+.close-icon{
+    position: absolute;
+    right: 15px;
+    font-size: 2em;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
 }
 
 .ticket-section{
@@ -1943,13 +1953,6 @@ input[type='number']{
     font-weight: bold;
 }
 
-.barcode{
-    width:300px;
-    height:50px;
-    margin-top: 1rem;
-    border: 1px solid red;
-}
-
 .confirmation-section{
     display: flex;
     flex-direction: column;
@@ -1961,17 +1964,24 @@ input[type='number']{
 }
 
 .confirmation-message{
-    color: green;
-    font-size: 20px;
+    color:#13c316;
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 1.5rem;
     margin-right: 30px;
     text-align: center;
 }
 
+.fa-circle-check{
+    color: #13c316;
+    font-size: 1em;
+    margin: 5px;
+}
+
 .download-message{
     text-align: center;
     margin-right: 30px;
+    font-size: 20px;
 }
 
 .download-button{
@@ -1982,9 +1992,11 @@ input[type='number']{
     display: flex;
     align-items: center;
     margin: 40px;
-    width: 30%;
+    width: 35%;
     height: 10%;
     margin-right: 60px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .download-button i{
@@ -2024,12 +2036,19 @@ input[type='number']{
     }
 
     .confirmation-message {
-        font-size: 18px; 
+        font-size: 20px; 
     }
 
     .download-button {
         padding: 10px; 
-        font-size: 14px; 
+        font-size: 20px;
+        text-align: center;
+        width: 60%;
+    }
+    
+    .fa-download{
+        margin: 10px;
+        font-size: 1em;
     }
 }
 

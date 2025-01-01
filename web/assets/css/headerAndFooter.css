@@ -64,7 +64,7 @@ nav .navUl .navLink a.active, nav .navUl .navLink a:hover
   color: red;
 }
 
-nav ul li button{
+.butLogin{
   color: black;
   font-size: 17px;
   text-align: center;

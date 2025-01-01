@@ -59,7 +59,7 @@
         </section>
 
         <section class="contact-form">
-            <form action="Inquiries" method="POST">
+            <form action="contact" method="POST">
                 <div class="form-row">
                     <div class="input-group">
                         <label for="name">Name</label>

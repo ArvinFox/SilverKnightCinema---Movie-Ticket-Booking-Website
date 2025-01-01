@@ -70,12 +70,12 @@
                     <a href="offers" class="<%= "offers".equals(activePage) ? "active" : "" %>"> Deals & Offers </a>
                 </li>
                 <c:if test="${user == null}">
-                    <li> <button onclick="loginfunction()"> Login </button> </li>
+                    <button class="butLogin" onclick="loginfunction()"> Login </button> 
                 </c:if>
                     
                 <c:if test="${user != null}">
                     <div class="tooltip-container">
-                        <li> <button onclick="loginfunction()" disabled> Hi, ${user.firstName}! </button> </li>
+                        <button class="butLogin" onclick="loginfunction()" disabled> Hi, ${user.firstName}! </button> 
                         <div class="tooltip-content">
                             <ul id="tooltip-list">
                                 <li class="tooltip-navLink"><a class="tooltip-link" href="profile">User Profile</a></li>

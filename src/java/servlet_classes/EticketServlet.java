@@ -62,7 +62,7 @@ public class EticketServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         
         String showtimeIdParam = request.getParameter("showtimeId");
-
+                
         if (user != null && showtimeIdParam != null) {
             int showtimeId = Integer.parseInt(showtimeIdParam);
             

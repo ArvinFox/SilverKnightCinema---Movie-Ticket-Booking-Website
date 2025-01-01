@@ -16,10 +16,14 @@
     </head>
     <body class="notification">
         <div class="notification-container">
+            <a href="home">
+               <i class="fa-solid fa-xmark close-icon"></i> 
+            </a>
             
             <jsp:include page="eticket.jsp"/>
             <div class="confirmation-section">
                 <div class="confirmation-message">
+                    <i class="fa-regular fa-circle-check"></i>
                     Your payment has been successfully completed.
                 </div>
                 <p class="download-message"> Click here to download your e-ticket </p>
@@ -27,7 +31,6 @@
                     <i class="fa-solid fa-download"></i>
                     Download
                 </button>
-                
             </div>
         </div>
     </body>

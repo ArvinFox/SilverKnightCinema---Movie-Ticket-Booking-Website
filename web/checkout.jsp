@@ -45,7 +45,8 @@
                     <img src="assets/images/checkout-img3.png" alt="MasterCard">
                 </div>
 
-                <form action="#" method="POST" onsubmit="return validateCardDetails()">
+                <form action="eticket" method="GET" onsubmit="return validateCardDetails()">
+                    <input type="hidden" name="showtimeId" value="${showtimeId}">
                     <label for="card-number">Card Number</label>
                     <input type="text" id="card-number" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
 

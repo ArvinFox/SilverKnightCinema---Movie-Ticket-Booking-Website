@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/CartServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/scripts/main.js</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/dao_classes/BookingDAO.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/eticket.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/EticketServlet.java</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/checkout.jsp</file>
-            <file>file:/C:/Users/NewUser/Desktop/23.12.2024/SilverKnightCinema---Movie-Ticket-Booking-Website/web/assets/css/checkOut.css</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
