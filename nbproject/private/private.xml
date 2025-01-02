@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/arvin/OneDrive/Desktop/SilverKnightCinema---Movie-Ticket-Booking-Website/web/index.jsp</file>
             <file>file:/C:/Users/arvin/OneDrive/Desktop/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/utility_classes/DBConnection.java</file>
             <file>file:/C:/Users/arvin/OneDrive/Desktop/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/utility_classes/EmailUtil.java</file>
+            <file>file:/C:/Users/arvin/OneDrive/Desktop/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/servlet_classes/IndexServlet.java</file>
             <file>file:/C:/Users/arvin/OneDrive/Desktop/SilverKnightCinema---Movie-Ticket-Booking-Website/src/java/utility_classes/SMSUtil.java</file>
         </group>
     </open-files>

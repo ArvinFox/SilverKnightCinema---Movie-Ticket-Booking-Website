@@ -14,7 +14,7 @@ import model_classes.Promotion;
 import dao_classes.PromotionDAO;
 
 
-@WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet","/home"})
+@WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet", "/home"})
 public class IndexServlet extends HttpServlet {
     private MovieDAO movieDAO;
     private PromotionDAO promotionDao;
@@ -31,9 +31,12 @@ public class IndexServlet extends HttpServlet {
         List<Movie> nowShowingMovies = movieDAO.getNowShowingMovies();
         List<Movie> comingSoonMovies = movieDAO.getComingSoonMovies();
         List<Promotion> activePromotions =  promotionDao.getAllActivePromotions();
+        
         request.setAttribute("activePromotions", activePromotions);
         request.setAttribute("nowShowingMovies", nowShowingMovies);
         request.setAttribute("comingSoonMovies", comingSoonMovies);
+        
+        request.setAttribute("fromServlet", true);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
